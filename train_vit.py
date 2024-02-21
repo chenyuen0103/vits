@@ -16,7 +16,8 @@ from utils.scheduler import WarmupCosineSchedule
 from utils.data_utils import get_loader_train
 from utils.dist_util import get_world_size
 import timm
-from apex.parallel import DistributedDataParallel as DDP
+# from apex.parallel import DistributedDataParallel as DDP
+from torch.nn.parallel import DistributedDataParallel as DDP
 from utils.comm_utils import set_seed, AverageMeter, accuracy_func
 import math
 import logging
