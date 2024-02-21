@@ -4,10 +4,10 @@ import torch
 
 from torchvision import transforms
 from torch.utils.data import DataLoader, RandomSampler, DistributedSampler, SequentialSampler
-from ..datasets.celebA_dataset import get_celebA_dataloader, get_celebA_dataset
+from .datasets.celebA_dataset import get_celebA_dataloader, get_celebA_dataset
 # from ...datasets.waterbirds_dataset import get_waterbird_dataloader, get_waterbird_dataset
-from ..datasets.waterbirds_dataset import get_waterbird_dataloader, get_waterbird_dataset
-from ..datasets.color_mnist import get_biased_mnist_dataloader, get_biased_mnist_dataset
+from .datasets.waterbirds_dataset import get_waterbird_dataloader, get_waterbird_dataset
+from .datasets.color_mnist import get_biased_mnist_dataloader, get_biased_mnist_dataset
 IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_DEFAULT_STD = (0.229, 0.224, 0.225)
 
