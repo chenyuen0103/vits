@@ -39,6 +39,9 @@ class celebADataset(Dataset):
 
         self.y_array = self.metadata_df['Gray_Hair'].values
         self.gender_array = self.metadata_df['Male'].values
+        self.group_array = (self.y_array * (self.n_groups / 2) + self.gender_array).astype('int')
+        self.group_counts = (torch.arange(self.n_groups).unsqueeze(1) == self.group_array).sum(1).float()
+        self.y_counts = (torch.arange(self.n_classes).unsqueeze(1) == self.y_array).sum(1).float()
         self.filename_array = self.metadata_df['image_id'].values
         self.transform = transform
         if self.split == 'train':
