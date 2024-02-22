@@ -5,7 +5,6 @@ import torch
 from torchvision import transforms
 from torch.utils.data import DataLoader, RandomSampler, DistributedSampler, SequentialSampler
 from datasets import get_celebA_dataloader, get_celebA_dataset
-# from ...datasets.waterbirds_dataset import get_waterbird_dataloader, get_waterbird_dataset
 from datasets import get_waterbird_dataloader, get_waterbird_dataset
 from datasets import get_biased_mnist_dataloader, get_biased_mnist_dataset
 IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
@@ -113,7 +112,7 @@ def get_loader_train(args):
                              num_workers=4,
                              pin_memory=True) if testset is not None else None
 
-    return train_loader, test_loader
+    return trainset, train_loader, testset, test_loader
 
 def get_loader_inference(args):
    
@@ -165,4 +164,4 @@ def get_loader_inference(args):
     test_loader = torch.utils.data.DataLoader(testset, batch_size=args.batch_size,
                             shuffle=True, num_workers=2, pin_memory=True) if testset is not None else None
     
-    return train_loader, test_loader
+    return trainset, train_loader, testset, test_loader

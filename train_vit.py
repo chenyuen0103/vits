@@ -15,6 +15,7 @@ from torch.utils.tensorboard import SummaryWriter
 from utils.scheduler import WarmupCosineSchedule
 from utils.data_utils import get_loader_train
 from utils.dist_util import get_world_size
+from utils.loss_utils import LossComputer
 import timm
 # from apex.parallel import DistributedDataParallel as DDP
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -60,13 +61,15 @@ def count_parameters(model):
     return params/1000000
 
 
-def valid(args, model, writer, test_loader, global_step):
+def valid(args, model, writer, testset, test_loader, global_step):
     # Validation!
     eval_losses = AverageMeter()
 
     logger.info("***** Running Validation *****")
     logger.info("  Num steps = %d", len(test_loader))
     logger.info("  Batch size = %d", args.eval_batch_size)
+
+
 
     model.eval()
     all_preds, all_label = [], []
@@ -76,6 +79,12 @@ def valid(args, model, writer, test_loader, global_step):
                           dynamic_ncols=True,
                           disable=args.local_rank not in [-1, 0])
     loss_fct = torch.nn.CrossEntropyLoss()
+
+    val_loss_computer = LossComputer(
+        loss_fct,
+        is_robust=False,
+        dataset=testset)
+
     for step, batch in enumerate(epoch_iterator):
         batch = tuple(t.to(args.device) for t in batch)
         x, y,_ = batch; 
@@ -119,8 +128,14 @@ def train_model(args):
     if args.local_rank in [-1, 0]:
         writer = SummaryWriter(log_dir=log_dir)
     args.train_batch_size = args.train_batch_size // args.batch_split
-    train_loader, test_loader = get_loader_train(args)
+    trainset, train_loader, testset, test_loader = get_loader_train(args)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
+
+    train_loss_computer = LossComputer(
+        cri,
+        is_robust=False,
+        dataset=trainset)
+
     # Prepare optimizer and scheduler
     optimizer = torch.optim.SGD(model.parameters(),
                                 lr=args.learning_rate,
@@ -155,8 +170,9 @@ def train_model(args):
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
-            features = model.forward_features(x)
-            logits = model.head(features)
+            outputs = model.forward_head(x, pre_logits=True)
+            features = model.forward_head(outputs, pre_logits=True)
+            logits = model.logits(features)
             breakpoint()
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
@@ -179,7 +195,7 @@ def train_model(args):
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
-                    accuracy = valid(args, model, writer, test_loader, global_step)
+                    accuracy = valid(args, model, writer, testset, test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
 #                         best_acc = accuracy
