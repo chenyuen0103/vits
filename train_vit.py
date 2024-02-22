@@ -167,7 +167,7 @@ def train_model(args):
                               bar_format="{l_bar}{r_bar}",
                               dynamic_ncols=True,
                               disable=args.local_rank not in [-1, 0])
-        clf = nn.Linear(374, 2)
+        clf = nn.Linear(384, 2)
         clf.to(args.device)
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
