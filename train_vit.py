@@ -2,6 +2,7 @@
 import os
 import random
 import numpy as np
+from itertools import chain
 
 from datetime import timedelta
 
@@ -135,9 +136,10 @@ def train_model(args):
     #     cri,
     #     is_robust=False,
     #     dataset=trainset)
-
+    clf = nn.Linear(384, 2)
+    clf.to(args.device)
     # Prepare optimizer and scheduler
-    optimizer = torch.optim.SGD(model.parameters(),
+    optimizer = torch.optim.SGD(chain(model.parameters(), clf.parameters()),
                                 lr=args.learning_rate,
                                 momentum=0.9,
                                 weight_decay=args.weight_decay)
@@ -167,8 +169,7 @@ def train_model(args):
                               bar_format="{l_bar}{r_bar}",
                               dynamic_ncols=True,
                               disable=args.local_rank not in [-1, 0])
-        clf = nn.Linear(384, 2)
-        clf.to(args.device)
+
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
