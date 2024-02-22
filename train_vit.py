@@ -154,10 +154,10 @@ def train_model(args):
                               disable=args.local_rank not in [-1, 0])
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
-            breakpoint()
             x, y, env = batch;
             features = model.forward_features(x)
             logits = model(x)
+            breakpoint()
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
                 loss = loss / args.batch_split
