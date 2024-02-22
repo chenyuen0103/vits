@@ -168,6 +168,7 @@ def train_model(args):
                               dynamic_ncols=True,
                               disable=args.local_rank not in [-1, 0])
         clf = nn.Linear(374, 2)
+        clf.to(args.device)
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
