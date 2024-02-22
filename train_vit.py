@@ -167,12 +167,15 @@ def train_model(args):
                               bar_format="{l_bar}{r_bar}",
                               dynamic_ncols=True,
                               disable=args.local_rank not in [-1, 0])
+        clf = nn.Linear(374, 2)
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
             outputs = model.forward_head(x, pre_logits=True)
             features = model.forward_head(outputs, pre_logits=True)
-            logits = model.head(features)
+            # logits = model.head(features)
+
+            logits = clf(features)
             # breakpoint()
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:

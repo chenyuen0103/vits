@@ -21,7 +21,6 @@ class LossComputer:
         self.step_size = step_size
         self.normalize_loss = normalize_loss
         self.btl = btl
-
         self.n_groups = dataset.n_groups
         self.group_counts = dataset.group_counts().cuda()
         # self.group_counts = dataset.group_counts().to(device)
