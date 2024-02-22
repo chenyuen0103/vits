@@ -25,6 +25,7 @@ class WaterbirdDataset(Dataset):
             (1, 0): 2,
             (1, 1): 3
         }
+        self.n_groups = 4
         self.split = split
         self.root_dir  = root_dir
         self.dataset_name = "waterbird_complete"+"{:0.2f}".format(data_correlation)[-2:]+"_forest2water2"
@@ -36,6 +37,7 @@ class WaterbirdDataset(Dataset):
             os.path.join(self.dataset_dir, 'metadata.csv'))
         self.metadata_df = self.metadata_df[self.metadata_df['split']==self.split_dict[self.split]]
         self.y_array = self.metadata_df['y'].values
+        self.group_counts = self.metadata_df['group'].value_counts()
         self.place_array = self.metadata_df['place'].values
         self.filename_array = self.metadata_df['img_filename'].values
         self.transform = transform

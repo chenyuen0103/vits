@@ -80,10 +80,10 @@ def valid(args, model, writer, testset, test_loader, global_step):
                           disable=args.local_rank not in [-1, 0])
     loss_fct = torch.nn.CrossEntropyLoss()
 
-    val_loss_computer = LossComputer(
-        loss_fct,
-        is_robust=False,
-        dataset=testset)
+    # val_loss_computer = LossComputer(
+    #     loss_fct,
+    #     is_robust=False,
+    #     dataset=testset)
 
     for step, batch in enumerate(epoch_iterator):
         batch = tuple(t.to(args.device) for t in batch)
@@ -131,10 +131,10 @@ def train_model(args):
     trainset, train_loader, testset, test_loader = get_loader_train(args)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
 
-    train_loss_computer = LossComputer(
-        cri,
-        is_robust=False,
-        dataset=trainset)
+    # train_loss_computer = LossComputer(
+    #     cri,
+    #     is_robust=False,
+    #     dataset=trainset)
 
     # Prepare optimizer and scheduler
     optimizer = torch.optim.SGD(model.parameters(),
