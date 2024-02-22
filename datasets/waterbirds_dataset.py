@@ -37,7 +37,8 @@ class WaterbirdDataset(Dataset):
             os.path.join(self.dataset_dir, 'metadata.csv'))
         self.metadata_df = self.metadata_df[self.metadata_df['split']==self.split_dict[self.split]]
         self.y_array = self.metadata_df['y'].values
-        self.group_counts = self.metadata_df['group'].value_counts()
+        # self.group_counts = self.metadata_df['group'].value_counts()
+        breakpoint()
         self.place_array = self.metadata_df['place'].values
         self.filename_array = self.metadata_df['img_filename'].values
         self.transform = transform
