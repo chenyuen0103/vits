@@ -89,7 +89,8 @@ class celebADataset(Dataset):
         img = self.transform(img)
 
         return img, y , self.env_dict[(y, gender)]
-
+    def group_counts(self):
+        return self._group_counts
 class celebAOodDataset(Dataset):
     def __init__(self, transform, root_dir):
         self.dataset_name = 'celebA'

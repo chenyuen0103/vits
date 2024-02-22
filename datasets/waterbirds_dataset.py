@@ -65,6 +65,9 @@ class WaterbirdDataset(Dataset):
 
         return img, y, self.env_dict[(y, place)]
 
+    def group_counts(self):
+        return self._group_counts
+
 
 
 def get_waterbird_dataloader(data_label_correlation, split, transform, root_dir, batch_size):
