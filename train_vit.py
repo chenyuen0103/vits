@@ -173,7 +173,7 @@ def train_model(args):
             outputs = model.forward_head(x, pre_logits=True)
             features = model.forward_head(outputs, pre_logits=True)
             logits = model.head(features)
-            breakpoint()
+            # breakpoint()
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
                 loss = loss / args.batch_split
