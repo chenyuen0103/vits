@@ -39,7 +39,13 @@ class WaterbirdDataset(Dataset):
         self.y_array = self.metadata_df['y'].values
         self.place_array = self.metadata_df['place'].values
         self.group_array = (self.y_array * (self.n_groups / 2) + self.place_array).astype('int')
-        self.group_counts = (torch.arange(self.n_groups).unsqueeze(1) == self.group_array).sum(1).float()
+
+        self._group_array = torch.LongTensor(self.group_array)
+        self._group_counts = (torch.arange(self.n_groups).unsqueeze(1) == self._group_array).sum(1).float()
+        self._y_array = torch.LongTensor(self.y_array)
+        self._y_counts = (torch.arange(self.n_classes).unsqueeze(1) == self._y_array).sum(1).float()
+
+        self.group_counts = (torch.arange(self.n_groups).unsqueeze(1) == self._group_array).sum(1).float()
         self.y_counts = (torch.arange(self.n_classes).unsqueeze(1) == self.y_array).sum(1).float()
 
         self.filename_array = self.metadata_df['img_filename'].values
