@@ -136,10 +136,9 @@ def train_model(args):
     #     cri,
     #     is_robust=False,
     #     dataset=trainset)
-    clf = nn.Linear(384, 2)
-    clf.to(args.device)
-    # Prepare optimizer and scheduler
-    optimizer = torch.optim.SGD(chain(model.parameters(), clf.parameters()),
+
+
+    optimizer = torch.optim.SGD(model.parameters(),
                                 lr=args.learning_rate,
                                 momentum=0.9,
                                 weight_decay=args.weight_decay)
@@ -173,12 +172,12 @@ def train_model(args):
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
-            outputs = model.forward_head(x, pre_logits=True)
+            outputs = model.forward_features(x)
             features = model.forward_head(outputs, pre_logits=True)
-            # logits = model.head(features)
-
-            logits = clf(features)
-            # breakpoint()
+            logits = model.head(features)
+            logits_check = model(x)
+            breakpoint()
+            assert torch.all(logits == logits_check)
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
                 loss = loss / args.batch_split
