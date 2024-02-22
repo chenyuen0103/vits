@@ -157,6 +157,7 @@ def train_model(args):
             x, y, env = batch;
             features = model.forward_features(x)
             logits = model.head(features)
+            breakpoint()
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
                 loss = loss / args.batch_split
