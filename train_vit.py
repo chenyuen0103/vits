@@ -107,7 +107,7 @@ def valid(args, model, writer, test_loader, global_step):
     logger.info("Valid Loss: %2.5f" % eval_losses.avg)
     logger.info("Valid Accuracy: %2.5f" % accuracy)
 
-    writer.add_scalar("test/accuracy", scalar_value=accuracy, global_step=global_step)
+    writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
     return accuracy
 
 
@@ -154,6 +154,7 @@ def train_model(args):
                               disable=args.local_rank not in [-1, 0])
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
+            breakpoint()
             x, y, _ = batch; 
             logits = model(x)
             loss = cri(logits.view(-1, 2), y.view(-1))

@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--model_arch", choices=["ViT", "BiT"],
                         default="ViT",
                         help="Which variant to use.")
-    parser.add_argument("--model_type", default="ViT-B_16",
+    parser.add_argument("--model_type", default="ViT-S_16",
                         help="Which variant to use.")
     parser.add_argument("--output_dir", default="output", type=str,
                         help="The output directory where checkpoints will be written.")
