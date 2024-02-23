@@ -187,7 +187,12 @@ def train_model(args):
             logits = model.head(features)
             # logits = model(x)
             if args.hessian_align:
-                loss, erm, accum_hess_loss, accum_grad_loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
+                # loss, erm, accum_hess_loss, accum_grad_loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
+                loss, erm, accum_hess_loss, accum_grad_loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),
+                                                                                                     features,
+                                                                                                     y.view(-1), env,
+                                                                                                     grad_alpha=0,
+                                                                                                     hess_beta=0)
                 breakpoint()
             else:
                 loss = cri(logits.view(-1, 2), y.view(-1))

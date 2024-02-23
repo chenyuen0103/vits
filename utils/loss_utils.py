@@ -280,9 +280,12 @@ class LossComputer:
             idx = (envs_indices == env_idx).nonzero().squeeze()
             yhat = logits[idx]
             loss = self.criterion(yhat.squeeze(), y[idx].long())
-            if torch.isnan(loss) or idx.numel() == 0:
-                loss = 0
+            if idx.numel() == 0:
                 continue
+            elif idx.dim() == 0:
+                num_samples = 1
+            else:
+                num_samples = len(idx)
             # Compute the 2-norm of the difference between the gradient for this environment and the average gradient
 
             gradient_norm = torch.norm(grads[0], p=2)
@@ -299,10 +302,10 @@ class LossComputer:
             grad_loss = grad_alpha * grad_diff_norm ** 2
             hessian_loss = hess_beta * hessian_diff_norm ** 2
             breakpoint()
-            total_loss = total_loss + (loss + hessian_loss + grad_loss) * len(yhat)/len(y)
-            erm_loss = erm_loss + loss * len(yhat)/len(y)
-            accum_grad_loss = accum_grad_loss + grad_loss * len(yhat)/len(y)
-            accum_hess_loss = accum_hess_loss + hessian_loss * len(yhat)/len(y)
+            total_loss = total_loss + (loss + hessian_loss + grad_loss) * num_samples/len(y)
+            erm_loss = erm_loss + loss * num_samples/len(y)
+            accum_grad_loss = accum_grad_loss + grad_loss * num_samples/len(y)
+            accum_hess_loss = accum_hess_loss + hessian_loss * num_samples/len(y)
 
 
 
