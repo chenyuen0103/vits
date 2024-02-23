@@ -120,11 +120,10 @@ def calculate_acc(args):
                 model = model.cuda()
     except Exception:
             raise Exception("No CUDA enabled device found. Please Check !")
-    avg_group_acc = [f'avg_group_acc_{i}' for i in range(4)]
-    worst_group_acc = [f'worst_group_acc_{i}' for i in range(4)]
-    df = pd.DataFrame(columns = ['Model', 'Dataset', 'Align Hessian', 'Train_Acc', 'Test_Acc', 'Train_Worst', 'Test_Worst'] + avg_group_acc + worst_group_acc)
-    # save train and test accuracy of each group in a dataframe, in addition, save average train and test accuracy and worst-case accuracy for both
-    # train and test data
+    train_groups = [f'test_group_acc_{i}' for i in range(4)]
+    test_groups = [f'test_group_acc_{i}' for i in range(4)]
+    df = pd.DataFrame(columns = ['Model','Model_Type' 'Dataset', 'Align Hessian', 'Avg_Train_Acc', 'Avg_Test_Acc', 'Worst_Train_Acc', 'Worst_Test_Acc'] + train_groups + test_groups)
+
     logger.info(f"Inference for Dataset: {args.dataset} \t Model : {args.model_type} ")
     trainset, trainloader,testset, testloader = get_loader_inference(args)
     logger.info("Calculating Accuracy Metrics on Train data")
@@ -136,19 +135,22 @@ def calculate_acc(args):
     result_test, acc_test = get_acc(testloader, model)
     logger.info(f"Average Test Accuracy = {np.mean(np.array(acc_test))}")
     result_test.output_result()
-    # create a row dictionary to save the accuracy metrics in a dataframe
-    row = dict()
-    row['Model'] = args.model_type
-    row['Dataset'] = args.dataset
-    row['Align Hessian'] = args.hessian_align
-    row['Train_Acc'] = np.mean(np.array(acc_train))
-    row['Test_Acc'] = np.mean(np.array(acc_test))
-    row['Train_Worst'] = min(acc_train)
-    row['Test_Worst'] = min(acc_test)
-    for i in range(4):
-        row[f'avg_group_acc_{i}'] = np.mean(result_train.acc[i])
-        row[f'worst_group_acc_{i}'] = min(result_train.acc[i])
-    df = df.append(row, ignore_index = True)
+
+    row = [args.model_arch, args.model_type, args.dataset, args.hessian_align, np.mean(np.array(acc_train)), np.mean(np.array(acc_test)), min(acc_train), min(acc_test)]
+    # train accuracy according to environemnt
+    for key, val in result_train.acc.items():
+        tot_correct = sum(val)
+        acc = tot_correct / result_train.counter_env[key]
+        row.append(acc)
+    # test accuracy according to environemnt
+    for key, val in result_test.acc.items():
+        tot_correct = sum(val)
+        acc = tot_correct / result_test.counter_env[key]
+        row.append(acc)
+
+    df.loc[len(df)] = row
+
+
 
     if not args.run_name:
         args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
