@@ -323,8 +323,10 @@ class LossComputer:
 
     def compute_group_avg(self, losses, group_idx):
         # compute observed counts and mean loss for each group
-        breakpoint()
-        group_map = (group_idx == torch.arange(self.n_groups).unsqueeze(1).long().cuda()).float()
+        try:
+            group_map = (group_idx == torch.arange(self.n_groups).unsqueeze(1).long().cuda()).float()
+        except:
+            breakpoint()
         group_count = group_map.sum(1)
         group_denom = group_count + (group_count == 0).float()  # avoid nans
         # breakpoint()
