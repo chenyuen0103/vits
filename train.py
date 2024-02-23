@@ -88,10 +88,10 @@ def main():
         # Training
         if args.model_arch == "BiT":
             from train_bit import train_model
-            train_model(args)
+            train_model(seed,args)
         elif args.model_arch == "ViT":
             from train_vit import train_model
-            train_model(args)
+            train_model(seed,args)
 
 
 

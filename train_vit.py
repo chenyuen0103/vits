@@ -132,7 +132,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
     return accuracy
 
 
-def train_model(args):
+def train_model(seed, args):
     logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
     args, model = setup(args)
     log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type)
@@ -169,7 +169,7 @@ def train_model(args):
     logger.info("  Gradient Accumulation steps = %d", args.batch_split)
 
     model.zero_grad()
-    set_seed(args)  
+    set_seed(seed,args)
     losses = AverageMeter()
     global_step, best_acc = 0, 0
     while True:
