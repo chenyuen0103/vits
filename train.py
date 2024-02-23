@@ -57,6 +57,7 @@ def main():
                         help="random seed for initialization")
     parser.add_argument('--batch_split', type=int, default=16,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
+    parser.add_argument('--hessian_align', default=False, action='store_true')
    
     args = parser.parse_args()
 

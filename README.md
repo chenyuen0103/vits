@@ -41,7 +41,7 @@ python train.py --name waterbirds_exp --model_arch ViT --model_type ViT-B_16 --d
 ```
 To train ViT model (ViT-S_16) on Waterbirds dataset, run the following command:
 ```
-python train.py --name waterbirds_exp --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 --num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384
+
 ```
 
 Similarly, sample command to run BiT model on Watervirds dataset:

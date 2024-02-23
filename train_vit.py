@@ -132,10 +132,10 @@ def train_model(args):
     trainset, train_loader, testset, test_loader = get_loader_train(args)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
 
-    # train_loss_computer = LossComputer(
-    #     cri,
-    #     is_robust=False,
-    #     dataset=trainset)
+    train_loss_computer = LossComputer(
+        cri,
+        is_robust=False,
+        dataset=trainset)
 
 
     optimizer = torch.optim.SGD(model.parameters(),
@@ -172,11 +172,15 @@ def train_model(args):
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
-            # outputs = model.forward_features(x)
-            # features = model.forward_head(outputs, pre_logits=True)
-            # logits = model.head(features)
-            logits = model(x)
-            loss = cri(logits.view(-1, 2), y.view(-1))
+            outputs = model.forward_features(x)
+            features = model.forward_head(outputs, pre_logits=True)
+            logits = model.head(features)
+            # logits = model(x)
+            if args.hessian_align:
+                loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
+            else:
+                loss = cri(logits.view(-1, 2), y.view(-1))
+                train_loss_computer.loss(logits, y, env)
             if args.batch_split > 1:
                 loss = loss / args.batch_split
         

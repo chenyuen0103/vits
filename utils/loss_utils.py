@@ -207,7 +207,7 @@ class LossComputer:
         grad_w = torch.cat([grad_w_class1, grad_w_class0], dim=0)
         return grad_w
 
-    def exact_hessian_loss(self, logits, x, y, envs_indices, grad_alpha=10e-5, hess_beta=10e-5):
+    def exact_hessian_loss(self, logits, x, y, envs_indices, grad_alpha=1e-4, hess_beta=1e-4):
         total_loss = torch.tensor(0.0, requires_grad=True)
         self.criterion2 = torch.nn.CrossEntropyLoss()
         # empty list of lentgh = self.n_groups
