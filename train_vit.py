@@ -175,7 +175,7 @@ def train_model(args):
             # outputs = model.forward_features(x)
             # features = model.forward_head(outputs, pre_logits=True)
             # logits = model.head(features)
-            logtis = model(x)
+            logits = model(x)
             loss = cri(logits.view(-1, 2), y.view(-1))
             if args.batch_split > 1:
                 loss = loss / args.batch_split
