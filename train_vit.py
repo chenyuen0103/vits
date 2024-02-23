@@ -96,7 +96,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
             features = model.forward_head(outputs, pre_logits=True)
             logits = model.head(features)
 
-
+            breakpoint()
             if args.hessian_align:
                 eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env)
                 eval_losses.update(eval_loss.item())
