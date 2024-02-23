@@ -217,7 +217,7 @@ class LossComputer:
         # yhat = model(x)
 
         # For logging purposes
-        per_sample_losses =  torch.nn.CrossEntropyLoss(reduction='none')
+        per_sample_losses =  torch.nn.CrossEntropyLoss(reduction='none')(logits, y)
         group_loss, group_count = self.compute_group_avg(per_sample_losses, envs_indices)
 
         group_acc, group_count = self.compute_group_avg((torch.argmax(logits, 1) == y).float(), envs_indices)
