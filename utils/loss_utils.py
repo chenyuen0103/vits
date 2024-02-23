@@ -299,18 +299,17 @@ class LossComputer:
             grad_loss = grad_alpha * grad_diff_norm ** 2
             hessian_loss = hess_beta * hessian_diff_norm ** 2
             # breakpoint()
-            total_loss = total_loss + (loss + hessian_loss + grad_loss)
-
-            erm_loss = erm_loss + loss
-            accum_grad_loss = accum_grad_loss + grad_loss
-            accum_hess_loss = accum_hess_loss + hessian_loss
-
+            total_loss = total_loss + (loss + hessian_loss + grad_loss) * len(yhat)/len(y)
+            erm_loss = erm_loss + loss * len(yhat)/len(y)
+            accum_grad_loss = accum_grad_loss + grad_loss * len(yhat)/len(y)
+            accum_hess_loss = accum_hess_loss + hessian_loss * len(yhat)/len(y)
 
 
-        total_loss = total_loss / self.n_groups
-        erm_loss = erm_loss / self.n_groups
-        accum_hess_loss = accum_hess_loss / self.n_groups
-        accum_grad_loss = accum_grad_loss / self.n_groups
+
+        # total_loss = total_loss / self.n_groups
+        # erm_loss = erm_loss / self.n_groups
+        # accum_hess_loss = accum_hess_loss / self.n_groups
+        # accum_grad_loss = accum_grad_loss / self.n_groups
         # print("Loss:", total_loss.item(), "; Hessian Reg:",  alpha * hessian_reg.item(), "; Gradient Reg:", beta * grad_reg.item())
 
 
