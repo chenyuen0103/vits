@@ -95,7 +95,6 @@ def get_acc(loader, model):
     return result, acc
 
 def calculate_acc(args):
-    breakpoint()
     if not args.checkpoint_dir:
         args.checkpoint_dir = os.path.join(args.output_dir,args.name, args.dataset, args.model_arch, args.model_type)
     if args.model_arch ==  "ViT" or args.model_arch == "DeiT":
