@@ -53,7 +53,7 @@ def main():
 
     parser.add_argument("--local_rank", type=int, default=-1,
                         help="local_rank for distributed training on gpus")
-    parser.add_argument('--seed', nargs = '+', type=int, default=0,
+    parser.add_argument('--seed',type=int, default=0,
                         help="random seed for initialization")
     parser.add_argument('--batch_split', type=int, default=16,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
@@ -81,17 +81,15 @@ def main():
                    (args.local_rank, args.device, args.n_gpu, bool(args.local_rank != -1)))
 
 
-    for seed in args.seed:
-        # Set seed
-        set_seed(seed,args)
-        args.name = "_".join([args.name, f's{seed}'])
-        # Training
-        if args.model_arch == "BiT":
-            from train_bit import train_model
-            train_model(seed,args)
-        elif args.model_arch == "ViT":
-            from train_vit import train_model
-            train_model(seed,args)
+
+    set_seed(args)
+    # Training
+    if args.model_arch == "BiT":
+        from train_bit import train_model
+        train_model(args)
+    elif args.model_arch == "ViT":
+        from train_vit import train_model
+        train_model(args)
 
 
 
