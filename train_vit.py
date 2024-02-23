@@ -102,7 +102,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
                 eval_losses.update(eval_loss.item())
             else:
                 eval_loss = loss_fct(logits, y)
-                val_loss_computer.loss(logits, y)
+                val_loss_computer.loss(logits, y, env)
                 eval_losses.update(eval_loss.item())
 
             preds = torch.argmax(logits, dim=-1)

@@ -60,7 +60,7 @@ def run_eval(model, data_loader, device, chrono, logger, step):
   logger.flush()
   return np.mean(all_top1)
 
-def train_model(args):
+def train_model(seed,args):
   logger = bit_common.setup_logger(args)
   logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
   torch.backends.cudnn.benchmark = True
