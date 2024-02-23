@@ -88,12 +88,22 @@ def valid(args, model, writer, testset, test_loader, global_step):
 
     for step, batch in enumerate(epoch_iterator):
         batch = tuple(t.to(args.device) for t in batch)
-        x, y,_ = batch; 
+        x, y, env = batch;
+
         with torch.no_grad():
-            logits = model(x)
-            eval_loss = loss_fct(logits, y)
-            val_loss_computer.loss(logits, y)
-            eval_losses.update(eval_loss.item())
+            # logits = model(x)
+            outputs = model.forward_features(x)
+            features = model.forward_head(outputs, pre_logits=True)
+            logits = model.head(features)
+
+
+            if args.hessian_align:
+                eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env)
+                eval_losses.update(eval_loss.item())
+            else:
+                eval_loss = loss_fct(logits, y)
+                val_loss_computer.loss(logits, y)
+                eval_losses.update(eval_loss.item())
 
             preds = torch.argmax(logits, dim=-1)
 
@@ -178,7 +188,7 @@ def train_model(args):
             logits = model.head(features)
             # logits = model(x)
             if args.hessian_align:
-                loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
+                loss,_,_,_ = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
             else:
                 loss = cri(logits.view(-1, 2), y.view(-1))
                 train_loss_computer.loss(logits, y, env)
