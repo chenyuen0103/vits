@@ -25,7 +25,8 @@ class WaterbirdDataset(Dataset):
             (1, 0): 2,
             (1, 1): 3
         }
-
+        self.n_groups = 4
+        self.n_classes = 2
         self.split = split
         self.root_dir  = root_dir
         self.dataset_name = "waterbird_complete"+"{:0.2f}".format(data_correlation)[-2:]+"_forest2water2"
