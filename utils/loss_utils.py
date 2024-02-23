@@ -51,7 +51,7 @@ class LossComputer:
 
     def loss(self, yhat, y, group_idx=None, is_training=False):
         # compute per-sample and per-group losses
-        per_sample_losses = self.criterion(yhat, y)
+        per_sample_losses =  torch.nn.CrossEntropyLoss(reduction='none')(yhat, y)
         group_loss, group_count = self.compute_group_avg(per_sample_losses, group_idx)
         group_acc, group_count = self.compute_group_avg((torch.argmax(yhat, 1) == y).float(), group_idx)
 
@@ -209,7 +209,7 @@ class LossComputer:
 
     def exact_hessian_loss(self, logits, x, y, envs_indices, grad_alpha=1e-4, hess_beta=1e-4):
         total_loss = torch.tensor(0.0, requires_grad=True)
-        self.criterion2 = torch.nn.CrossEntropyLoss()
+        # self.criterion2 = torch.nn.CrossEntropyLoss()
         # empty list of lentgh = self.n_groups
         env_gradients = []
         env_hessians = []
@@ -217,7 +217,7 @@ class LossComputer:
         # yhat = model(x)
 
         # For logging purposes
-        per_sample_losses = self.criterion(logits, y)
+        per_sample_losses =  torch.nn.CrossEntropyLoss(reduction='none')
         group_loss, group_count = self.compute_group_avg(per_sample_losses, envs_indices)
 
         group_acc, group_count = self.compute_group_avg((torch.argmax(logits, 1) == y).float(), envs_indices)
@@ -279,7 +279,7 @@ class LossComputer:
         for env_idx, (grads, hessian) in enumerate(zip(env_gradients, env_hessians)):
             idx = (envs_indices == env_idx).nonzero().squeeze()
             yhat = logits[idx]
-            loss = self.criterion2(yhat.squeeze(), y[idx].long())
+            loss = self.criterion(yhat.squeeze(), y[idx].long())
             if torch.isnan(loss) or idx.numel() == 0:
                 continue
             # Compute the 2-norm of the difference between the gradient for this environment and the average gradient
