@@ -298,7 +298,7 @@ class LossComputer:
 
             grad_loss = grad_alpha * grad_diff_norm ** 2
             hessian_loss = hess_beta * hessian_diff_norm ** 2
-            # breakpoint()
+            breakpoint()
             total_loss = total_loss + (loss + hessian_loss + grad_loss) * len(yhat)/len(y)
             erm_loss = erm_loss + loss * len(yhat)/len(y)
             accum_grad_loss = accum_grad_loss + grad_loss * len(yhat)/len(y)
