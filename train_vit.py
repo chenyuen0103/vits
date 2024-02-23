@@ -100,6 +100,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
             if args.hessian_align:
                 eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env)
                 eval_losses.update(eval_loss.item())
+                breakpoint()
             else:
                 eval_loss = loss_fct(logits, y)
                 val_loss_computer.loss(logits, y, env)
