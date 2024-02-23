@@ -49,7 +49,6 @@ class celebADataset(Dataset):
         self._y_counts = (torch.arange(self.n_classes).unsqueeze(1) == self._y_array).sum(1).float()
         # self.group_counts = (torch.arange(self.n_groups).unsqueeze(1) == self.group_array).sum(1).float()
 
-        self.y_counts = (torch.arange(self.n_classes).unsqueeze(1) == self.y_array).sum(1).float()
         self.filename_array = self.metadata_df['image_id'].values
         self.transform = transform
         if self.split == 'train':
