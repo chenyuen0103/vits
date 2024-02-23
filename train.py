@@ -84,7 +84,7 @@ def main():
     for seed in args.seed:
         # Set seed
         set_seed(seed,args)
-        args.name = "_".join([args.name, seed])
+        args.name = "_".join([args.name, f's{seed}'])
         # Training
         if args.model_arch == "BiT":
             from train_bit import train_model
