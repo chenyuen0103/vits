@@ -92,6 +92,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
         with torch.no_grad():
             logits = model(x)
             eval_loss = loss_fct(logits, y)
+            val_loss_computer.loss(logits, y)
             eval_losses.update(eval_loss.item())
 
             preds = torch.argmax(logits, dim=-1)
