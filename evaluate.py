@@ -38,6 +38,8 @@ def main():
                         help="random seed for initialization")
     parser.add_argument("--local_rank", type=int, default=-1,
                         help="local_rank for distributed training on gpus")
+    parser.add_argument('--hessian_align', default=False, action='store_true')
+    parser.add_argument('--run_name', default=None, type=str)
     
     args = parser.parse_args()
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
