@@ -121,7 +121,7 @@ def calculate_acc(args):
             raise Exception("No CUDA enabled device found. Please Check !")
   
     logger.info(f"Inference for Dataset: {args.dataset} \t Model : {args.model_type} ")
-    trainloader, testloader = get_loader_inference(args)
+    trainset, trainloader,testset, testloader = get_loader_inference(args)
     logger.info("Calculating Accuracy Metrics on Train data")
     result_train, acc_train = get_acc(trainloader, model)
     logger.info(f"Average Train Accuracy = {np.mean(np.array(acc_train))}")
