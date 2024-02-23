@@ -147,7 +147,7 @@ def calculate_acc(args):
         tot_correct = sum(val)
         acc = tot_correct / result_test.counter_env[key]
         row.append(acc)
-
+    breakpoint()
     df.loc[len(df)] = row
 
 
