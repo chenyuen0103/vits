@@ -120,7 +120,7 @@ def calculate_acc(args):
                 model = model.cuda()
     except Exception:
             raise Exception("No CUDA enabled device found. Please Check !")
-    train_groups = [f'test_group_acc_{i}' for i in range(4)]
+    train_groups = [f'train_group_acc_{i}' for i in range(4)]
     test_groups = [f'test_group_acc_{i}' for i in range(4)]
     df = pd.DataFrame(columns = ['Model','Model_Type', 'Dataset', 'Align Hessian', 'Avg_Train_Acc', 'Avg_Test_Acc', 'Worst_Train_Acc', 'Worst_Test_Acc'] + train_groups + test_groups)
 
