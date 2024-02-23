@@ -27,6 +27,8 @@ class celebADataset(Dataset):
             (1, 0): 2,   # gray hair, female
             (1, 1): 3    # gray hair, male
         }
+        self.n_groups = 4
+        self.n_classes = 2
         self.split = split
         self.dataset_name = 'celebA'
         self.dataset_dir = os.path.join(root_dir, self.dataset_name)
