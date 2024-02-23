@@ -136,12 +136,19 @@ def calculate_acc(args):
     result_test, acc_test = get_acc(testloader, model)
     logger.info(f"Average Test Accuracy = {np.mean(np.array(acc_test))}")
     result_test.output_result()
-    row = [args.model_type, args.dataset, args.hessian_align, np.mean(np.array(acc_train)), np.mean(np.array(acc_test)), min(acc_train), min(acc_test)]
-    for key, val in result_train.acc.items():
-        row.append(np.mean(np.array(val)))
-    for key, val in result_train.acc.items():
-        row.append(min(val))
-    df.loc[len(df)] = row
+    # create a row dictionary to save the accuracy metrics in a dataframe
+    row = dict()
+    row['Model'] = args.model_type
+    row['Dataset'] = args.dataset
+    row['Align Hessian'] = args.hessian_align
+    row['Train_Acc'] = np.mean(np.array(acc_train))
+    row['Test_Acc'] = np.mean(np.array(acc_test))
+    row['Train_Worst'] = min(acc_train)
+    row['Test_Worst'] = min(acc_test)
+    for i in range(4):
+        row[f'avg_group_acc_{i}'] = np.mean(result_train.acc[i])
+        row[f'worst_group_acc_{i}'] = min(result_train.acc[i])
+    df = df.append(row, ignore_index = True)
 
     if not args.run_name:
         args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
@@ -149,6 +156,7 @@ def calculate_acc(args):
     if not os.path.exists(f"./results/{args.run_name}"):
         os.makedirs(f"./results/{args.run_name}")
     df.to_csv(f"./results/{args.run_name}/accuracy_metrics.csv", index = False)
+    logger.info(f"Accuracy Metrics saved at ./results/{args.run_name}/accuracy_metrics.csv")
 
 
 
