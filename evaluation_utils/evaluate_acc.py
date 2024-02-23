@@ -13,6 +13,7 @@ import models.bits as bits
 import timm
 import logging
 import os
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
@@ -119,7 +120,11 @@ def calculate_acc(args):
                 model = model.cuda()
     except Exception:
             raise Exception("No CUDA enabled device found. Please Check !")
-  
+    avg_group_acc = [f'avg_group_acc_{i}' for i in range(4)]
+    worst_group_acc = [f'worst_group_acc_{i}' for i in range(4)]
+    df = pd.DataFrame(columns = ['Model', 'Dataset', 'Align Hessian', 'Train_Acc', 'Test_Acc', 'Train_Worst', 'Test_Worst'] + avg_group_acc + worst_group_acc)
+    # save train and test accuracy of each group in a dataframe, in addition, save average train and test accuracy and worst-case accuracy for both
+    # train and test data
     logger.info(f"Inference for Dataset: {args.dataset} \t Model : {args.model_type} ")
     trainset, trainloader,testset, testloader = get_loader_inference(args)
     logger.info("Calculating Accuracy Metrics on Train data")
@@ -131,6 +136,18 @@ def calculate_acc(args):
     result_test, acc_test = get_acc(testloader, model)
     logger.info(f"Average Test Accuracy = {np.mean(np.array(acc_test))}")
     result_test.output_result()
+    row = [args.model_type, args.dataset, args.hessian_align, np.mean(np.array(acc_train)), np.mean(np.array(acc_test)), min(acc_train), min(acc_test)]
+    for key, val in result_train.acc.items():
+        row.append(np.mean(np.array(val)))
+    for key, val in result_train.acc.items():
+        row.append(min(val))
+    df.loc[len(df)] = row
+    if not os.path.exists(args.output_dir + "./results"):
+        os.makedirs(args.output_dir + "./results")
+    if not args.run_name:
+        args.run_name = "_".join(args.checkpoint.split("/")[1:3])
+    df.to_csv(args.output_dir + f"./results/{args.run_name}/accuracy_metrics.csv", index = False)
+
 
 
 if __name__== "__main__":
@@ -146,6 +163,8 @@ if __name__== "__main__":
                     help='Corresponding model version')
     parser.add_argument('--checkpoint', required=True, type=str,
                     help='Saved Model Checkpoint')
+    parser.add_argument('--hessian_align', default=False, action='store_true')
+    parser.add_argument('--run_name', default=None, type=str)
     args = parser.parse_args()
 
     calculate_acc(args) 
