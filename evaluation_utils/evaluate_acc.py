@@ -145,7 +145,7 @@ def calculate_acc(args):
     if not os.path.exists(args.output_dir + "./results"):
         os.makedirs(args.output_dir + "./results")
     if not args.run_name:
-        args.run_name = "_".join(args.checkpoint.split("/")[1:3])
+        args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
     df.to_csv(args.output_dir + f"./results/{args.run_name}/accuracy_metrics.csv", index = False)
 
 
