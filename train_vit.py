@@ -96,11 +96,9 @@ def valid(args, model, writer, testset, test_loader, global_step):
             features = model.forward_head(outputs, pre_logits=True)
             logits = model.head(features)
 
-            breakpoint()
             if args.hessian_align:
                 eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env)
                 eval_losses.update(eval_loss.item())
-                breakpoint()
             else:
                 eval_loss = loss_fct(logits, y)
                 val_loss_computer.loss(logits, y, env)
@@ -190,6 +188,7 @@ def train_model(args):
             # logits = model(x)
             if args.hessian_align:
                 loss,_,_,_ = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=1e-1, hess_beta=1e-5)
+                breakpoint()
             else:
                 loss = cri(logits.view(-1, 2), y.view(-1))
                 train_loss_computer.loss(logits, y, env)
