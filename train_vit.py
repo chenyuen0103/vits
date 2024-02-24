@@ -76,7 +76,7 @@ def setup(args, logger):
         model.reset_classifier(num_classes)
         model.to(args.device)
         num_params = count_parameters(model)
-        logger.write("Training parameters %s", args)
+        logger.write("Training parameters %s" % args)
         logger.write("Total Parameter: \t%2.1fM" % num_params)
     return args, model
 
