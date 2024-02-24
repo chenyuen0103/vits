@@ -19,11 +19,11 @@ from utils.loss_utils import LossComputer
 import timm
 # from apex.parallel import DistributedDataParallel as DDP
 from torch.nn.parallel import DistributedDataParallel as DDP
-# from utils.comm_utils import set_seed, AverageMeter, accuracy_func
+from utils.comm_utils import AverageMeter
 import math
 import logging
 import csv
-from utils.train_util import CSVBatchLogger, AverageMeter, accuracy, set_seed, log_args
+from utils.train_util import CSVBatchLogger,accuracy, set_seed
 logger = logging.getLogger(__name__)
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
