@@ -272,7 +272,7 @@ def train_model(args):
 
                 train_csv_logger.log(global_step, step, train_loss_computer.get_stats(model, args))
                 train_csv_logger.flush()
-                logger.write("Step: %d" % global_step)
+                logger.write("Step: %d \t" % global_step)
                 train_loss_computer.log_stats(logger, is_training=True)
                 train_loss_computer.reset_stats()
 
