@@ -180,7 +180,7 @@ def train_model(args):
 
 
     logger = Logger(os.path.join(log_dir, 'log.txt'), mode)
-    logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
+    logger.write(f"Fine-tuning {args.model_type} on {args.dataset}")
     args, model = setup(args)
 
 
@@ -219,13 +219,13 @@ def train_model(args):
         model = DDP(model, message_size=250000000, gradient_predivide_factor=get_world_size())
 
     # Train!
-    logger.info("***** Running training *****")
-    logger.info("  Total optimization steps = %d", args.num_steps)
-    logger.info("  Instantaneous batch size per GPU = %d", args.train_batch_size)
-    logger.info("  Total train batch size (w. parallel, distributed & accumulation) = %d",
+    logger.write("***** Running training *****")
+    logger.write("  Total optimization steps = %d", args.num_steps)
+    logger.write("  Instantaneous batch size per GPU = %d", args.train_batch_size)
+    logger.write("  Total train batch size (w. parallel, distributed & accumulation) = %d",
                 args.train_batch_size * args.batch_split * (
                     torch.distributed.get_world_size() if args.local_rank != -1 else 1))
-    logger.info("  Gradient Accumulation steps = %d", args.batch_split)
+    logger.write("  Gradient Accumulation steps = %d", args.batch_split)
 
     model.zero_grad()
     set_seed(args)
@@ -294,6 +294,6 @@ def train_model(args):
     save_model(args, model, save_dir=log_dir)
     if args.local_rank in [-1, 0]:
         writer.close()
-    logger.info("Best Accuracy: \t%f" % best_acc)
-    logger.info("End Training!")
+    logger.write("Best Accuracy: \t%f" % best_acc)
+    logger.write("End Training!")
 
