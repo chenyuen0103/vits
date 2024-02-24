@@ -174,24 +174,26 @@ def train_model(args):
     log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type, algo,
                  f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
-    trainset, train_loader, testset, test_loader = get_loader_train(args)
+
     if os.path.exists(log_dir) and args.resume:
         resume = True
         mode = 'a'
     else:
         resume = False
         mode = 'w'
-    train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
-                                      n_groups=trainset.n_groups,
-                                      mode=mode)
-    val_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "val.csv"), n_groups=trainset.n_groups,
-                                    mode=mode)
+
 
     if args.local_rank in [-1, 0]:
         writer = SummaryWriter(log_dir=log_dir,)
 
 
     args.train_batch_size = args.train_batch_size // args.batch_split
+    trainset, train_loader, testset, test_loader = get_loader_train(args)
+    train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
+                                      n_groups=trainset.n_groups,
+                                      mode=mode)
+    val_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "val.csv"), n_groups=trainset.n_groups,
+                                    mode=mode)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
 
     train_loss_computer = LossComputer(
