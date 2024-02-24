@@ -23,40 +23,12 @@ from utils.comm_utils import set_seed, AverageMeter, accuracy_func
 import math
 import logging
 import csv
+from utils.train_util import CSVBatchLogger, AverageMeter, accuracy, set_seed, log_args
 logger = logging.getLogger(__name__)
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
 'ViT-S_16':'vit_small_patch16_224_in21k',
 'ViT-Ti_16':'vit_tiny_patch16_224_in21k'}
-
-def init_csv_logging(args):
-    # Initialize CSV files for training and validation, writing headers for each
-    train_csv_file = os.path.join(args.output_dir, "train.csv")
-    val_csv_file = os.path.join(args.output_dir, "val.csv")
-
-    # Initialize training CSV
-    with open(train_csv_file, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["global_step", "train_loss", "learning_rate"])
-
-    # Initialize validation CSV
-    with open(val_csv_file, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["global_step", "validation_loss", "validation_accuracy"])
-
-    return train_csv_file, val_csv_file
-
-def log_train_to_csv(train_csv_file, global_step, train_loss=None, learning_rate=None):
-    # Append a row of training metrics to the train.csv file
-    with open(train_csv_file, 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([global_step, train_loss, learning_rate])
-
-def log_val_to_csv(val_csv_file, global_step, validation_loss=None, validation_accuracy=None):
-    # Append a row of validation metrics to the val.csv file
-    with open(val_csv_file, 'a', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow([global_step, validation_loss, validation_accuracy])
 
 
 def save_model(args, model, save_dir = None):
@@ -81,19 +53,31 @@ def save_model(args, model, save_dir = None):
 
 def setup(args):
     num_classes = 2
-    model_name =model_dict[args.model_type]
-    model = timm.create_model(
-        model_name,
-        pretrained=True,
-        num_classes=num_classes,
-        drop_rate = 0.1,
-        img_size = args.img_size
-    )
-    model.reset_classifier(num_classes)
-    model.to(args.device)
-    num_params = count_parameters(model)
-    logger.info("Training parameters %s", args)
-    logger.info("Total Parameter: \t%2.1fM" % num_params)
+    model_name = model_dict[args.model_type]
+    if args.resume:
+        model = timm.create_model(
+            model_name,
+            pretrained=False,
+            num_classes=num_classes,
+            drop_rate = 0.1,
+            img_size = args.img_size
+        )
+        model.reset_classifier(num_classes)
+        model.to(args.device)
+        model.load_state_dict(torch.load(os.path.join(args.checkpoint_dir, args.model_type + ".bin")))
+    else:
+        model = timm.create_model(
+            model_name,
+            pretrained=True,
+            num_classes=num_classes,
+            drop_rate = 0.1,
+            img_size = args.img_size
+        )
+        model.reset_classifier(num_classes)
+        model.to(args.device)
+        num_params = count_parameters(model)
+        logger.info("Training parameters %s", args)
+        logger.info("Total Parameter: \t%2.1fM" % num_params)
     return args, model
 
 
@@ -102,7 +86,7 @@ def count_parameters(model):
     return params/1000000
 
 
-def valid(args, model, writer, val_csv_file, testset, test_loader, global_step):
+def valid(args, model, writer, val_csv_logger, testset, test_loader, global_step):
     # Validation!
     eval_losses = AverageMeter()
 
@@ -157,6 +141,10 @@ def valid(args, model, writer, val_csv_file, testset, test_loader, global_step):
                 all_label[0], y.detach().cpu().numpy(), axis=0
             )
         epoch_iterator.set_description("Validating... (loss=%2.5f)" % eval_losses.val)
+        val_csv_logger.log(step, batch, val_loss_computer.get_stats(model, args))
+        val_csv_logger.flush()
+        val_loss_computer.log_stats(logger, False)
+
 
     all_preds, all_label = all_preds[0], all_label[0]
     accuracy = accuracy_func(all_preds, all_label)
@@ -168,7 +156,6 @@ def valid(args, model, writer, val_csv_file, testset, test_loader, global_step):
     logger.info("Valid Accuracy: %2.5f" % accuracy)
 
     writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
-    log_val_to_csv(val_csv_file, global_step, validation_loss=eval_losses.avg, validation_accuracy=accuracy)
     return accuracy
 
 
@@ -187,11 +174,25 @@ def train_model(args):
     log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type, algo,
                  f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
-    if args.local_rank in [-1, 0]:
-        writer = SummaryWriter(log_dir=log_dir)
-        train_csv_file, val_csv_file = init_csv_logging(args)
-    args.train_batch_size = args.train_batch_size // args.batch_split
     trainset, train_loader, testset, test_loader = get_loader_train(args)
+    if os.path.exists(args.log_dir) and args.resume:
+        resume = True
+        mode = 'a'
+    else:
+        resume = False
+        mode = 'w'
+
+    train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
+                                      n_groups=trainset.n_groups,
+                                      mode=model)
+    val_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "val.csv"), n_groups=trainset.n_groups,
+                                    mode=mode)
+
+    if args.local_rank in [-1, 0]:
+        writer = SummaryWriter(log_dir=log_dir,)
+
+
+    args.train_batch_size = args.train_batch_size // args.batch_split
     cri = torch.nn.CrossEntropyLoss().to(args.device)
 
     train_loss_computer = LossComputer(
@@ -260,14 +261,19 @@ def train_model(args):
                 epoch_iterator.set_description(
                     "Training (%d / %d Steps) (loss=%2.5f)" % (global_step, t_total, losses.val)
                 )
+
+                train_csv_logger.log(step, batch, train_loss_computer.get_stats(model, args))
+                train_csv_logger.flush()
+                train_loss_computer.log_stats(logger, is_training=True)
+                train_loss_computer.reset_stats()
+
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
-                    log_train_to_csv(train_csv_file, global_step, train_loss=losses.val,
-                                     learning_rate=scheduler.get_lr()[0])
+
 
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
-                    accuracy = valid(args, model, writer, val_csv_file, test_loader, global_step)
+                    accuracy = valid(args, model, writer, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
 #                         best_acc = accuracy
@@ -284,5 +290,3 @@ def train_model(args):
     logger.info("Best Accuracy: \t%f" % best_acc)
     logger.info("End Training!")
 
-    train_csv_file.to_csv(os.path.join(log_dir, "train.csv"))
-    val_csv_file.to_csv(os.path.join(log_dir, "val.csv"))

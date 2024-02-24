@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-
+from utils.train_util import CSVBatchLogger, AverageMeter, accuracy, set_seed, log_args
 import logging
 import argparse
 import numpy as np
@@ -66,9 +66,10 @@ def main():
     parser.add_argument('--hessian_align', default=False, action='store_true')
     parser.add_argument('--grad_alpha', default=1e-4, type=float)
     parser.add_argument('--hess_beta', default=1e-4, type=float)
+    parser.add_argument('--resume', default=False, action='store_true')
    
     args = parser.parse_args()
-    # Initialize a new run
+
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1:
