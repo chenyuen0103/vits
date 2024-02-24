@@ -175,7 +175,7 @@ def train_model(args):
                  f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
     trainset, train_loader, testset, test_loader = get_loader_train(args)
-    if os.path.exists(args.log_dir) and args.resume:
+    if os.path.exists(log_dir) and args.resume:
         resume = True
         mode = 'a'
     else:
