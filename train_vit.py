@@ -220,12 +220,12 @@ def train_model(args):
 
     # Train!
     logger.write("***** Running training *****")
-    logger.write("  Total optimization steps = %d", args.num_steps)
-    logger.write("  Instantaneous batch size per GPU = %d", args.train_batch_size)
-    logger.write("  Total train batch size (w. parallel, distributed & accumulation) = %d",
+    logger.write("  Total optimization steps = %d" %args.num_steps)
+    logger.write("  Instantaneous batch size per GPU = %d" %args.train_batch_size)
+    logger.write("  Total train batch size (w. parallel, distributed & accumulation) = %d" %
                 args.train_batch_size * args.batch_split * (
                     torch.distributed.get_world_size() if args.local_rank != -1 else 1))
-    logger.write("  Gradient Accumulation steps = %d", args.batch_split)
+    logger.write("  Gradient Accumulation steps = %d"  %args.batch_split)
 
     model.zero_grad()
     set_seed(args)
