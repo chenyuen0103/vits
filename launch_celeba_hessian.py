@@ -21,3 +21,7 @@ def main():
         eval_command = (f'python evaluate.py --name celeba_hessian --model_arch ViT --model_type ViT-S_16 --dataset celebA --batch_size 64 --img_size 384 '
                         f'--checkpoint_dir output/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{seed}/ViT-S_16')
         os.system(eval_command)
+
+
+if __name__ == '__main__':
+    main()
