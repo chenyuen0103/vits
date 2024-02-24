@@ -77,7 +77,7 @@ def setup(args):
         model.to(args.device)
         num_params = count_parameters(model)
         logger.info("Training parameters %s", args)
-        logger.info("Total Parameter: \t%2.1fM" % num_params)
+        logger.write("Total Parameter: \t%2.1fM" % num_params)
     return args, model
 
 
@@ -90,9 +90,9 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
     # Validation!
     eval_losses = AverageMeter()
 
-    logger.info("***** Running Validation *****")
-    logger.info("  Num steps = %d", len(test_loader))
-    logger.info("  Batch size = %d", args.eval_batch_size)
+    logger.write("***** Running Validation *****")
+    logger.write("  Num steps = %d", len(test_loader))
+    logger.write("  Batch size = %d", args.eval_batch_size)
 
 
 
@@ -149,11 +149,11 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
     all_preds, all_label = all_preds[0], all_label[0]
     accuracy = accuracy(all_preds, all_label)
 
-    logger.info("\n")
-    logger.info("Validation Results")
-    logger.info("Global Steps: %d" % global_step)
-    logger.info("Valid Loss: %2.5f" % eval_losses.avg)
-    logger.info("Valid Accuracy: %2.5f" % accuracy)
+    logger.write("\n")
+    logger.write("Validation Results")
+    logger.write("Global Steps: %d" % global_step)
+    logger.write("Valid Loss: %2.5f" % eval_losses.avg)
+    logger.write("Valid Accuracy: %2.5f" % accuracy)
 
     writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
     return accuracy

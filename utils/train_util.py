@@ -49,6 +49,8 @@ class Logger(object):
             self.file.close()
 
 
+
+
 class CSVBatchLogger:
     def __init__(self, csv_path, n_groups, mode='w'):
         columns = ['step', 'batch']
