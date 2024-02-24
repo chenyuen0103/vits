@@ -160,9 +160,6 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
 
 
 def train_model(args):
-    logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
-    args, model = setup(args)
-
     if args.hessian_align:
         algo = "HessianERM"
     else:
@@ -174,7 +171,6 @@ def train_model(args):
     log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type, algo,
                  f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
-
     if os.path.exists(log_dir) and args.resume:
         resume = True
         mode = 'a'
@@ -183,13 +179,20 @@ def train_model(args):
         mode = 'w'
 
 
+    logger = Logger(os.path.join(log_dir, 'log.txt'), mode)
+    logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
+    args, model = setup(args)
+
+
+
+
     if args.local_rank in [-1, 0]:
         writer = SummaryWriter(log_dir=log_dir,)
 
 
     args.train_batch_size = args.train_batch_size // args.batch_split
     trainset, train_loader, testset, test_loader = get_loader_train(args)
-    logger = Logger(os.path.join(log_dir, 'log.txt'), mode)
+
     # Record args
     log_args(args, logger)
     train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
