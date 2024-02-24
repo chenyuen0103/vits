@@ -181,7 +181,7 @@ def train_model(args):
     else:
         resume = False
         mode = 'w'
-
+    breakpoint()
     train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
                                       n_groups=trainset.n_groups,
                                       mode=mode)
