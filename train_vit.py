@@ -236,7 +236,6 @@ def train_model(args):
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
-            breakpoint()
             outputs = model.forward_features(x)
             features = model.forward_head(outputs, pre_logits=True)
             logits = model.head(features)
