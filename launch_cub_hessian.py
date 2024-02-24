@@ -2,18 +2,6 @@ import os
 import itertools
 from tqdm import tqdm
 
-def execute_with_retry(command, max_attempts=3):
-    attempt = 0
-    while attempt < max_attempts:
-        exit_code = os.system(command)
-        if exit_code == 0:
-            print(f"Command executed successfully: {command}")
-            break
-        else:
-            attempt += 1
-            print(f"Attempt {attempt} failed for command: {command}. Retrying...")
-    if attempt == max_attempts:
-        print(f"Command failed after {max_attempts} attempts: {command}")
 
 def main():
     seed_list = [0]
@@ -23,7 +11,7 @@ def main():
         train_command = (f'python train.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 '
                    f'--num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384 --hessian_align --grad_alpha {grad_alpha} --hess_beta {hess_beta} '
                    f'--seed {seed}')
-        execute_with_retry(train_command)
+        os.system(train_command)
 
     for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values),
                                             desc='Evaluation'):
