@@ -31,7 +31,7 @@ model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k',
 'ViT-Ti_16':'vit_tiny_patch16_224_in21k'}
 
 
-def save_model(args, model, save_dir = None):
+def save_model(args, model,logger, save_dir = None):
     model_to_save = model.module if hasattr(model, 'module') else model
     if args.hessian_align:
         algo = "HessianERM"
@@ -48,10 +48,10 @@ def save_model(args, model, save_dir = None):
     if os.path.exists(checkpoint_path) != True:
          os.makedirs(model_checkpoint_dir, exist_ok=True)
     torch.save(model_to_save.state_dict(), checkpoint_path)
-    logger.info("Saved model checkpoint")
+    logger.write("Saved model checkpoint")
 
 
-def setup(args):
+def setup(args, logger):
     num_classes = 2
     model_name = model_dict[args.model_type]
     if args.resume:
@@ -181,7 +181,7 @@ def train_model(args):
 
     logger = Logger(os.path.join(log_dir, 'log.txt'), mode)
     logger.write(f"Fine-tuning {args.model_type} on {args.dataset}")
-    args, model = setup(args)
+    args, model = setup(args, logger)
 
 
 
@@ -291,7 +291,7 @@ def train_model(args):
         losses.reset()
         if global_step % t_total == 0:
             break
-    save_model(args, model, save_dir=log_dir)
+    save_model(args, model, logger, save_dir=log_dir)
     if args.local_rank in [-1, 0]:
         writer.close()
     logger.write("Best Accuracy: \t%f" % best_acc)
