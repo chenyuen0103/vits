@@ -13,8 +13,13 @@ import torch.distributed as dist
 from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 from utils.comm_utils import set_seed
+import csv
 
 logger = logging.getLogger(__name__)
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -58,6 +63,8 @@ def main():
     parser.add_argument('--batch_split', type=int, default=16,
                         help="Number of updates steps to accumulate before performing a backward/update pass.")
     parser.add_argument('--hessian_align', default=False, action='store_true')
+    parser.add_argument('--grad_alpha', default=1e-4, type=float)
+    parser.add_argument('--hess_beta', default=1e-4, type=float)
    
     args = parser.parse_args()
 

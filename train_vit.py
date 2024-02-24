@@ -1,4 +1,3 @@
-
 import os
 import random
 import numpy as np
@@ -23,15 +22,54 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from utils.comm_utils import set_seed, AverageMeter, accuracy_func
 import math
 import logging
+import csv
 logger = logging.getLogger(__name__)
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
 'ViT-S_16':'vit_small_patch16_224_in21k',
 'ViT-Ti_16':'vit_tiny_patch16_224_in21k'}
 
+def init_csv_logging(args):
+    # Initialize CSV files for training and validation, writing headers for each
+    train_csv_file = os.path.join(args.output_dir, "train.csv")
+    val_csv_file = os.path.join(args.output_dir, "val.csv")
+
+    # Initialize training CSV
+    with open(train_csv_file, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["global_step", "train_loss", "learning_rate"])
+
+    # Initialize validation CSV
+    with open(val_csv_file, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["global_step", "validation_loss", "validation_accuracy"])
+
+    return train_csv_file, val_csv_file
+
+def log_train_to_csv(train_csv_file, global_step, train_loss=None, learning_rate=None):
+    # Append a row of training metrics to the train.csv file
+    with open(train_csv_file, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([global_step, train_loss, learning_rate])
+
+def log_val_to_csv(val_csv_file, global_step, validation_loss=None, validation_accuracy=None):
+    # Append a row of validation metrics to the val.csv file
+    with open(val_csv_file, 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([global_step, validation_loss, validation_accuracy])
+
+
 def save_model(args, model):
     model_to_save = model.module if hasattr(model, 'module') else model
-    model_checkpoint_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch)
+    if args.hessian_align:
+        algo = "HessianERM"
+    else:
+        algo = "ERM"
+
+    grad_alpha_formatted = "{:.1e}".format(args.grad_alpha).replace('.0e', 'e')
+    hess_beta_formatted = "{:.1e}".format(args.hess_beta).replace('.0e', 'e')
+
+    model_checkpoint_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch, args.model_type, algo, f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     checkpoint_path = os.path.join(model_checkpoint_dir,args.model_type + ".bin")
     if os.path.exists(checkpoint_path) != True:
          os.makedirs(model_checkpoint_dir, exist_ok=True)
@@ -62,7 +100,7 @@ def count_parameters(model):
     return params/1000000
 
 
-def valid(args, model, writer, testset, test_loader, global_step):
+def valid(args, model, writer, val_csv_file, testset, test_loader, global_step):
     # Validation!
     eval_losses = AverageMeter()
 
@@ -97,7 +135,7 @@ def valid(args, model, writer, testset, test_loader, global_step):
             logits = model.head(features)
 
             if args.hessian_align:
-                eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env)
+                eval_loss,_,_,_ = val_loss_computer.exact_hessian_loss(logits, features, y, env, grad_alpha = args.grad_alpha, hess_beta=args.hess_beta)
                 eval_losses.update(eval_loss.item())
             else:
                 eval_loss = loss_fct(logits, y)
@@ -128,16 +166,28 @@ def valid(args, model, writer, testset, test_loader, global_step):
     logger.info("Valid Accuracy: %2.5f" % accuracy)
 
     writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
+    log_val_to_csv(val_csv_file, global_step, validation_loss=eval_losses.avg, validation_accuracy=accuracy)
     return accuracy
 
 
 def train_model(args):
     logger.info(f"Fine-tuning {args.model_type} on {args.dataset}")
     args, model = setup(args)
-    log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type)
+
+    if args.hessian_align:
+        algo = "HessianERM"
+    else:
+        algo = "ERM"
+
+    grad_alpha_formatted = "{:.1e}".format(args.grad_alpha).replace('.0e', 'e')
+    hess_beta_formatted = "{:.1e}".format(args.hess_beta).replace('.0e', 'e')
+
+    log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type, algo,
+                 f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
     if args.local_rank in [-1, 0]:
         writer = SummaryWriter(log_dir=log_dir)
+        train_csv_file, val_csv_file = init_csv_logging(args)  # Initialize CSV logging
     args.train_batch_size = args.train_batch_size // args.batch_split
     trainset, train_loader, testset, test_loader = get_loader_train(args)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
@@ -187,8 +237,7 @@ def train_model(args):
             logits = model.head(features)
             # logits = model(x)
             if args.hessian_align:
-                loss, erm, accum_hess_loss, accum_grad_loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha=0, hess_beta=0)
-                breakpoint()
+                loss, erm, accum_hess_loss, accum_grad_loss = train_loss_computer.exact_hessian_loss(logits.view(-1, 2),features, y.view(-1), env, grad_alpha = args.grad_alpha, hess_beta=args.hess_beta)
             else:
                 loss = cri(logits.view(-1, 2), y.view(-1))
                 train_loss_computer.loss(logits, y, env)
@@ -212,8 +261,11 @@ def train_model(args):
                 if args.local_rank in [-1, 0]:
                     writer.add_scalar("train/loss", scalar_value=losses.val, global_step=global_step)
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
+                    log_train_to_csv(train_csv_file, global_step, train_loss=losses.val,
+                                     learning_rate=scheduler.get_lr()[0])
+
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
-                    accuracy = valid(args, model, writer, testset, test_loader, global_step)
+                    accuracy = valid(args, model, writer, val_csv_file, test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
 #                         best_acc = accuracy
