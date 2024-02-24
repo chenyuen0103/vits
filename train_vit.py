@@ -19,7 +19,7 @@ from utils.loss_utils import LossComputer
 import timm
 # from apex.parallel import DistributedDataParallel as DDP
 from torch.nn.parallel import DistributedDataParallel as DDP
-from utils.comm_utils import set_seed, AverageMeter, accuracy_func
+# from utils.comm_utils import set_seed, AverageMeter, accuracy_func
 import math
 import logging
 import csv
@@ -147,7 +147,7 @@ def valid(args, model, writer, val_csv_logger, testset, test_loader, global_step
 
 
     all_preds, all_label = all_preds[0], all_label[0]
-    accuracy = accuracy_func(all_preds, all_label)
+    accuracy = accuracy(all_preds, all_label)
 
     logger.info("\n")
     logger.info("Validation Results")
