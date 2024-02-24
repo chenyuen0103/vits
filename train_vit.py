@@ -141,11 +141,11 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
                 all_label[0], y.detach().cpu().numpy(), axis=0
             )
         epoch_iterator.set_description("Validating... (loss=%2.5f)" % eval_losses.val)
-        val_csv_logger.log(step, batch, val_loss_computer.get_stats(model, args))
+        val_csv_logger.log(global_step, step, val_loss_computer.get_stats(model, args))
         val_csv_logger.flush()
         val_loss_computer.log_stats(logger, False)
 
-
+    curr_val_acc = min(val_loss_computer.avg_group_acc)
     all_preds, all_label = all_preds[0], all_label[0]
     accuracy = accuracy(all_preds, all_label)
 
@@ -153,7 +153,8 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
     logger.write("Validation Results")
     logger.write("Global Steps: %d" % global_step)
     logger.write("Valid Loss: %2.5f" % eval_losses.avg)
-    logger.write("Valid Accuracy: %2.5f" % accuracy)
+    logger.write("Average Valid Accuracy: %2.5f" % accuracy)
+    logger.write(f'worst-group validation accuracy: {curr_val_acc}\n')
 
     writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
     return accuracy
@@ -195,10 +196,10 @@ def train_model(args):
 
     # Record args
     log_args(args, logger)
-    train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
+    train_csv_logger = CSVBatchLogger(csv_path=os.path.join(log_dir, "train.csv"),
                                       n_groups=trainset.n_groups,
                                       mode=mode)
-    val_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "val.csv"), n_groups=trainset.n_groups,
+    val_csv_logger = CSVBatchLogger(csv_path=os.path.join(log_dir, "val.csv"), n_groups=trainset.n_groups,
                                     mode=mode)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
 
@@ -269,8 +270,9 @@ def train_model(args):
                     "Training (%d / %d Steps) (loss=%2.5f)" % (global_step, t_total, losses.val)
                 )
 
-                train_csv_logger.log(step, batch, train_loss_computer.get_stats(model, args))
+                train_csv_logger.log(global_step, step, train_loss_computer.get_stats(model, args))
                 train_csv_logger.flush()
+                logger.write("Step: %d" % global_step)
                 train_loss_computer.log_stats(logger, is_training=True)
                 train_loss_computer.reset_stats()
 
@@ -280,6 +282,7 @@ def train_model(args):
 
 
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
+                    logger.write("Validate at step: %d" % global_step)
                     accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)

@@ -58,7 +58,7 @@ class Logger(object):
 
 class CSVBatchLogger:
     def __init__(self, csv_path, n_groups, mode='w'):
-        columns = ['step', 'batch']
+        columns = ['global_step','step']
         for idx in range(n_groups):
             columns.append(f'avg_loss_group:{idx}')
             columns.append(f'exp_avg_loss_group:{idx}')
@@ -82,9 +82,9 @@ class CSVBatchLogger:
         if mode == 'w':
             self.writer.writeheader()
 
-    def log(self, epoch, batch, stats_dict):
-        stats_dict['step'] = epoch
-        stats_dict['batch'] = batch
+    def log(self, global_step, step, stats_dict):
+        stats_dict['global_step'] = global_step
+        stats_dict['step'] = step
         self.writer.writerow(stats_dict)
 
     def flush(self):
