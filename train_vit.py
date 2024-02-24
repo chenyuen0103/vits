@@ -23,8 +23,8 @@ from utils.comm_utils import AverageMeter
 import math
 import logging
 import csv
-from utils.train_util import CSVBatchLogger,accuracy, set_seed
-logger = logging.getLogger(__name__)
+from utils.train_util import CSVBatchLogger,accuracy, set_seed, log_args, Logger
+
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
 'ViT-S_16':'vit_small_patch16_224_in21k',
@@ -86,7 +86,7 @@ def count_parameters(model):
     return params/1000000
 
 
-def valid(args, model, writer, val_csv_logger, testset, test_loader, global_step):
+def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, global_step):
     # Validation!
     eval_losses = AverageMeter()
 
@@ -189,6 +189,9 @@ def train_model(args):
 
     args.train_batch_size = args.train_batch_size // args.batch_split
     trainset, train_loader, testset, test_loader = get_loader_train(args)
+    logger = Logger(os.path.join(log_dir, 'log.txt'), mode)
+    # Record args
+    log_args(args, logger)
     train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
                                       n_groups=trainset.n_groups,
                                       mode=mode)
@@ -274,7 +277,7 @@ def train_model(args):
 
 
                 if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
-                    accuracy = valid(args, model, writer, val_csv_logger, testset,test_loader, global_step)
+                    accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
 #                         best_acc = accuracy
