@@ -181,7 +181,6 @@ def train_model(args):
     else:
         resume = False
         mode = 'w'
-    breakpoint()
     train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
                                       n_groups=trainset.n_groups,
                                       mode=mode)
@@ -235,6 +234,7 @@ def train_model(args):
         for step, batch in enumerate(epoch_iterator):
             batch = tuple(t.to(args.device) for t in batch)
             x, y, env = batch;
+            breakpoint()
             outputs = model.forward_features(x)
             features = model.forward_head(outputs, pre_logits=True)
             logits = model.head(features)
