@@ -76,7 +76,7 @@ class CSVBatchLogger:
             self.writer.writeheader()
 
     def log(self, epoch, batch, stats_dict):
-        stats_dict['epoch'] = epoch
+        stats_dict['step'] = epoch
         stats_dict['batch'] = batch
         self.writer.writerow(stats_dict)
 
