@@ -184,7 +184,7 @@ def train_model(args):
 
     train_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "train.csv"),
                                       n_groups=trainset.n_groups,
-                                      mode=model)
+                                      mode=mode)
     val_csv_logger = CSVBatchLogger(csv_path=os.path.join(args.output_dir, "val.csv"), n_groups=trainset.n_groups,
                                     mode=mode)
 
