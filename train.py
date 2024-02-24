@@ -14,6 +14,7 @@ from tqdm import tqdm
 from torch.utils.tensorboard import SummaryWriter
 from utils.comm_utils import set_seed
 import csv
+import wandb
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +68,7 @@ def main():
     parser.add_argument('--hess_beta', default=1e-4, type=float)
    
     args = parser.parse_args()
+    # Initialize a new run
 
     # Setup CUDA, GPU & distributed training
     if args.local_rank == -1:
@@ -86,7 +88,6 @@ def main():
                         level=logging.INFO if args.local_rank in [-1, 0] else logging.WARN)
     logger.warning("Process rank: %s, device: %s, n_gpu: %s, distributed training: %s" %
                    (args.local_rank, args.device, args.n_gpu, bool(args.local_rank != -1)))
-
 
 
     set_seed(args)

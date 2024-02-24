@@ -59,7 +59,7 @@ def log_val_to_csv(val_csv_file, global_step, validation_loss=None, validation_a
         writer.writerow([global_step, validation_loss, validation_accuracy])
 
 
-def save_model(args, model):
+def save_model(args, model, save_dir = None):
     model_to_save = model.module if hasattr(model, 'module') else model
     if args.hessian_align:
         algo = "HessianERM"
@@ -68,8 +68,10 @@ def save_model(args, model):
 
     grad_alpha_formatted = "{:.1e}".format(args.grad_alpha).replace('.0e', 'e')
     hess_beta_formatted = "{:.1e}".format(args.hess_beta).replace('.0e', 'e')
-
-    model_checkpoint_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch, args.model_type, algo, f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
+    if save_dir is None:
+        model_checkpoint_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch, args.model_type, algo, f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
+    else:
+        model_checkpoint_dir = save_dir
     checkpoint_path = os.path.join(model_checkpoint_dir,args.model_type + ".bin")
     if os.path.exists(checkpoint_path) != True:
          os.makedirs(model_checkpoint_dir, exist_ok=True)
@@ -187,7 +189,7 @@ def train_model(args):
     os.makedirs(log_dir, exist_ok=True)
     if args.local_rank in [-1, 0]:
         writer = SummaryWriter(log_dir=log_dir)
-        train_csv_file, val_csv_file = init_csv_logging(args)  # Initialize CSV logging
+        train_csv_file, val_csv_file = init_csv_logging(args)
     args.train_batch_size = args.train_batch_size // args.batch_split
     trainset, train_loader, testset, test_loader = get_loader_train(args)
     cri = torch.nn.CrossEntropyLoss().to(args.device)
@@ -276,8 +278,11 @@ def train_model(args):
         losses.reset()
         if global_step % t_total == 0:
             break
-    save_model(args, model)
+    save_model(args, model, save_dir=log_dir)
     if args.local_rank in [-1, 0]:
         writer.close()
     logger.info("Best Accuracy: \t%f" % best_acc)
     logger.info("End Training!")
+
+    train_csv_file.to_csv(os.path.join(log_dir, "train.csv"))
+    val_csv_file.to_csv(os.path.join(log_dir, "val.csv"))
