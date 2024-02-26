@@ -23,7 +23,7 @@ from utils.comm_utils import AverageMeter
 import math
 import logging
 import csv
-from utils.train_util import CSVBatchLogger,accuracy, set_seed, log_args, Logger
+from utils.train_util import CSVBatchLogger, accuracy_fn, set_seed, log_args, Logger
 
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
@@ -147,7 +147,7 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
 
     curr_val_acc = min(val_loss_computer.avg_group_acc)
     all_preds, all_label = all_preds[0], all_label[0]
-    accuracy = accuracy(all_preds, all_label)
+    accuracy = accuracy_fn(all_preds, all_label)
 
     logger.write("\n")
     logger.write("Validation Results")
@@ -281,7 +281,7 @@ def train_model(args):
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
 
 
-                if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step == 3:
+                if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step == 1:
                     logger.write("Validate at step: %d" % global_step)
                     breakpoint()
                     accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
