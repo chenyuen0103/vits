@@ -1,1 +1,7 @@
 .idea
+datasets/celebA
+*/__pycache__
+*/__MACOSX
+*/.DS_Store
+*.zip
+
