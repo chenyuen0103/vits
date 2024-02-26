@@ -91,8 +91,8 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
     eval_losses = AverageMeter()
 
     logger.write("***** Running Validation *****")
-    logger.write("  Num steps = %d", len(test_loader))
-    logger.write("  Batch size = %d", args.eval_batch_size)
+    logger.write(f"  Num steps = {len(test_loader)}")
+    logger.write(f"  Batch size = {args.eval_batch_size}")
 
 
 
@@ -281,7 +281,7 @@ def train_model(args):
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
 
 
-                if global_step % args.eval_every == 0 and args.local_rank in [-1, 0]:
+                if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step > 0:
                     logger.write("Validate at step: %d" % global_step)
                     accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
