@@ -150,10 +150,10 @@ def valid(args, model, writer, logger, val_csv_logger, testset, test_loader, glo
     accuracy = accuracy_fn(all_preds, all_label)
 
     logger.write("\n")
-    logger.write("Validation Results")
-    logger.write("Global Steps: %d" % global_step)
-    logger.write("Valid Loss: %2.5f" % eval_losses.avg)
-    logger.write("Average Valid Accuracy: %2.5f" % accuracy)
+    logger.write("Validation Results\n")
+    logger.write("Global Steps: %d \t" % global_step)
+    logger.write("Valid Loss: %2.5f \t" % eval_losses.avg)
+    logger.write("Average Valid Accuracy: %2.5f \t" % accuracy)
     logger.write(f'worst-group validation accuracy: {curr_val_acc}\n')
 
     writer.add_scalar("val/accuracy", scalar_value=accuracy, global_step=global_step)
