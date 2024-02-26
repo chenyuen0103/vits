@@ -171,6 +171,10 @@ def train_model(args):
 
     log_dir = os.path.join("logs", args.name, args.dataset, args.model_arch, args.model_type, algo,
                  f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
+
+
+
+    model_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch, args.model_type, algo,f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
     os.makedirs(log_dir, exist_ok=True)
     if os.path.exists(log_dir) and args.resume:
         resume = True
@@ -289,6 +293,7 @@ def train_model(args):
 #                         save_model(args, model)
 #                         best_acc = accuracy
                     model.train()
+                    save_model(args, model, logger, save_dir = model_dir)
 
                 if global_step % t_total == 0:
                     break
