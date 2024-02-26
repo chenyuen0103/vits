@@ -5,3 +5,7 @@ datasets/celebA
 */.DS_Store
 *.zip
 
+__MACOSX/
+__pycache__/
+datasets/waterbird_complete95_forest2water2/
+*.bin
