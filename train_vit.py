@@ -23,8 +23,8 @@ from utils.comm_utils import AverageMeter
 import math
 import logging
 import csv
-from utils.train_util import CSVBatchLogger, accuracy_fn, set_seed, log_args, Logger
-
+from utils.train_util import CSVBatchLogger, set_seed, log_args, Logger
+from utils.comm_utils import accuracy_func as accuracy_fn
 
 model_dict = {'ViT-B_16':'vit_base_patch16_224_in21k', 
 'ViT-S_16':'vit_small_patch16_224_in21k',

@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
-from utils.train_util import CSVBatchLogger, AverageMeter, accuracy_fn, set_seed, log_args
+from utils.train_util import CSVBatchLogger, AverageMeter, set_seed, log_args
+from utils.comm_utils import accuracy_func as accuracy_fn
 import logging
 import argparse
 import numpy as np
