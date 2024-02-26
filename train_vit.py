@@ -281,8 +281,9 @@ def train_model(args):
                     writer.add_scalar("train/lr", scalar_value=scheduler.get_lr()[0], global_step=global_step)
 
 
-                if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step > 0:
+                if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step == 3:
                     logger.write("Validate at step: %d" % global_step)
+                    breakpoint()
                     accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
