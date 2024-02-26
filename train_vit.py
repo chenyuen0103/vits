@@ -48,7 +48,7 @@ def save_model(args, model,logger, save_dir = None):
     if os.path.exists(checkpoint_path) != True:
          os.makedirs(model_checkpoint_dir, exist_ok=True)
     torch.save(model_to_save.state_dict(), checkpoint_path)
-    logger.write("Saved model checkpoint at ", checkpoint_path)
+    logger.write("Saved model checkpoint at %s" % checkpoint_path)
 
 
 def setup(args, logger):
@@ -294,6 +294,7 @@ def train_model(args):
 #                         best_acc = accuracy
                     model.train()
                     save_model(args, model, logger, save_dir = model_dir)
+                    logger.write("Model saved at step: %d" % global_step)
 
                 if global_step % t_total == 0:
                     break
