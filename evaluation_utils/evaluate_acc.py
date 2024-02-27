@@ -152,7 +152,7 @@ def calculate_acc(args):
         row.append(acc)
     df.loc[len(df)] = row
 
-
+    save_dir = args.checkpoint_dir.split("/")[:-1]
     save_dir = args.checkpoint_dir.replace("output", "results")
     # if not args.run_name:
     #     args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
@@ -163,7 +163,7 @@ def calculate_acc(args):
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     df.to_csv(os.path.join(save_dir, f"{args.run_name}_accuracy.csv"), index=False)
-    logger.info(f"Accuracy Metrics saved at {os.path.join(save_dir, f'{args.run_name}_accuracy.csv')}")
+    logger.info(f"Accuracy Metrics saved at {os.path.join(save_dir, f'test_accuracy.csv')}")
 
 
 
