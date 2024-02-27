@@ -11,7 +11,8 @@ def main():
     grad_alpha_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0]
     hess_beta_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0][::-1]
     # maybe hess_beta_values = [1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9] to reduce the number of experiments
-    for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='Training'):
+    for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='CelebA Experiments'):
+        print(f'Running experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta}')
         train_command = (f'python train.py --name celeba_hessian --model_arch ViT --model_type ViT-S_16 --dataset celebA --warmup_steps 100 '
                    f'--num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384 --hessian_align --grad_alpha {grad_alpha} --hess_beta {hess_beta} '
                    f'--seed {seed}')
