@@ -162,7 +162,7 @@ def calculate_acc(args):
 
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
-    df.to_csv(os.path.join(save_dir, f"{args.run_name}_accuracy.csv"), index=False)
+    df.to_csv(os.path.join(save_dir, f"test_accuracy.csv"), index=False)
     logger.info(f"Accuracy Metrics saved at {os.path.join(save_dir, f'test_accuracy.csv')}")
 
 
