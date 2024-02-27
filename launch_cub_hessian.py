@@ -14,8 +14,8 @@ def main():
     for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='Training'):
         # if grad_alpha == 1e-4 and hess_beta == 1e-4:
         #     continue
-        train_command = (f'python train.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 10 '
-                   f'--num_steps 20 --learning_rate 0.03 --batch_split 16 --img_size 384 --hessian_align --grad_alpha {grad_alpha} --hess_beta {hess_beta} '
+        train_command = (f'python train.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 '
+                   f'--num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384 --hessian_align --grad_alpha {grad_alpha} --hess_beta {hess_beta} '
                    f'--seed {seed}')
         os.system(train_command)
 

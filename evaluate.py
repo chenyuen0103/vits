@@ -30,6 +30,8 @@ def main():
                         help="Which variant to use.")
     parser.add_argument("--output_dir", default="output", type=str,
                         help="The directory where checkpoints are stored.")
+    parser.add_argument("--result_dir", default="results", type=str,
+                        help="The directory where results are stored.")
     parser.add_argument("--img_size", default=384, type=int,
                         help="Resolution size")
     parser.add_argument("--batch_size", default=64, type=int,
@@ -40,7 +42,6 @@ def main():
                         help="local_rank for distributed training on gpus")
     parser.add_argument('--hessian_align', default=False, action='store_true')
     parser.add_argument('--run_name', default=None, type=str)
-    
     args = parser.parse_args()
     logging.basicConfig(format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
                         datefmt='%m/%d/%Y %H:%M:%S',

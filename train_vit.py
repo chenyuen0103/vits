@@ -287,14 +287,13 @@ def train_model(args):
 
                 if (global_step % args.eval_every == 0 and args.local_rank in [-1, 0]) or global_step == 1:
                     logger.write("Validate at step: %d" % global_step)
-                    breakpoint()
                     accuracy = valid(args, model, writer, logger, val_csv_logger, testset,test_loader, global_step)
 #                     if best_acc < accuracy:
 #                         save_model(args, model)
 #                         best_acc = accuracy
                     model.train()
                     save_model(args, model, logger, save_dir = model_dir)
-                    logger.write("Model saved at step: %d" % global_step)
+                    logger.write("Model saved at step: %d \n" % global_step)
 
                 if global_step % t_total == 0:
                     break

@@ -95,8 +95,11 @@ def get_acc(loader, model):
     return result, acc
 
 def calculate_acc(args):
-    if not args.checkpoint_dir:
-        args.checkpoint_dir = os.path.join(args.output_dir,args.name, args.dataset, args.model_arch, args.model_type)
+    # save_dir = os.path.join(args.result_dir, args.name, args.dataset, args.model_arch, args.model_type, args.algo,
+    #                         f"grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{args.seed}")
+
+    # if not args.checkpoint_dir:
+    #     args.checkpoint_dir = os.path.join(args.output_dir, args.name, args.dataset, args.model_arch, args.model_type)
     if args.model_arch ==  "ViT" or args.model_arch == "DeiT":
             model = timm.create_model(
                     model_dict[args.model_type],
@@ -150,14 +153,18 @@ def calculate_acc(args):
     df.loc[len(df)] = row
 
 
+    save_dir = args.checkpoint_dir.replace("output", "results")
+    # if not args.run_name:
+    #     args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
 
-    if not args.run_name:
-        args.run_name = "_".join([args.name, args.dataset, args.model_arch, args.model_type])
+    # if not os.path.exists(f"./results/{args.run_name}"):
+    #     os.makedirs(f"./results/{args.run_name}")
 
-    if not os.path.exists(f"./results/{args.run_name}"):
-        os.makedirs(f"./results/{args.run_name}")
-    df.to_csv(f"./results/{args.run_name}/accuracy_metrics.csv", index = False)
-    logger.info(f"Accuracy Metrics saved at ./results/{args.run_name}/accuracy_metrics.csv")
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
+    df.to_csv(os.path.join(save_dir, f"{args.run_name}_accuracy.csv"), index=False)
+    logger.info(f"Accuracy Metrics saved at {os.path.join(save_dir, f'{args.run_name}_accuracy.csv')}")
+
 
 
 
