@@ -1,0 +1,1625 @@
+Fine-tuning ViT-S_16 on waterbirdsTraining parameters Namespace(name='waterbirds_hessian', dataset='waterbirds', model_arch='ViT', model_type='ViT-S_16', output_dir='output', img_size=384, train_batch_size=512, eval_batch_size=64, eval_every=100, learning_rate=0.03, weight_decay=0, num_steps=700, warmup_steps=100, max_grad_norm=1.0, local_rank=-1, seed=0, batch_split=16, hessian_align=True, grad_alpha=1e-09, hess_beta=0.0001, resume=False, n_gpu=4, device=device(type='cuda'))Total Parameter: 	21.8MName: waterbirds_hessian
+Dataset: waterbirds
+Model arch: ViT
+Model type: ViT-S_16
+Output dir: output
+Img size: 384
+Train batch size: 32
+Eval batch size: 64
+Eval every: 100
+Learning rate: 0.03
+Weight decay: 0
+Num steps: 700
+Warmup steps: 100
+Max grad norm: 1.0
+Local rank: -1
+Seed: 0
+Batch split: 16
+Hessian align: True
+Grad alpha: 1e-09
+Hess beta: 0.0001
+Resume: False
+N gpu: 4
+Device: cuda
+
+***** Running training *****  Total optimization steps = 700  Instantaneous batch size per GPU = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Gradient Accumulation steps = 16Step: 1 	Average incurred loss: 1.630  
+Average sample loss: 1.630  
+Hessian aligned loss: 6.883  
+Average acc: 0.232  
+group = 0[n = 373]:	loss = 1.757  exp loss = 1.791  adjusted loss = 1.791  adv prob = 0.250000   acc = 0.204
+grad norm = 1.408
+hessian norm = 13.789
+group = 1[n = 19]:	loss = 1.598  exp loss = 1.384  adjusted loss = 1.384  adv prob = 0.250000   acc = 0.316
+grad norm = 3.276
+hessian norm = 41.332
+group = 2[n = 11]:	loss = 0.712  exp loss = 0.763  adjusted loss = 0.763  adv prob = 0.250000   acc = 0.455
+grad norm = 0.455
+hessian norm = 0.455
+group = 3[n = 109]:	loss = 1.295  exp loss = 1.265  adjusted loss = 1.265  adv prob = 0.250000   acc = 0.294
+grad norm = 2.048
+hessian norm = 21.709
+Step: 2 	Average incurred loss: 1.525  
+Average sample loss: 1.525  
+Hessian aligned loss: 7.786  
+Average acc: 0.240  
+group = 0[n = 381]:	loss = 1.682  exp loss = 1.736  adjusted loss = 1.736  adv prob = 0.250000   acc = 0.192
+grad norm = 1.535
+hessian norm = 15.386
+group = 1[n = 16]:	loss = 1.228  exp loss = 1.152  adjusted loss = 1.152  adv prob = 0.250000   acc = 0.375
+grad norm = 2.064
+hessian norm = 52.999
+group = 2[n = 8]:	loss = 0.779  exp loss = 0.810  adjusted loss = 0.810  adv prob = 0.250000   acc = 0.500
+grad norm = 0.500
+hessian norm = 0.500
+group = 3[n = 107]:	loss = 1.065  exp loss = 1.133  adjusted loss = 1.133  adv prob = 0.250000   acc = 0.374
+grad norm = 1.814
+hessian norm = 14.009
+Step: 3 	Average incurred loss: 1.538  
+Average sample loss: 1.538  
+Hessian aligned loss: 5.751  
+Average acc: 0.264  
+group = 0[n = 378]:	loss = 1.713  exp loss = 1.714  adjusted loss = 1.714  adv prob = 0.250000   acc = 0.225
+grad norm = 1.415
+hessian norm = 16.431
+group = 1[n = 17]:	loss = 1.162  exp loss = 1.254  adjusted loss = 1.254  adv prob = 0.250000   acc = 0.294
+grad norm = 2.756
+hessian norm = 28.563
+group = 2[n = 3]:	loss = 0.722  exp loss = 0.791  adjusted loss = 0.791  adv prob = 0.250000   acc = 0.667
+grad norm = 10.609
+hessian norm = 219.792
+group = 3[n = 114]:	loss = 1.037  exp loss = 1.086  adjusted loss = 1.086  adv prob = 0.250000   acc = 0.377
+grad norm = 1.397
+hessian norm = 19.272
+Step: 4 	Average incurred loss: 1.580  
+Average sample loss: 1.580  
+Hessian aligned loss: 5.834  
+Average acc: 0.264  
+group = 0[n = 383]:	loss = 1.698  exp loss = 1.679  adjusted loss = 1.679  adv prob = 0.250000   acc = 0.240
+grad norm = 1.387
+hessian norm = 12.405
+group = 1[n = 20]:	loss = 1.588  exp loss = 1.484  adjusted loss = 1.484  adv prob = 0.250000   acc = 0.200
+grad norm = 4.356
+hessian norm = 34.884
+group = 2[n = 5]:	loss = 0.634  exp loss = 0.726  adjusted loss = 0.726  adv prob = 0.250000   acc = 0.600
+grad norm = 2.090
+hessian norm = 76.777
+group = 3[n = 104]:	loss = 1.187  exp loss = 1.161  adjusted loss = 1.161  adv prob = 0.250000   acc = 0.346
+grad norm = 1.303
+hessian norm = 16.665
+Step: 5 	Average incurred loss: 1.563  
+Average sample loss: 1.563  
+Hessian aligned loss: 6.218  
+Average acc: 0.277  
+group = 0[n = 360]:	loss = 1.746  exp loss = 1.760  adjusted loss = 1.760  adv prob = 0.250000   acc = 0.222
+grad norm = 1.435
+hessian norm = 9.683
+group = 1[n = 25]:	loss = 1.445  exp loss = 1.356  adjusted loss = 1.356  adv prob = 0.250000   acc = 0.320
+grad norm = 0.676
+hessian norm = 14.887
+group = 2[n = 8]:	loss = 0.648  exp loss = 0.711  adjusted loss = 0.711  adv prob = 0.250000   acc = 0.625
+grad norm = 2.305
+hessian norm = 88.815
+group = 3[n = 119]:	loss = 1.095  exp loss = 1.089  adjusted loss = 1.089  adv prob = 0.250000   acc = 0.412
+grad norm = 1.583
+hessian norm = 25.325
+Step: 6 	Average incurred loss: 1.613  
+Average sample loss: 1.613  
+Hessian aligned loss: 5.428  
+Average acc: 0.217  
+group = 0[n = 378]:	loss = 1.772  exp loss = 1.799  adjusted loss = 1.799  adv prob = 0.250000   acc = 0.169
+grad norm = 1.583
+hessian norm = 11.326
+group = 1[n = 22]:	loss = 1.484  exp loss = 1.358  adjusted loss = 1.358  adv prob = 0.250000   acc = 0.182
+grad norm = 4.739
+hessian norm = 49.186
+group = 2[n = 5]:	loss = 0.586  exp loss = 0.664  adjusted loss = 0.664  adv prob = 0.250000   acc = 0.600
+grad norm = 0.600
+hessian norm = 0.600
+group = 3[n = 107]:	loss = 1.125  exp loss = 1.139  adjusted loss = 1.139  adv prob = 0.250000   acc = 0.374
+grad norm = 1.389
+hessian norm = 12.788
+Step: 7 	Average incurred loss: 1.664  
+Average sample loss: 1.664  
+Hessian aligned loss: 4.958  
+Average acc: 0.213  
+group = 0[n = 384]:	loss = 1.777  exp loss = 1.729  adjusted loss = 1.729  adv prob = 0.250000   acc = 0.193
+grad norm = 1.148
+hessian norm = 11.828
+group = 1[n = 19]:	loss = 1.494  exp loss = 1.451  adjusted loss = 1.451  adv prob = 0.250000   acc = 0.316
+grad norm = 3.031
+hessian norm = 19.752
+group = 2[n = 4]:	loss = 1.151  exp loss = 0.848  adjusted loss = 0.848  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 3[n = 105]:	loss = 1.303  exp loss = 1.180  adjusted loss = 1.180  adv prob = 0.250000   acc = 0.267
+grad norm = 1.771
+hessian norm = 19.338
+Step: 8 	Average incurred loss: 1.488  
+Average sample loss: 1.488  
+Hessian aligned loss: 4.422  
+Average acc: 0.275  
+group = 0[n = 375]:	loss = 1.643  exp loss = 1.632  adjusted loss = 1.632  adv prob = 0.250000   acc = 0.237
+grad norm = 1.281
+hessian norm = 10.851
+group = 1[n = 20]:	loss = 1.149  exp loss = 1.226  adjusted loss = 1.226  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 2[n = 2]:	loss = 0.422  exp loss = 0.768  adjusted loss = 0.768  adv prob = 0.250000   acc = 1.000
+grad norm = 9.902
+hessian norm = 354.665
+group = 3[n = 115]:	loss = 1.061  exp loss = 1.068  adjusted loss = 1.068  adv prob = 0.250000   acc = 0.391
+grad norm = 1.162
+hessian norm = 12.650
+Step: 9 	Average incurred loss: 1.526  
+Average sample loss: 1.526  
+Hessian aligned loss: 4.293  
+Average acc: 0.258  
+group = 0[n = 354]:	loss = 1.737  exp loss = 1.731  adjusted loss = 1.731  adv prob = 0.250000   acc = 0.195
+grad norm = 1.481
+hessian norm = 9.928
+group = 1[n = 18]:	loss = 1.307  exp loss = 1.385  adjusted loss = 1.385  adv prob = 0.250000   acc = 0.278
+grad norm = 0.278
+hessian norm = 0.278
+group = 2[n = 8]:	loss = 1.080  exp loss = 0.896  adjusted loss = 0.896  adv prob = 0.250000   acc = 0.375
+grad norm = 0.375
+hessian norm = 0.375
+group = 3[n = 132]:	loss = 1.017  exp loss = 1.051  adjusted loss = 1.051  adv prob = 0.250000   acc = 0.417
+grad norm = 1.267
+hessian norm = 13.435
+Step: 10 	Average incurred loss: 1.449  
+Average sample loss: 1.450  
+Hessian aligned loss: 3.628  
+Average acc: 0.299  
+group = 0[n = 513]:	loss = 1.634  exp loss = 1.661  adjusted loss = 1.661  adv prob = 0.250000   acc = 0.240
+grad norm = 1.059
+hessian norm = 6.396
+group = 1[n = 22]:	loss = 1.049  exp loss = 1.063  adjusted loss = 1.063  adv prob = 0.250000   acc = 0.500
+grad norm = 1.179
+hessian norm = 24.877
+group = 2[n = 7]:	loss = 0.870  exp loss = 0.916  adjusted loss = 0.916  adv prob = 0.250000   acc = 0.429
+grad norm = 3.583
+hessian norm = 116.187
+group = 3[n = 157]:	loss = 0.929  exp loss = 0.977  adjusted loss = 0.977  adv prob = 0.250000   acc = 0.459
+grad norm = 0.867
+hessian norm = 6.795
+Step: 11 	Average incurred loss: 1.405  
+Average sample loss: 1.405  
+Hessian aligned loss: 3.782  
+Average acc: 0.277  
+group = 0[n = 381]:	loss = 1.518  exp loss = 1.550  adjusted loss = 1.550  adv prob = 0.250000   acc = 0.234
+grad norm = 0.914
+hessian norm = 6.260
+group = 1[n = 20]:	loss = 1.261  exp loss = 1.282  adjusted loss = 1.282  adv prob = 0.250000   acc = 0.400
+grad norm = 2.348
+hessian norm = 16.710
+group = 2[n = 8]:	loss = 0.619  exp loss = 0.734  adjusted loss = 0.734  adv prob = 0.250000   acc = 0.750
+grad norm = 0.750
+hessian norm = 0.750
+group = 3[n = 103]:	loss = 1.075  exp loss = 1.065  adjusted loss = 1.065  adv prob = 0.250000   acc = 0.379
+grad norm = 1.583
+hessian norm = 13.161
+Step: 12 	Average incurred loss: 1.375  
+Average sample loss: 1.375  
+Hessian aligned loss: 3.129  
+Average acc: 0.262  
+group = 0[n = 374]:	loss = 1.503  exp loss = 1.509  adjusted loss = 1.509  adv prob = 0.250000   acc = 0.219
+grad norm = 0.953
+hessian norm = 6.621
+group = 1[n = 18]:	loss = 0.909  exp loss = 0.990  adjusted loss = 0.990  adv prob = 0.250000   acc = 0.556
+grad norm = 0.556
+hessian norm = 0.556
+group = 2[n = 5]:	loss = 0.923  exp loss = 0.799  adjusted loss = 0.799  adv prob = 0.250000   acc = 0.400
+grad norm = 0.400
+hessian norm = 0.400
+group = 3[n = 115]:	loss = 1.054  exp loss = 1.016  adjusted loss = 1.016  adv prob = 0.250000   acc = 0.348
+grad norm = 1.230
+hessian norm = 10.622
+Step: 13 	Average incurred loss: 1.315  
+Average sample loss: 1.315  
+Hessian aligned loss: 2.740  
+Average acc: 0.279  
+group = 0[n = 374]:	loss = 1.365  exp loss = 1.386  adjusted loss = 1.386  adv prob = 0.250000   acc = 0.278
+grad norm = 0.967
+hessian norm = 6.652
+group = 1[n = 25]:	loss = 1.391  exp loss = 1.298  adjusted loss = 1.298  adv prob = 0.250000   acc = 0.240
+grad norm = 1.199
+hessian norm = 23.223
+group = 2[n = 3]:	loss = 0.725  exp loss = 0.763  adjusted loss = 0.763  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 3[n = 110]:	loss = 1.146  exp loss = 1.103  adjusted loss = 1.103  adv prob = 0.250000   acc = 0.282
+grad norm = 0.907
+hessian norm = 11.258
+Step: 14 	Average incurred loss: 1.230  
+Average sample loss: 1.230  
+Hessian aligned loss: 2.391  
+Average acc: 0.268  
+group = 0[n = 358]:	loss = 1.229  exp loss = 1.253  adjusted loss = 1.253  adv prob = 0.250000   acc = 0.274
+grad norm = 0.925
+hessian norm = 6.036
+group = 1[n = 19]:	loss = 0.917  exp loss = 1.081  adjusted loss = 1.081  adv prob = 0.250000   acc = 0.474
+grad norm = 1.840
+hessian norm = 23.361
+group = 2[n = 11]:	loss = 1.329  exp loss = 1.049  adjusted loss = 1.049  adv prob = 0.250000   acc = 0.091
+grad norm = 0.091
+hessian norm = 0.091
+group = 3[n = 124]:	loss = 1.273  exp loss = 1.282  adjusted loss = 1.282  adv prob = 0.250000   acc = 0.234
+grad norm = 0.950
+hessian norm = 7.068
+Step: 15 	Average incurred loss: 1.033  
+Average sample loss: 1.033  
+Hessian aligned loss: 2.223  
+Average acc: 0.387  
+group = 0[n = 396]:	loss = 0.960  exp loss = 0.982  adjusted loss = 0.982  adv prob = 0.250000   acc = 0.427
+grad norm = 0.917
+hessian norm = 6.161
+group = 1[n = 21]:	loss = 0.692  exp loss = 0.806  adjusted loss = 0.806  adv prob = 0.250000   acc = 0.524
+grad norm = 0.524
+hessian norm = 0.524
+group = 2[n = 5]:	loss = 1.067  exp loss = 1.056  adjusted loss = 1.056  adv prob = 0.250000   acc = 0.000
+grad norm = 3.666
+hessian norm = 75.280
+group = 3[n = 90]:	loss = 1.431  exp loss = 1.357  adjusted loss = 1.357  adv prob = 0.250000   acc = 0.200
+grad norm = 1.147
+hessian norm = 6.696
+Step: 16 	Average incurred loss: 0.962  
+Average sample loss: 0.962  
+Hessian aligned loss: 1.667  
+Average acc: 0.434  
+group = 0[n = 360]:	loss = 0.742  exp loss = 0.788  adjusted loss = 0.788  adv prob = 0.250000   acc = 0.547
+grad norm = 0.954
+hessian norm = 5.285
+group = 1[n = 20]:	loss = 0.825  exp loss = 0.779  adjusted loss = 0.779  adv prob = 0.250000   acc = 0.450
+grad norm = 0.686
+hessian norm = 10.081
+group = 2[n = 4]:	loss = 1.814  exp loss = 1.284  adjusted loss = 1.284  adv prob = 0.250000   acc = 0.000
+grad norm = 4.003
+hessian norm = 73.931
+group = 3[n = 128]:	loss = 1.574  exp loss = 1.497  adjusted loss = 1.497  adv prob = 0.250000   acc = 0.125
+grad norm = 0.473
+hessian norm = 5.011
+Step: 17 	Average incurred loss: 0.854  
+Average sample loss: 0.854  
+Hessian aligned loss: 1.393  
+Average acc: 0.527  
+group = 0[n = 383]:	loss = 0.610  exp loss = 0.641  adjusted loss = 0.641  adv prob = 0.250000   acc = 0.655
+grad norm = 1.048
+hessian norm = 5.506
+group = 1[n = 22]:	loss = 0.585  exp loss = 0.562  adjusted loss = 0.562  adv prob = 0.250000   acc = 0.636
+grad norm = 0.636
+hessian norm = 0.636
+group = 2[n = 8]:	loss = 1.309  exp loss = 1.285  adjusted loss = 1.285  adv prob = 0.250000   acc = 0.125
+grad norm = 0.125
+hessian norm = 0.125
+group = 3[n = 99]:	loss = 1.823  exp loss = 1.678  adjusted loss = 1.678  adv prob = 0.250000   acc = 0.040
+grad norm = 0.592
+hessian norm = 4.381
+Step: 18 	Average incurred loss: 0.809  
+Average sample loss: 0.809  
+Hessian aligned loss: 1.134  
+Average acc: 0.656  
+group = 0[n = 360]:	loss = 0.400  exp loss = 0.432  adjusted loss = 0.432  adv prob = 0.250000   acc = 0.864
+grad norm = 1.107
+hessian norm = 5.225
+group = 1[n = 22]:	loss = 0.285  exp loss = 0.372  adjusted loss = 0.372  adv prob = 0.250000   acc = 0.955
+grad norm = 1.419
+hessian norm = 10.106
+group = 2[n = 4]:	loss = 1.916  exp loss = 1.519  adjusted loss = 1.519  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 126]:	loss = 2.036  exp loss = 1.879  adjusted loss = 1.879  adv prob = 0.250000   acc = 0.032
+grad norm = 0.483
+hessian norm = 2.320
+Step: 19 	Average incurred loss: 0.757  
+Average sample loss: 0.756  
+Hessian aligned loss: 0.998  
+Average acc: 0.724  
+group = 0[n = 510]:	loss = 0.251  exp loss = 0.267  adjusted loss = 0.267  adv prob = 0.250000   acc = 0.953
+grad norm = 1.057
+hessian norm = 3.327
+group = 1[n = 19]:	loss = 0.248  exp loss = 0.292  adjusted loss = 0.292  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 2[n = 8]:	loss = 2.288  exp loss = 1.979  adjusted loss = 1.979  adv prob = 0.250000   acc = 0.000
+grad norm = 2.410
+hessian norm = 19.676
+group = 3[n = 162]:	loss = 2.331  exp loss = 2.315  adjusted loss = 2.315  adv prob = 0.250000   acc = 0.006
+grad norm = 0.374
+hessian norm = 1.131
+Step: 20 	Average incurred loss: 0.788  
+Average sample loss: 0.788  
+Hessian aligned loss: 0.897  
+Average acc: 0.754  
+group = 0[n = 356]:	loss = 0.153  exp loss = 0.174  adjusted loss = 0.174  adv prob = 0.250000   acc = 1.000
+grad norm = 1.056
+hessian norm = 2.988
+group = 1[n = 30]:	loss = 0.176  exp loss = 0.213  adjusted loss = 0.213  adv prob = 0.250000   acc = 1.000
+grad norm = 1.156
+hessian norm = 4.569
+group = 2[n = 6]:	loss = 2.980  exp loss = 2.404  adjusted loss = 2.404  adv prob = 0.250000   acc = 0.000
+grad norm = 3.674
+hessian norm = 6.142
+group = 3[n = 120]:	loss = 2.714  exp loss = 2.594  adjusted loss = 2.594  adv prob = 0.250000   acc = 0.000
+grad norm = 1.032
+hessian norm = 2.193
+Step: 21 	Average incurred loss: 0.745  
+Average sample loss: 0.745  
+Hessian aligned loss: 0.792  
+Average acc: 0.764  
+group = 0[n = 373]:	loss = 0.103  exp loss = 0.113  adjusted loss = 0.113  adv prob = 0.250000   acc = 1.000
+grad norm = 1.032
+hessian norm = 2.858
+group = 1[n = 18]:	loss = 0.088  exp loss = 0.131  adjusted loss = 0.131  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 2[n = 2]:	loss = 3.735  exp loss = 2.652  adjusted loss = 2.652  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 119]:	loss = 2.808  exp loss = 2.780  adjusted loss = 2.780  adv prob = 0.250000   acc = 0.000
+grad norm = 0.585
+hessian norm = 1.372
+Step: 22 	Average incurred loss: 0.683  
+Average sample loss: 0.683  
+Hessian aligned loss: 0.703  
+Average acc: 0.775  
+group = 0[n = 375]:	loss = 0.079  exp loss = 0.085  adjusted loss = 0.085  adv prob = 0.250000   acc = 1.000
+grad norm = 1.010
+hessian norm = 2.422
+group = 1[n = 22]:	loss = 0.068  exp loss = 0.088  adjusted loss = 0.088  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 2[n = 1]:	loss = 3.521  exp loss = 2.739  adjusted loss = 2.739  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 114]:	loss = 2.762  exp loss = 2.751  adjusted loss = 2.751  adv prob = 0.250000   acc = 0.000
+grad norm = 0.697
+hessian norm = 0.982
+Step: 23 	Average incurred loss: 0.642  
+Average sample loss: 0.642  
+Hessian aligned loss: 0.658  
+Average acc: 0.783  
+group = 0[n = 388]:	loss = 0.083  exp loss = 0.083  adjusted loss = 0.083  adv prob = 0.250000   acc = 1.000
+grad norm = 1.003
+hessian norm = 2.105
+group = 1[n = 13]:	loss = 0.095  exp loss = 0.087  adjusted loss = 0.087  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 2[n = 4]:	loss = 2.964  exp loss = 2.762  adjusted loss = 2.762  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 107]:	loss = 2.649  exp loss = 2.652  adjusted loss = 2.652  adv prob = 0.250000   acc = 0.000
+grad norm = 1.189
+hessian norm = 2.331
+Step: 24 	Average incurred loss: 0.585  
+Average sample loss: 0.585  
+Hessian aligned loss: 0.618  
+Average acc: 0.768  
+group = 0[n = 375]:	loss = 0.098  exp loss = 0.096  adjusted loss = 0.096  adv prob = 0.250000   acc = 1.000
+grad norm = 1.026
+hessian norm = 2.701
+group = 1[n = 17]:	loss = 0.178  exp loss = 0.145  adjusted loss = 0.145  adv prob = 0.250000   acc = 1.000
+grad norm = 1.010
+hessian norm = 2.649
+group = 2[n = 9]:	loss = 2.728  exp loss = 2.737  adjusted loss = 2.737  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 111]:	loss = 2.118  exp loss = 2.255  adjusted loss = 2.255  adv prob = 0.250000   acc = 0.009
+grad norm = 0.559
+hessian norm = 1.219
+Step: 25 	Average incurred loss: 0.564  
+Average sample loss: 0.564  
+Hessian aligned loss: 0.593  
+Average acc: 0.727  
+group = 0[n = 354]:	loss = 0.157  exp loss = 0.146  adjusted loss = 0.146  adv prob = 0.250000   acc = 1.000
+grad norm = 1.065
+hessian norm = 3.171
+group = 1[n = 18]:	loss = 0.220  exp loss = 0.188  adjusted loss = 0.188  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 2[n = 6]:	loss = 2.547  exp loss = 2.727  adjusted loss = 2.727  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 134]:	loss = 1.598  exp loss = 1.693  adjusted loss = 1.693  adv prob = 0.250000   acc = 0.000
+grad norm = 0.391
+hessian norm = 2.694
+Step: 26 	Average incurred loss: 0.482  
+Average sample loss: 0.482  
+Hessian aligned loss: 0.547  
+Average acc: 0.773  
+group = 0[n = 365]:	loss = 0.277  exp loss = 0.256  adjusted loss = 0.256  adv prob = 0.250000   acc = 0.984
+grad norm = 1.172
+hessian norm = 4.341
+group = 1[n = 20]:	loss = 0.595  exp loss = 0.476  adjusted loss = 0.476  adv prob = 0.250000   acc = 0.800
+grad norm = 1.898
+hessian norm = 12.918
+group = 2[n = 14]:	loss = 1.490  exp loss = 2.031  adjusted loss = 2.031  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 113]:	loss = 0.997  exp loss = 1.115  adjusted loss = 1.115  adv prob = 0.250000   acc = 0.186
+grad norm = 0.484
+hessian norm = 2.182
+Step: 27 	Average incurred loss: 0.461  
+Average sample loss: 0.461  
+Hessian aligned loss: 0.536  
+Average acc: 0.807  
+group = 0[n = 388]:	loss = 0.379  exp loss = 0.353  adjusted loss = 0.353  adv prob = 0.250000   acc = 0.894
+grad norm = 1.109
+hessian norm = 4.107
+group = 1[n = 20]:	loss = 0.702  exp loss = 0.638  adjusted loss = 0.638  adv prob = 0.250000   acc = 0.500
+grad norm = 1.366
+hessian norm = 8.136
+group = 2[n = 7]:	loss = 1.075  exp loss = 1.568  adjusted loss = 1.568  adv prob = 0.250000   acc = 0.286
+grad norm = 1.218
+hessian norm = 10.265
+group = 3[n = 97]:	loss = 0.697  exp loss = 0.750  adjusted loss = 0.750  adv prob = 0.250000   acc = 0.557
+grad norm = 0.729
+hessian norm = 2.689
+Step: 28 	Average incurred loss: 0.480  
+Average sample loss: 0.480  
+Hessian aligned loss: 0.531  
+Average acc: 0.803  
+group = 0[n = 517]:	loss = 0.396  exp loss = 0.390  adjusted loss = 0.390  adv prob = 0.250000   acc = 0.899
+grad norm = 1.035
+hessian norm = 3.106
+group = 1[n = 44]:	loss = 0.827  exp loss = 0.866  adjusted loss = 0.866  adv prob = 0.250000   acc = 0.318
+grad norm = 0.682
+hessian norm = 2.942
+group = 2[n = 4]:	loss = 1.260  exp loss = 1.475  adjusted loss = 1.475  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 3[n = 134]:	loss = 0.669  exp loss = 0.671  adjusted loss = 0.671  adv prob = 0.250000   acc = 0.604
+grad norm = 0.779
+hessian norm = 2.519
+Step: 29 	Average incurred loss: 0.466  
+Average sample loss: 0.466  
+Hessian aligned loss: 0.503  
+Average acc: 0.822  
+group = 0[n = 355]:	loss = 0.350  exp loss = 0.363  adjusted loss = 0.363  adv prob = 0.250000   acc = 0.938
+grad norm = 1.088
+hessian norm = 3.043
+group = 1[n = 19]:	loss = 0.689  exp loss = 0.730  adjusted loss = 0.730  adv prob = 0.250000   acc = 0.579
+grad norm = 1.314
+hessian norm = 8.855
+group = 2[n = 9]:	loss = 1.276  exp loss = 1.331  adjusted loss = 1.331  adv prob = 0.250000   acc = 0.111
+grad norm = 0.548
+hessian norm = 6.151
+group = 3[n = 129]:	loss = 0.693  exp loss = 0.710  adjusted loss = 0.710  adv prob = 0.250000   acc = 0.589
+grad norm = 0.966
+hessian norm = 3.692
+Step: 30 	Average incurred loss: 0.398  
+Average sample loss: 0.398  
+Hessian aligned loss: 0.435  
+Average acc: 0.848  
+group = 0[n = 380]:	loss = 0.241  exp loss = 0.263  adjusted loss = 0.263  adv prob = 0.250000   acc = 0.971
+grad norm = 1.102
+hessian norm = 3.376
+group = 1[n = 16]:	loss = 0.588  exp loss = 0.686  adjusted loss = 0.686  adv prob = 0.250000   acc = 0.750
+grad norm = 1.162
+hessian norm = 4.526
+group = 2[n = 10]:	loss = 1.731  exp loss = 1.552  adjusted loss = 1.552  adv prob = 0.250000   acc = 0.100
+grad norm = 0.100
+hessian norm = 0.100
+group = 3[n = 106]:	loss = 0.805  exp loss = 0.797  adjusted loss = 0.797  adv prob = 0.250000   acc = 0.491
+grad norm = 0.729
+hessian norm = 1.942
+Step: 31 	Average incurred loss: 0.379  
+Average sample loss: 0.379  
+Hessian aligned loss: 0.413  
+Average acc: 0.816  
+group = 0[n = 369]:	loss = 0.150  exp loss = 0.168  adjusted loss = 0.168  adv prob = 0.250000   acc = 0.997
+grad norm = 1.032
+hessian norm = 2.189
+group = 1[n = 21]:	loss = 0.475  exp loss = 0.547  adjusted loss = 0.547  adv prob = 0.250000   acc = 0.810
+grad norm = 1.311
+hessian norm = 7.518
+group = 2[n = 7]:	loss = 2.076  exp loss = 1.772  adjusted loss = 1.772  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 115]:	loss = 0.993  exp loss = 0.971  adjusted loss = 0.971  adv prob = 0.250000   acc = 0.287
+grad norm = 0.855
+hessian norm = 3.946
+Step: 32 	Average incurred loss: 0.422  
+Average sample loss: 0.422  
+Hessian aligned loss: 0.453  
+Average acc: 0.797  
+group = 0[n = 353]:	loss = 0.123  exp loss = 0.128  adjusted loss = 0.128  adv prob = 0.250000   acc = 0.992
+grad norm = 0.999
+hessian norm = 2.030
+group = 1[n = 11]:	loss = 0.472  exp loss = 0.451  adjusted loss = 0.451  adv prob = 0.250000   acc = 0.727
+grad norm = 0.947
+hessian norm = 4.419
+group = 2[n = 6]:	loss = 1.580  exp loss = 1.642  adjusted loss = 1.642  adv prob = 0.250000   acc = 0.333
+grad norm = 0.333
+hessian norm = 0.333
+group = 3[n = 142]:	loss = 1.114  exp loss = 1.092  adjusted loss = 1.092  adv prob = 0.250000   acc = 0.338
+grad norm = 0.774
+hessian norm = 2.647
+Step: 33 	Average incurred loss: 0.358  
+Average sample loss: 0.358  
+Hessian aligned loss: 0.383  
+Average acc: 0.857  
+group = 0[n = 377]:	loss = 0.131  exp loss = 0.129  adjusted loss = 0.129  adv prob = 0.250000   acc = 0.989
+grad norm = 1.009
+hessian norm = 2.111
+group = 1[n = 19]:	loss = 0.766  exp loss = 0.621  adjusted loss = 0.621  adv prob = 0.250000   acc = 0.421
+grad norm = 0.988
+hessian norm = 5.353
+group = 2[n = 8]:	loss = 2.370  exp loss = 2.082  adjusted loss = 2.082  adv prob = 0.250000   acc = 0.000
+grad norm = 1.676
+hessian norm = 1.622
+group = 3[n = 108]:	loss = 0.929  exp loss = 0.983  adjusted loss = 0.983  adv prob = 0.250000   acc = 0.537
+grad norm = 0.773
+hessian norm = 1.690
+Step: 34 	Average incurred loss: 0.295  
+Average sample loss: 0.295  
+Hessian aligned loss: 0.323  
+Average acc: 0.889  
+group = 0[n = 405]:	loss = 0.167  exp loss = 0.154  adjusted loss = 0.154  adv prob = 0.250000   acc = 0.965
+grad norm = 0.977
+hessian norm = 2.005
+group = 1[n = 18]:	loss = 0.817  exp loss = 0.666  adjusted loss = 0.666  adv prob = 0.250000   acc = 0.444
+grad norm = 0.465
+hessian norm = 1.197
+group = 2[n = 3]:	loss = 1.548  exp loss = 1.948  adjusted loss = 1.948  adv prob = 0.250000   acc = 0.333
+grad norm = 0.333
+hessian norm = 0.333
+group = 3[n = 86]:	loss = 0.746  exp loss = 0.753  adjusted loss = 0.753  adv prob = 0.250000   acc = 0.640
+grad norm = 0.684
+hessian norm = 1.468
+Step: 35 	Average incurred loss: 0.303  
+Average sample loss: 0.303  
+Hessian aligned loss: 0.326  
+Average acc: 0.873  
+group = 0[n = 381]:	loss = 0.145  exp loss = 0.145  adjusted loss = 0.145  adv prob = 0.250000   acc = 0.961
+grad norm = 0.984
+hessian norm = 1.961
+group = 1[n = 22]:	loss = 1.057  exp loss = 1.005  adjusted loss = 1.005  adv prob = 0.250000   acc = 0.409
+grad norm = 0.409
+hessian norm = 0.409
+group = 2[n = 5]:	loss = 2.390  exp loss = 2.127  adjusted loss = 2.127  adv prob = 0.250000   acc = 0.000
+grad norm = 2.402
+hessian norm = 2.371
+group = 3[n = 104]:	loss = 0.622  exp loss = 0.618  adjusted loss = 0.618  adv prob = 0.250000   acc = 0.692
+grad norm = 0.805
+hessian norm = 1.852
+Step: 36 	Average incurred loss: 0.312  
+Average sample loss: 0.312  
+Hessian aligned loss: 0.332  
+Average acc: 0.861  
+group = 0[n = 374]:	loss = 0.119  exp loss = 0.117  adjusted loss = 0.117  adv prob = 0.250000   acc = 0.965
+grad norm = 0.947
+hessian norm = 1.562
+group = 1[n = 20]:	loss = 1.219  exp loss = 1.249  adjusted loss = 1.249  adv prob = 0.250000   acc = 0.300
+grad norm = 0.969
+hessian norm = 2.077
+group = 2[n = 2]:	loss = 2.969  exp loss = 2.287  adjusted loss = 2.287  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 116]:	loss = 0.734  exp loss = 0.732  adjusted loss = 0.732  adv prob = 0.250000   acc = 0.638
+grad norm = 0.827
+hessian norm = 1.909
+Step: 37 	Average incurred loss: 0.315  
+Average sample loss: 0.313  
+Hessian aligned loss: 0.329  
+Average acc: 0.867  
+group = 0[n = 502]:	loss = 0.109  exp loss = 0.109  adjusted loss = 0.109  adv prob = 0.250000   acc = 0.974
+grad norm = 0.960
+hessian norm = 1.316
+group = 1[n = 21]:	loss = 1.229  exp loss = 1.256  adjusted loss = 1.256  adv prob = 0.250000   acc = 0.286
+grad norm = 1.374
+hessian norm = 5.053
+group = 2[n = 9]:	loss = 2.391  exp loss = 2.331  adjusted loss = 2.331  adv prob = 0.250000   acc = 0.111
+grad norm = 0.111
+hessian norm = 0.111
+group = 3[n = 167]:	loss = 0.706  exp loss = 0.736  adjusted loss = 0.736  adv prob = 0.250000   acc = 0.659
+grad norm = 0.774
+hessian norm = 1.488
+Step: 38 	Average incurred loss: 0.296  
+Average sample loss: 0.296  
+Hessian aligned loss: 0.311  
+Average acc: 0.881  
+group = 0[n = 383]:	loss = 0.135  exp loss = 0.131  adjusted loss = 0.131  adv prob = 0.250000   acc = 0.956
+grad norm = 0.959
+hessian norm = 1.617
+group = 1[n = 19]:	loss = 1.373  exp loss = 1.300  adjusted loss = 1.300  adv prob = 0.250000   acc = 0.263
+grad norm = 0.979
+hessian norm = 3.683
+group = 2[n = 5]:	loss = 2.987  exp loss = 2.483  adjusted loss = 2.483  adv prob = 0.250000   acc = 0.000
+grad norm = 2.293
+hessian norm = 3.021
+group = 3[n = 105]:	loss = 0.561  exp loss = 0.554  adjusted loss = 0.554  adv prob = 0.250000   acc = 0.762
+grad norm = 0.848
+hessian norm = 1.981
+Step: 39 	Average incurred loss: 0.313  
+Average sample loss: 0.313  
+Hessian aligned loss: 0.325  
+Average acc: 0.881  
+group = 0[n = 364]:	loss = 0.155  exp loss = 0.152  adjusted loss = 0.152  adv prob = 0.250000   acc = 0.951
+grad norm = 0.955
+hessian norm = 1.366
+group = 1[n = 18]:	loss = 1.302  exp loss = 1.276  adjusted loss = 1.276  adv prob = 0.250000   acc = 0.389
+grad norm = 0.389
+hessian norm = 0.389
+group = 2[n = 8]:	loss = 2.087  exp loss = 2.311  adjusted loss = 2.311  adv prob = 0.250000   acc = 0.125
+grad norm = 0.125
+hessian norm = 0.125
+group = 3[n = 122]:	loss = 0.521  exp loss = 0.536  adjusted loss = 0.536  adv prob = 0.250000   acc = 0.795
+grad norm = 0.946
+hessian norm = 2.017
+Step: 40 	Average incurred loss: 0.265  
+Average sample loss: 0.265  
+Hessian aligned loss: 0.280  
+Average acc: 0.871  
+group = 0[n = 382]:	loss = 0.094  exp loss = 0.106  adjusted loss = 0.106  adv prob = 0.250000   acc = 0.969
+grad norm = 0.961
+hessian norm = 1.507
+group = 1[n = 19]:	loss = 1.011  exp loss = 1.142  adjusted loss = 1.142  adv prob = 0.250000   acc = 0.368
+grad norm = 0.368
+hessian norm = 0.368
+group = 2[n = 6]:	loss = 2.074  exp loss = 2.242  adjusted loss = 2.242  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 105]:	loss = 0.650  exp loss = 0.599  adjusted loss = 0.599  adv prob = 0.250000   acc = 0.657
+grad norm = 0.780
+hessian norm = 1.663
+Step: 41 	Average incurred loss: 0.268  
+Average sample loss: 0.268  
+Hessian aligned loss: 0.279  
+Average acc: 0.891  
+group = 0[n = 383]:	loss = 0.093  exp loss = 0.101  adjusted loss = 0.101  adv prob = 0.250000   acc = 0.974
+grad norm = 0.941
+hessian norm = 1.269
+group = 1[n = 14]:	loss = 1.235  exp loss = 1.208  adjusted loss = 1.208  adv prob = 0.250000   acc = 0.286
+grad norm = 0.868
+hessian norm = 1.971
+group = 2[n = 4]:	loss = 2.855  exp loss = 2.494  adjusted loss = 2.494  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 3[n = 111]:	loss = 0.656  exp loss = 0.612  adjusted loss = 0.612  adv prob = 0.250000   acc = 0.703
+grad norm = 0.739
+hessian norm = 1.546
+Step: 42 	Average incurred loss: 0.246  
+Average sample loss: 0.246  
+Hessian aligned loss: 0.257  
+Average acc: 0.896  
+group = 0[n = 377]:	loss = 0.114  exp loss = 0.120  adjusted loss = 0.120  adv prob = 0.250000   acc = 0.966
+grad norm = 0.972
+hessian norm = 1.643
+group = 1[n = 20]:	loss = 1.230  exp loss = 1.197  adjusted loss = 1.197  adv prob = 0.250000   acc = 0.400
+grad norm = 0.838
+hessian norm = 2.476
+group = 2[n = 3]:	loss = 3.015  exp loss = 2.633  adjusted loss = 2.633  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 112]:	loss = 0.440  exp loss = 0.480  adjusted loss = 0.480  adv prob = 0.250000   acc = 0.777
+grad norm = 0.824
+hessian norm = 1.352
+Step: 43 	Average incurred loss: 0.242  
+Average sample loss: 0.242  
+Hessian aligned loss: 0.256  
+Average acc: 0.906  
+group = 0[n = 361]:	loss = 0.095  exp loss = 0.097  adjusted loss = 0.097  adv prob = 0.250000   acc = 0.978
+grad norm = 0.961
+hessian norm = 1.445
+group = 1[n = 23]:	loss = 0.785  exp loss = 0.916  adjusted loss = 0.916  adv prob = 0.250000   acc = 0.522
+grad norm = 0.522
+hessian norm = 0.522
+group = 2[n = 6]:	loss = 2.434  exp loss = 2.518  adjusted loss = 2.518  adv prob = 0.250000   acc = 0.167
+grad norm = 0.167
+hessian norm = 0.167
+group = 3[n = 122]:	loss = 0.465  exp loss = 0.469  adjusted loss = 0.469  adv prob = 0.250000   acc = 0.803
+grad norm = 1.044
+hessian norm = 2.294
+Step: 44 	Average incurred loss: 0.233  
+Average sample loss: 0.233  
+Hessian aligned loss: 0.247  
+Average acc: 0.910  
+group = 0[n = 375]:	loss = 0.104  exp loss = 0.103  adjusted loss = 0.103  adv prob = 0.250000   acc = 0.979
+grad norm = 0.965
+hessian norm = 1.457
+group = 1[n = 19]:	loss = 1.144  exp loss = 1.193  adjusted loss = 1.193  adv prob = 0.250000   acc = 0.316
+grad norm = 0.787
+hessian norm = 4.305
+group = 2[n = 10]:	loss = 2.104  exp loss = 2.333  adjusted loss = 2.333  adv prob = 0.250000   acc = 0.100
+grad norm = 0.100
+hessian norm = 0.100
+group = 3[n = 108]:	loss = 0.345  exp loss = 0.401  adjusted loss = 0.401  adv prob = 0.250000   acc = 0.852
+grad norm = 1.081
+hessian norm = 2.530
+Step: 45 	Average incurred loss: 0.230  
+Average sample loss: 0.230  
+Hessian aligned loss: 0.249  
+Average acc: 0.918  
+group = 0[n = 374]:	loss = 0.068  exp loss = 0.072  adjusted loss = 0.072  adv prob = 0.250000   acc = 0.995
+grad norm = 0.951
+hessian norm = 1.330
+group = 1[n = 28]:	loss = 0.913  exp loss = 0.852  adjusted loss = 0.852  adv prob = 0.250000   acc = 0.464
+grad norm = 0.464
+hessian norm = 0.464
+group = 2[n = 8]:	loss = 2.419  exp loss = 2.404  adjusted loss = 2.404  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 102]:	loss = 0.465  exp loss = 0.431  adjusted loss = 0.431  adv prob = 0.250000   acc = 0.833
+grad norm = 0.972
+hessian norm = 1.449
+Step: 46 	Average incurred loss: 0.232  
+Average sample loss: 0.232  
+Hessian aligned loss: 0.251  
+Average acc: 0.903  
+group = 0[n = 504]:	loss = 0.053  exp loss = 0.054  adjusted loss = 0.054  adv prob = 0.250000   acc = 0.990
+grad norm = 0.967
+hessian norm = 1.174
+group = 1[n = 31]:	loss = 0.566  exp loss = 0.575  adjusted loss = 0.575  adv prob = 0.250000   acc = 0.742
+grad norm = 0.803
+hessian norm = 2.247
+group = 2[n = 7]:	loss = 3.241  exp loss = 2.847  adjusted loss = 2.847  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 157]:	loss = 0.609  exp loss = 0.508  adjusted loss = 0.508  adv prob = 0.250000   acc = 0.694
+grad norm = 0.780
+hessian norm = 1.752
+Step: 47 	Average incurred loss: 0.171  
+Average sample loss: 0.171  
+Hessian aligned loss: 0.195  
+Average acc: 0.939  
+group = 0[n = 371]:	loss = 0.043  exp loss = 0.046  adjusted loss = 0.046  adv prob = 0.250000   acc = 0.997
+grad norm = 0.956
+hessian norm = 1.273
+group = 1[n = 17]:	loss = 0.438  exp loss = 0.460  adjusted loss = 0.460  adv prob = 0.250000   acc = 0.824
+grad norm = 0.824
+hessian norm = 0.824
+group = 2[n = 3]:	loss = 1.424  exp loss = 2.441  adjusted loss = 2.441  adv prob = 0.250000   acc = 0.333
+grad norm = 0.333
+hessian norm = 0.333
+group = 3[n = 121]:	loss = 0.496  exp loss = 0.497  adjusted loss = 0.497  adv prob = 0.250000   acc = 0.793
+grad norm = 0.896
+hessian norm = 2.078
+Step: 48 	Average incurred loss: 0.219  
+Average sample loss: 0.219  
+Hessian aligned loss: 0.240  
+Average acc: 0.914  
+group = 0[n = 345]:	loss = 0.087  exp loss = 0.077  adjusted loss = 0.077  adv prob = 0.250000   acc = 0.977
+grad norm = 0.963
+hessian norm = 1.444
+group = 1[n = 27]:	loss = 1.449  exp loss = 1.074  adjusted loss = 1.074  adv prob = 0.250000   acc = 0.333
+grad norm = 0.488
+hessian norm = 2.183
+group = 2[n = 9]:	loss = 1.551  exp loss = 2.043  adjusted loss = 2.043  adv prob = 0.250000   acc = 0.222
+grad norm = 0.222
+hessian norm = 0.222
+group = 3[n = 131]:	loss = 0.223  exp loss = 0.258  adjusted loss = 0.258  adv prob = 0.250000   acc = 0.916
+grad norm = 0.905
+hessian norm = 1.502
+Step: 49 	Average incurred loss: 0.176  
+Average sample loss: 0.176  
+Hessian aligned loss: 0.196  
+Average acc: 0.936  
+group = 0[n = 382]:	loss = 0.109  exp loss = 0.097  adjusted loss = 0.097  adv prob = 0.250000   acc = 0.961
+grad norm = 0.967
+hessian norm = 1.538
+group = 1[n = 18]:	loss = 0.627  exp loss = 0.900  adjusted loss = 0.900  adv prob = 0.250000   acc = 0.667
+grad norm = 1.306
+hessian norm = 2.743
+group = 2[n = 3]:	loss = 2.442  exp loss = 2.084  adjusted loss = 2.084  adv prob = 0.250000   acc = 0.000
+grad norm = 8.322
+hessian norm = 9.427
+group = 3[n = 109]:	loss = 0.275  exp loss = 0.254  adjusted loss = 0.254  adv prob = 0.250000   acc = 0.917
+grad norm = 0.988
+hessian norm = 1.859
+Step: 50 	Average incurred loss: 0.189  
+Average sample loss: 0.189  
+Hessian aligned loss: 0.201  
+Average acc: 0.936  
+group = 0[n = 356]:	loss = 0.044  exp loss = 0.054  adjusted loss = 0.054  adv prob = 0.250000   acc = 0.992
+grad norm = 0.960
+hessian norm = 1.375
+group = 1[n = 17]:	loss = 0.775  exp loss = 0.762  adjusted loss = 0.762  adv prob = 0.250000   acc = 0.706
+grad norm = 0.706
+hessian norm = 0.706
+group = 2[n = 6]:	loss = 2.292  exp loss = 2.163  adjusted loss = 2.163  adv prob = 0.250000   acc = 0.000
+grad norm = 3.945
+hessian norm = 6.256
+group = 3[n = 133]:	loss = 0.404  exp loss = 0.322  adjusted loss = 0.322  adv prob = 0.250000   acc = 0.857
+grad norm = 0.876
+hessian norm = 1.455
+Step: 51 	Average incurred loss: 0.158  
+Average sample loss: 0.158  
+Hessian aligned loss: 0.176  
+Average acc: 0.934  
+group = 0[n = 394]:	loss = 0.053  exp loss = 0.064  adjusted loss = 0.064  adv prob = 0.250000   acc = 0.982
+grad norm = 0.971
+hessian norm = 1.177
+group = 1[n = 18]:	loss = 0.922  exp loss = 0.743  adjusted loss = 0.743  adv prob = 0.250000   acc = 0.389
+grad norm = 0.708
+hessian norm = 3.213
+group = 2[n = 7]:	loss = 2.760  exp loss = 2.402  adjusted loss = 2.402  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 93]:	loss = 0.260  exp loss = 0.294  adjusted loss = 0.294  adv prob = 0.250000   acc = 0.903
+grad norm = 0.975
+hessian norm = 1.880
+Step: 52 	Average incurred loss: 0.167  
+Average sample loss: 0.167  
+Hessian aligned loss: 0.186  
+Average acc: 0.928  
+group = 0[n = 377]:	loss = 0.061  exp loss = 0.054  adjusted loss = 0.054  adv prob = 0.250000   acc = 0.979
+grad norm = 0.937
+hessian norm = 1.128
+group = 1[n = 25]:	loss = 0.877  exp loss = 0.724  adjusted loss = 0.724  adv prob = 0.250000   acc = 0.520
+grad norm = 0.746
+hessian norm = 4.585
+group = 2[n = 6]:	loss = 1.816  exp loss = 2.200  adjusted loss = 2.200  adv prob = 0.250000   acc = 0.167
+grad norm = 3.520
+hessian norm = 14.795
+group = 3[n = 104]:	loss = 0.282  exp loss = 0.259  adjusted loss = 0.259  adv prob = 0.250000   acc = 0.885
+grad norm = 0.970
+hessian norm = 1.157
+Step: 53 	Average incurred loss: 0.188  
+Average sample loss: 0.188  
+Hessian aligned loss: 0.203  
+Average acc: 0.932  
+group = 0[n = 376]:	loss = 0.044  exp loss = 0.046  adjusted loss = 0.046  adv prob = 0.250000   acc = 0.989
+grad norm = 0.954
+hessian norm = 1.138
+group = 1[n = 20]:	loss = 0.815  exp loss = 0.819  adjusted loss = 0.819  adv prob = 0.250000   acc = 0.550
+grad norm = 0.956
+hessian norm = 2.335
+group = 2[n = 7]:	loss = 3.790  exp loss = 3.105  adjusted loss = 3.105  adv prob = 0.250000   acc = 0.000
+grad norm = 2.613
+hessian norm = 0.082
+group = 3[n = 109]:	loss = 0.341  exp loss = 0.305  adjusted loss = 0.305  adv prob = 0.250000   acc = 0.862
+grad norm = 1.030
+hessian norm = 2.294
+Step: 54 	Average incurred loss: 0.148  
+Average sample loss: 0.148  
+Hessian aligned loss: 0.156  
+Average acc: 0.947  
+group = 0[n = 384]:	loss = 0.051  exp loss = 0.055  adjusted loss = 0.055  adv prob = 0.250000   acc = 0.982
+grad norm = 0.953
+hessian norm = 1.147
+group = 1[n = 10]:	loss = 0.592  exp loss = 0.644  adjusted loss = 0.644  adv prob = 0.250000   acc = 0.800
+grad norm = 0.800
+hessian norm = 0.800
+group = 2[n = 6]:	loss = 1.887  exp loss = 2.811  adjusted loss = 2.811  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 112]:	loss = 0.345  exp loss = 0.428  adjusted loss = 0.428  adv prob = 0.250000   acc = 0.893
+grad norm = 0.961
+hessian norm = 1.966
+Step: 55 	Average incurred loss: 0.171  
+Average sample loss: 0.171  
+Hessian aligned loss: 0.182  
+Average acc: 0.934  
+group = 0[n = 499]:	loss = 0.068  exp loss = 0.069  adjusted loss = 0.069  adv prob = 0.250000   acc = 0.982
+grad norm = 0.966
+hessian norm = 1.193
+group = 1[n = 28]:	loss = 0.695  exp loss = 0.636  adjusted loss = 0.636  adv prob = 0.250000   acc = 0.679
+grad norm = 0.671
+hessian norm = 1.365
+group = 2[n = 11]:	loss = 2.030  exp loss = 2.489  adjusted loss = 2.489  adv prob = 0.250000   acc = 0.182
+grad norm = 0.182
+hessian norm = 0.182
+group = 3[n = 161]:	loss = 0.275  exp loss = 0.285  adjusted loss = 0.285  adv prob = 0.250000   acc = 0.882
+grad norm = 0.927
+hessian norm = 1.557
+Step: 56 	Average incurred loss: 0.137  
+Average sample loss: 0.137  
+Hessian aligned loss: 0.148  
+Average acc: 0.945  
+group = 0[n = 367]:	loss = 0.093  exp loss = 0.088  adjusted loss = 0.088  adv prob = 0.250000   acc = 0.965
+grad norm = 0.947
+hessian norm = 1.359
+group = 1[n = 19]:	loss = 0.624  exp loss = 0.650  adjusted loss = 0.650  adv prob = 0.250000   acc = 0.579
+grad norm = 0.579
+hessian norm = 0.579
+group = 2[n = 3]:	loss = 1.205  exp loss = 2.125  adjusted loss = 2.125  adv prob = 0.250000   acc = 0.333
+grad norm = 0.333
+hessian norm = 0.333
+group = 3[n = 123]:	loss = 0.166  exp loss = 0.212  adjusted loss = 0.212  adv prob = 0.250000   acc = 0.959
+grad norm = 1.064
+hessian norm = 1.765
+Step: 57 	Average incurred loss: 0.117  
+Average sample loss: 0.117  
+Hessian aligned loss: 0.127  
+Average acc: 0.959  
+group = 0[n = 385]:	loss = 0.062  exp loss = 0.063  adjusted loss = 0.063  adv prob = 0.250000   acc = 0.987
+grad norm = 0.946
+hessian norm = 1.188
+group = 1[n = 20]:	loss = 0.394  exp loss = 0.519  adjusted loss = 0.519  adv prob = 0.250000   acc = 0.800
+grad norm = 0.800
+hessian norm = 0.800
+group = 2[n = 3]:	loss = 0.762  exp loss = 1.753  adjusted loss = 1.753  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 3[n = 104]:	loss = 0.250  exp loss = 0.478  adjusted loss = 0.478  adv prob = 0.250000   acc = 0.894
+grad norm = 0.916
+hessian norm = 1.514
+Step: 58 	Average incurred loss: 0.145  
+Average sample loss: 0.145  
+Hessian aligned loss: 0.159  
+Average acc: 0.957  
+group = 0[n = 370]:	loss = 0.030  exp loss = 0.036  adjusted loss = 0.036  adv prob = 0.250000   acc = 0.995
+grad norm = 0.965
+hessian norm = 1.188
+group = 1[n = 25]:	loss = 0.465  exp loss = 0.514  adjusted loss = 0.514  adv prob = 0.250000   acc = 0.800
+grad norm = 0.760
+hessian norm = 1.689
+group = 2[n = 8]:	loss = 2.341  exp loss = 1.959  adjusted loss = 1.959  adv prob = 0.250000   acc = 0.250
+grad norm = 2.135
+hessian norm = 2.605
+group = 3[n = 109]:	loss = 0.304  exp loss = 0.352  adjusted loss = 0.352  adv prob = 0.250000   acc = 0.917
+grad norm = 1.118
+hessian norm = 2.200
+Step: 59 	Average incurred loss: 0.108  
+Average sample loss: 0.108  
+Hessian aligned loss: 0.120  
+Average acc: 0.963  
+group = 0[n = 374]:	loss = 0.016  exp loss = 0.020  adjusted loss = 0.020  adv prob = 0.250000   acc = 0.995
+grad norm = 0.954
+hessian norm = 1.056
+group = 1[n = 14]:	loss = 0.321  exp loss = 0.380  adjusted loss = 0.380  adv prob = 0.250000   acc = 0.857
+grad norm = 1.057
+hessian norm = 3.269
+group = 2[n = 5]:	loss = 2.612  exp loss = 2.192  adjusted loss = 2.192  adv prob = 0.250000   acc = 0.200
+grad norm = 1.069
+hessian norm = 12.743
+group = 3[n = 119]:	loss = 0.265  exp loss = 0.347  adjusted loss = 0.347  adv prob = 0.250000   acc = 0.908
+grad norm = 1.025
+hessian norm = 1.764
+Step: 60 	Average incurred loss: 0.092  
+Average sample loss: 0.092  
+Hessian aligned loss: 0.110  
+Average acc: 0.975  
+group = 0[n = 385]:	loss = 0.022  exp loss = 0.020  adjusted loss = 0.020  adv prob = 0.250000   acc = 0.997
+grad norm = 0.948
+hessian norm = 1.066
+group = 1[n = 21]:	loss = 0.184  exp loss = 0.301  adjusted loss = 0.301  adv prob = 0.250000   acc = 0.952
+grad norm = 0.960
+hessian norm = 3.354
+group = 2[n = 8]:	loss = 1.753  exp loss = 1.906  adjusted loss = 1.906  adv prob = 0.250000   acc = 0.375
+grad norm = 0.375
+hessian norm = 0.375
+group = 3[n = 98]:	loss = 0.209  exp loss = 0.261  adjusted loss = 0.261  adv prob = 0.250000   acc = 0.939
+grad norm = 1.021
+hessian norm = 1.466
+Step: 61 	Average incurred loss: 0.109  
+Average sample loss: 0.109  
+Hessian aligned loss: 0.126  
+Average acc: 0.959  
+group = 0[n = 377]:	loss = 0.048  exp loss = 0.044  adjusted loss = 0.044  adv prob = 0.250000   acc = 0.984
+grad norm = 0.943
+hessian norm = 1.190
+group = 1[n = 11]:	loss = 0.599  exp loss = 0.367  adjusted loss = 0.367  adv prob = 0.250000   acc = 0.636
+grad norm = 0.636
+hessian norm = 0.636
+group = 2[n = 10]:	loss = 0.975  exp loss = 1.344  adjusted loss = 1.344  adv prob = 0.250000   acc = 0.700
+grad norm = 3.016
+hessian norm = 3.478
+group = 3[n = 114]:	loss = 0.188  exp loss = 0.131  adjusted loss = 0.131  adv prob = 0.250000   acc = 0.930
+grad norm = 0.892
+hessian norm = 1.132
+Step: 62 	Average incurred loss: 0.192  
+Average sample loss: 0.192  
+Hessian aligned loss: 0.201  
+Average acc: 0.932  
+group = 0[n = 369]:	loss = 0.090  exp loss = 0.082  adjusted loss = 0.082  adv prob = 0.250000   acc = 0.957
+grad norm = 0.935
+hessian norm = 1.213
+group = 1[n = 30]:	loss = 1.238  exp loss = 1.200  adjusted loss = 1.200  adv prob = 0.250000   acc = 0.633
+grad norm = 0.627
+hessian norm = 1.319
+group = 2[n = 5]:	loss = 1.317  exp loss = 1.322  adjusted loss = 1.322  adv prob = 0.250000   acc = 0.600
+grad norm = 0.600
+hessian norm = 0.600
+group = 3[n = 108]:	loss = 0.197  exp loss = 0.244  adjusted loss = 0.244  adv prob = 0.250000   acc = 0.944
+grad norm = 1.043
+hessian norm = 1.284
+Step: 63 	Average incurred loss: 0.112  
+Average sample loss: 0.112  
+Hessian aligned loss: 0.122  
+Average acc: 0.961  
+group = 0[n = 375]:	loss = 0.057  exp loss = 0.072  adjusted loss = 0.072  adv prob = 0.250000   acc = 0.979
+grad norm = 0.941
+hessian norm = 1.159
+group = 1[n = 17]:	loss = 0.809  exp loss = 0.776  adjusted loss = 0.776  adv prob = 0.250000   acc = 0.647
+grad norm = 0.647
+hessian norm = 0.647
+group = 2[n = 4]:	loss = 1.075  exp loss = 1.216  adjusted loss = 1.216  adv prob = 0.250000   acc = 0.750
+grad norm = 0.750
+hessian norm = 0.750
+group = 3[n = 116]:	loss = 0.153  exp loss = 0.172  adjusted loss = 0.172  adv prob = 0.250000   acc = 0.957
+grad norm = 0.982
+hessian norm = 1.482
+Step: 64 	Average incurred loss: 0.106  
+Average sample loss: 0.106  
+Hessian aligned loss: 0.116  
+Average acc: 0.966  
+group = 0[n = 508]:	loss = 0.023  exp loss = 0.024  adjusted loss = 0.024  adv prob = 0.250000   acc = 0.996
+grad norm = 0.947
+hessian norm = 0.976
+group = 1[n = 23]:	loss = 0.488  exp loss = 0.593  adjusted loss = 0.593  adv prob = 0.250000   acc = 0.783
+grad norm = 0.783
+hessian norm = 0.783
+group = 2[n = 9]:	loss = 0.704  exp loss = 0.892  adjusted loss = 0.892  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 3[n = 159]:	loss = 0.285  exp loss = 0.237  adjusted loss = 0.237  adv prob = 0.250000   acc = 0.912
+grad norm = 0.917
+hessian norm = 1.307
+Step: 65 	Average incurred loss: 0.088  
+Average sample loss: 0.088  
+Hessian aligned loss: 0.095  
+Average acc: 0.967  
+group = 0[n = 391]:	loss = 0.028  exp loss = 0.031  adjusted loss = 0.031  adv prob = 0.250000   acc = 0.990
+grad norm = 0.939
+hessian norm = 1.086
+group = 1[n = 18]:	loss = 0.318  exp loss = 0.290  adjusted loss = 0.290  adv prob = 0.250000   acc = 0.889
+grad norm = 0.805
+hessian norm = 1.106
+group = 2[n = 8]:	loss = 0.717  exp loss = 0.907  adjusted loss = 0.907  adv prob = 0.250000   acc = 0.750
+grad norm = 0.750
+hessian norm = 0.750
+group = 3[n = 95]:	loss = 0.235  exp loss = 0.205  adjusted loss = 0.205  adv prob = 0.250000   acc = 0.905
+grad norm = 0.865
+hessian norm = 0.943
+Step: 66 	Average incurred loss: 0.084  
+Average sample loss: 0.084  
+Hessian aligned loss: 0.087  
+Average acc: 0.973  
+group = 0[n = 380]:	loss = 0.021  exp loss = 0.022  adjusted loss = 0.022  adv prob = 0.250000   acc = 0.997
+grad norm = 0.937
+hessian norm = 0.979
+group = 1[n = 22]:	loss = 0.361  exp loss = 0.383  adjusted loss = 0.383  adv prob = 0.250000   acc = 0.818
+grad norm = 0.795
+hessian norm = 1.082
+group = 2[n = 4]:	loss = 2.211  exp loss = 1.168  adjusted loss = 1.168  adv prob = 0.250000   acc = 0.500
+grad norm = 0.500
+hessian norm = 0.500
+group = 3[n = 106]:	loss = 0.176  exp loss = 0.192  adjusted loss = 0.192  adv prob = 0.250000   acc = 0.934
+grad norm = 1.051
+hessian norm = 1.283
+Step: 67 	Average incurred loss: 0.094  
+Average sample loss: 0.094  
+Hessian aligned loss: 0.101  
+Average acc: 0.965  
+group = 0[n = 367]:	loss = 0.029  exp loss = 0.026  adjusted loss = 0.026  adv prob = 0.250000   acc = 0.992
+grad norm = 0.934
+hessian norm = 0.992
+group = 1[n = 23]:	loss = 0.557  exp loss = 0.545  adjusted loss = 0.545  adv prob = 0.250000   acc = 0.783
+grad norm = 0.873
+hessian norm = 2.098
+group = 2[n = 4]:	loss = 1.551  exp loss = 1.304  adjusted loss = 1.304  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 3[n = 118]:	loss = 0.157  exp loss = 0.157  adjusted loss = 0.157  adv prob = 0.250000   acc = 0.941
+grad norm = 0.930
+hessian norm = 1.281
+Step: 68 	Average incurred loss: 0.106  
+Average sample loss: 0.106  
+Hessian aligned loss: 0.113  
+Average acc: 0.953  
+group = 0[n = 377]:	loss = 0.046  exp loss = 0.042  adjusted loss = 0.042  adv prob = 0.250000   acc = 0.987
+grad norm = 0.945
+hessian norm = 1.014
+group = 1[n = 22]:	loss = 0.826  exp loss = 0.550  adjusted loss = 0.550  adv prob = 0.250000   acc = 0.455
+grad norm = 0.448
+hessian norm = 1.095
+group = 2[n = 7]:	loss = 0.602  exp loss = 1.064  adjusted loss = 1.064  adv prob = 0.250000   acc = 0.571
+grad norm = 1.146
+hessian norm = 6.299
+group = 3[n = 106]:	loss = 0.138  exp loss = 0.124  adjusted loss = 0.124  adv prob = 0.250000   acc = 0.962
+grad norm = 0.942
+hessian norm = 1.375
+Step: 69 	Average incurred loss: 0.056  
+Average sample loss: 0.056  
+Hessian aligned loss: 0.067  
+Average acc: 0.982  
+group = 0[n = 362]:	loss = 0.013  exp loss = 0.017  adjusted loss = 0.017  adv prob = 0.250000   acc = 1.000
+grad norm = 0.947
+hessian norm = 1.053
+group = 1[n = 17]:	loss = 0.287  exp loss = 0.425  adjusted loss = 0.425  adv prob = 0.250000   acc = 0.824
+grad norm = 0.765
+hessian norm = 2.116
+group = 2[n = 4]:	loss = 0.117  exp loss = 0.742  adjusted loss = 0.742  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 129]:	loss = 0.145  exp loss = 0.177  adjusted loss = 0.177  adv prob = 0.250000   acc = 0.953
+grad norm = 0.996
+hessian norm = 1.063
+Step: 70 	Average incurred loss: 0.093  
+Average sample loss: 0.093  
+Hessian aligned loss: 0.100  
+Average acc: 0.969  
+group = 0[n = 379]:	loss = 0.019  exp loss = 0.020  adjusted loss = 0.020  adv prob = 0.250000   acc = 0.995
+grad norm = 0.935
+hessian norm = 1.029
+group = 1[n = 13]:	loss = 0.464  exp loss = 0.441  adjusted loss = 0.441  adv prob = 0.250000   acc = 0.692
+grad norm = 0.692
+hessian norm = 0.692
+group = 2[n = 6]:	loss = 1.468  exp loss = 1.012  adjusted loss = 1.012  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 3[n = 114]:	loss = 0.222  exp loss = 0.228  adjusted loss = 0.228  adv prob = 0.250000   acc = 0.930
+grad norm = 1.007
+hessian norm = 1.141
+Step: 71 	Average incurred loss: 0.063  
+Average sample loss: 0.063  
+Hessian aligned loss: 0.068  
+Average acc: 0.973  
+group = 0[n = 366]:	loss = 0.042  exp loss = 0.033  adjusted loss = 0.033  adv prob = 0.250000   acc = 0.981
+grad norm = 0.922
+hessian norm = 0.964
+group = 1[n = 19]:	loss = 0.194  exp loss = 0.285  adjusted loss = 0.285  adv prob = 0.250000   acc = 0.895
+grad norm = 0.888
+hessian norm = 2.340
+group = 2[n = 4]:	loss = 0.078  exp loss = 0.763  adjusted loss = 0.763  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 123]:	loss = 0.105  exp loss = 0.124  adjusted loss = 0.124  adv prob = 0.250000   acc = 0.959
+grad norm = 0.929
+hessian norm = 1.192
+Step: 72 	Average incurred loss: 0.112  
+Average sample loss: 0.112  
+Hessian aligned loss: 0.125  
+Average acc: 0.953  
+group = 0[n = 369]:	loss = 0.028  exp loss = 0.029  adjusted loss = 0.029  adv prob = 0.250000   acc = 0.986
+grad norm = 0.935
+hessian norm = 1.045
+group = 1[n = 25]:	loss = 0.371  exp loss = 0.383  adjusted loss = 0.383  adv prob = 0.250000   acc = 0.880
+grad norm = 0.862
+hessian norm = 1.221
+group = 2[n = 11]:	loss = 1.501  exp loss = 1.209  adjusted loss = 1.209  adv prob = 0.250000   acc = 0.545
+grad norm = 0.545
+hessian norm = 0.545
+group = 3[n = 107]:	loss = 0.202  exp loss = 0.226  adjusted loss = 0.226  adv prob = 0.250000   acc = 0.897
+grad norm = 0.933
+hessian norm = 1.495
+Step: 73 	Average incurred loss: 0.113  
+Average sample loss: 0.112  
+Hessian aligned loss: 0.119  
+Average acc: 0.966  
+group = 0[n = 506]:	loss = 0.051  exp loss = 0.041  adjusted loss = 0.041  adv prob = 0.250000   acc = 0.986
+grad norm = 0.955
+hessian norm = 1.051
+group = 1[n = 30]:	loss = 0.535  exp loss = 0.504  adjusted loss = 0.504  adv prob = 0.250000   acc = 0.833
+grad norm = 0.881
+hessian norm = 2.342
+group = 2[n = 13]:	loss = 0.989  exp loss = 1.057  adjusted loss = 1.057  adv prob = 0.250000   acc = 0.615
+grad norm = 0.716
+hessian norm = 2.453
+group = 3[n = 150]:	loss = 0.161  exp loss = 0.087  adjusted loss = 0.087  adv prob = 0.250000   acc = 0.953
+grad norm = 0.923
+hessian norm = 0.938
+Step: 74 	Average incurred loss: 0.087  
+Average sample loss: 0.087  
+Hessian aligned loss: 0.093  
+Average acc: 0.965  
+group = 0[n = 379]:	loss = 0.038  exp loss = 0.036  adjusted loss = 0.036  adv prob = 0.250000   acc = 0.984
+grad norm = 0.930
+hessian norm = 1.126
+group = 1[n = 25]:	loss = 0.502  exp loss = 0.503  adjusted loss = 0.503  adv prob = 0.250000   acc = 0.720
+grad norm = 0.720
+hessian norm = 0.720
+group = 2[n = 1]:	loss = 4.992  exp loss = 1.451  adjusted loss = 1.451  adv prob = 0.250000   acc = 0.000
+grad norm = 0.000
+hessian norm = 0.000
+group = 3[n = 107]:	loss = 0.117  exp loss = 0.161  adjusted loss = 0.161  adv prob = 0.250000   acc = 0.963
+grad norm = 0.920
+hessian norm = 0.947
+Step: 75 	Average incurred loss: 0.067  
+Average sample loss: 0.067  
+Hessian aligned loss: 0.069  
+Average acc: 0.979  
+group = 0[n = 365]:	loss = 0.018  exp loss = 0.020  adjusted loss = 0.020  adv prob = 0.250000   acc = 0.997
+grad norm = 0.941
+hessian norm = 0.971
+group = 1[n = 21]:	loss = 0.119  exp loss = 0.206  adjusted loss = 0.206  adv prob = 0.250000   acc = 0.952
+grad norm = 1.024
+hessian norm = 2.428
+group = 2[n = 6]:	loss = 0.731  exp loss = 1.176  adjusted loss = 1.176  adv prob = 0.250000   acc = 0.833
+grad norm = 0.833
+hessian norm = 0.833
+group = 3[n = 120]:	loss = 0.174  exp loss = 0.201  adjusted loss = 0.201  adv prob = 0.250000   acc = 0.933
+grad norm = 0.880
+hessian norm = 1.147
+Step: 76 	Average incurred loss: 0.042  
+Average sample loss: 0.042  
+Hessian aligned loss: 0.048  
+Average acc: 0.986  
+group = 0[n = 373]:	loss = 0.012  exp loss = 0.016  adjusted loss = 0.016  adv prob = 0.250000   acc = 0.995
+grad norm = 0.958
+hessian norm = 1.074
+group = 1[n = 18]:	loss = 0.101  exp loss = 0.128  adjusted loss = 0.128  adv prob = 0.250000   acc = 0.944
+grad norm = 0.893
+hessian norm = 0.907
+group = 2[n = 3]:	loss = 0.238  exp loss = 0.918  adjusted loss = 0.918  adv prob = 0.250000   acc = 1.000
+grad norm = 1.119
+hessian norm = 10.878
+group = 3[n = 118]:	loss = 0.124  exp loss = 0.158  adjusted loss = 0.158  adv prob = 0.250000   acc = 0.966
+grad norm = 1.039
+hessian norm = 1.538
+Step: 77 	Average incurred loss: 0.072  
+Average sample loss: 0.072  
+Hessian aligned loss: 0.076  
+Average acc: 0.977  
+group = 0[n = 365]:	loss = 0.025  exp loss = 0.024  adjusted loss = 0.024  adv prob = 0.250000   acc = 0.989
+grad norm = 0.928
+hessian norm = 1.023
+group = 1[n = 14]:	loss = 0.106  exp loss = 0.153  adjusted loss = 0.153  adv prob = 0.250000   acc = 0.929
+grad norm = 0.929
+hessian norm = 0.929
+group = 2[n = 5]:	loss = 2.965  exp loss = 1.761  adjusted loss = 1.761  adv prob = 0.250000   acc = 0.400
+grad norm = 0.400
+hessian norm = 0.400
+group = 3[n = 128]:	loss = 0.087  exp loss = 0.101  adjusted loss = 0.101  adv prob = 0.250000   acc = 0.969
+grad norm = 0.924
+hessian norm = 1.032
+Step: 78 	Average incurred loss: 0.075  
+Average sample loss: 0.075  
+Hessian aligned loss: 0.083  
+Average acc: 0.979  
+group = 0[n = 369]:	loss = 0.044  exp loss = 0.035  adjusted loss = 0.035  adv prob = 0.250000   acc = 0.992
+grad norm = 0.951
+hessian norm = 1.145
+group = 1[n = 24]:	loss = 0.422  exp loss = 0.329  adjusted loss = 0.329  adv prob = 0.250000   acc = 0.833
+grad norm = 0.818
+hessian norm = 2.139
+group = 2[n = 10]:	loss = 0.267  exp loss = 1.086  adjusted loss = 1.086  adv prob = 0.250000   acc = 0.900
+grad norm = 0.900
+hessian norm = 0.900
+group = 3[n = 109]:	loss = 0.087  exp loss = 0.094  adjusted loss = 0.094  adv prob = 0.250000   acc = 0.972
+grad norm = 0.919
+hessian norm = 1.015
+Step: 79 	Average incurred loss: 0.063  
+Average sample loss: 0.063  
+Hessian aligned loss: 0.068  
+Average acc: 0.977  
+group = 0[n = 389]:	loss = 0.034  exp loss = 0.035  adjusted loss = 0.035  adv prob = 0.250000   acc = 0.987
+grad norm = 0.949
+hessian norm = 1.083
+group = 1[n = 20]:	loss = 0.306  exp loss = 0.413  adjusted loss = 0.413  adv prob = 0.250000   acc = 0.900
+grad norm = 0.913
+hessian norm = 3.029
+group = 2[n = 4]:	loss = 1.192  exp loss = 1.110  adjusted loss = 1.110  adv prob = 0.250000   acc = 0.250
+grad norm = 0.250
+hessian norm = 0.250
+group = 3[n = 99]:	loss = 0.082  exp loss = 0.074  adjusted loss = 0.074  adv prob = 0.250000   acc = 0.980
+grad norm = 0.930
+hessian norm = 1.203
+Step: 80 	Average incurred loss: 0.105  
+Average sample loss: 0.105  
+Hessian aligned loss: 0.108  
+Average acc: 0.971  
+group = 0[n = 375]:	loss = 0.023  exp loss = 0.019  adjusted loss = 0.019  adv prob = 0.250000   acc = 0.989
+grad norm = 0.930
+hessian norm = 0.953
+group = 1[n = 14]:	loss = 0.075  exp loss = 0.223  adjusted loss = 0.223  adv prob = 0.250000   acc = 0.929
+grad norm = 0.866
+hessian norm = 0.956
+group = 2[n = 6]:	loss = 3.340  exp loss = 2.086  adjusted loss = 2.086  adv prob = 0.250000   acc = 0.167
+grad norm = 0.167
+hessian norm = 0.167
+group = 3[n = 117]:	loss = 0.205  exp loss = 0.159  adjusted loss = 0.159  adv prob = 0.250000   acc = 0.957
+grad norm = 0.936
+hessian norm = 1.227
+Step: 81 	Average incurred loss: 0.078  
+Average sample loss: 0.078  
+Hessian aligned loss: 0.082  
+Average acc: 0.971  
+group = 0[n = 376]:	loss = 0.024  exp loss = 0.023  adjusted loss = 0.023  adv prob = 0.250000   acc = 0.992
+grad norm = 0.934
+hessian norm = 0.990
+group = 1[n = 21]:	loss = 0.249  exp loss = 0.267  adjusted loss = 0.267  adv prob = 0.250000   acc = 0.905
+grad norm = 0.873
+hessian norm = 1.679
+group = 2[n = 6]:	loss = 1.225  exp loss = 1.629  adjusted loss = 1.629  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 3[n = 109]:	loss = 0.171  exp loss = 0.210  adjusted loss = 0.210  adv prob = 0.250000   acc = 0.927
+grad norm = 0.957
+hessian norm = 1.352
+Step: 82 	Average incurred loss: 0.061  
+Average sample loss: 0.061  
+Hessian aligned loss: 0.063  
+Average acc: 0.981  
+group = 0[n = 509]:	loss = 0.028  exp loss = 0.028  adjusted loss = 0.028  adv prob = 0.250000   acc = 0.992
+grad norm = 0.952
+hessian norm = 1.001
+group = 1[n = 25]:	loss = 0.164  exp loss = 0.184  adjusted loss = 0.184  adv prob = 0.250000   acc = 0.880
+grad norm = 0.850
+hessian norm = 0.940
+group = 2[n = 9]:	loss = 0.225  exp loss = 0.894  adjusted loss = 0.894  adv prob = 0.250000   acc = 0.889
+grad norm = 0.889
+hessian norm = 0.889
+group = 3[n = 156]:	loss = 0.144  exp loss = 0.107  adjusted loss = 0.107  adv prob = 0.250000   acc = 0.968
+grad norm = 0.923
+hessian norm = 0.969
+Step: 83 	Average incurred loss: 0.063  
+Average sample loss: 0.063  
+Hessian aligned loss: 0.068  
+Average acc: 0.975  
+group = 0[n = 372]:	loss = 0.022  exp loss = 0.021  adjusted loss = 0.021  adv prob = 0.250000   acc = 0.995
+grad norm = 0.935
+hessian norm = 0.964
+group = 1[n = 21]:	loss = 0.434  exp loss = 0.492  adjusted loss = 0.492  adv prob = 0.250000   acc = 0.762
+grad norm = 1.100
+hessian norm = 1.556
+group = 2[n = 8]:	loss = 0.765  exp loss = 0.747  adjusted loss = 0.747  adv prob = 0.250000   acc = 0.750
+grad norm = 0.668
+hessian norm = 0.810
+group = 3[n = 111]:	loss = 0.079  exp loss = 0.076  adjusted loss = 0.076  adv prob = 0.250000   acc = 0.964
+grad norm = 0.912
+hessian norm = 0.995
+Step: 84 	Average incurred loss: 0.044  
+Average sample loss: 0.044  
+Hessian aligned loss: 0.047  
+Average acc: 0.986  
+group = 0[n = 372]:	loss = 0.011  exp loss = 0.013  adjusted loss = 0.013  adv prob = 0.250000   acc = 1.000
+grad norm = 0.941
+hessian norm = 0.978
+group = 1[n = 16]:	loss = 0.206  exp loss = 0.276  adjusted loss = 0.276  adv prob = 0.250000   acc = 0.875
+grad norm = 0.772
+hessian norm = 0.889
+group = 2[n = 10]:	loss = 0.805  exp loss = 0.858  adjusted loss = 0.858  adv prob = 0.250000   acc = 0.800
+grad norm = 0.800
+hessian norm = 0.800
+group = 3[n = 114]:	loss = 0.062  exp loss = 0.079  adjusted loss = 0.079  adv prob = 0.250000   acc = 0.974
+grad norm = 0.969
+hessian norm = 1.324
+Step: 85 	Average incurred loss: 0.048  
+Average sample loss: 0.048  
+Hessian aligned loss: 0.053  
+Average acc: 0.986  
+group = 0[n = 382]:	loss = 0.032  exp loss = 0.028  adjusted loss = 0.028  adv prob = 0.250000   acc = 0.992
+grad norm = 0.929
+hessian norm = 1.003
+group = 1[n = 18]:	loss = 0.259  exp loss = 0.235  adjusted loss = 0.235  adv prob = 0.250000   acc = 0.889
+grad norm = 0.889
+hessian norm = 0.889
+group = 2[n = 5]:	loss = 0.336  exp loss = 0.694  adjusted loss = 0.694  adv prob = 0.250000   acc = 0.800
+grad norm = 0.800
+hessian norm = 0.800
+group = 3[n = 107]:	loss = 0.057  exp loss = 0.066  adjusted loss = 0.066  adv prob = 0.250000   acc = 0.991
+grad norm = 0.961
+hessian norm = 1.187
+Step: 86 	Average incurred loss: 0.056  
+Average sample loss: 0.056  
+Hessian aligned loss: 0.059  
+Average acc: 0.980  
+group = 0[n = 368]:	loss = 0.006  exp loss = 0.012  adjusted loss = 0.012  adv prob = 0.250000   acc = 1.000
+grad norm = 0.955
+hessian norm = 1.038
+group = 1[n = 23]:	loss = 0.111  exp loss = 0.168  adjusted loss = 0.168  adv prob = 0.250000   acc = 0.957
+grad norm = 0.862
+hessian norm = 1.388
+group = 2[n = 1]:	loss = 0.470  exp loss = 0.672  adjusted loss = 0.672  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 120]:	loss = 0.196  exp loss = 0.175  adjusted loss = 0.175  adv prob = 0.250000   acc = 0.925
+grad norm = 0.965
+hessian norm = 1.090
+Step: 87 	Average incurred loss: 0.069  
+Average sample loss: 0.069  
+Hessian aligned loss: 0.071  
+Average acc: 0.975  
+group = 0[n = 355]:	loss = 0.008  exp loss = 0.009  adjusted loss = 0.009  adv prob = 0.250000   acc = 0.997
+grad norm = 0.944
+hessian norm = 0.951
+group = 1[n = 21]:	loss = 0.301  exp loss = 0.219  adjusted loss = 0.219  adv prob = 0.250000   acc = 0.905
+grad norm = 0.873
+hessian norm = 1.984
+group = 2[n = 2]:	loss = 0.096  exp loss = 0.562  adjusted loss = 0.562  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 134]:	loss = 0.191  exp loss = 0.203  adjusted loss = 0.203  adv prob = 0.250000   acc = 0.925
+grad norm = 0.970
+hessian norm = 1.271
+Step: 88 	Average incurred loss: 0.060  
+Average sample loss: 0.060  
+Hessian aligned loss: 0.064  
+Average acc: 0.975  
+group = 0[n = 377]:	loss = 0.021  exp loss = 0.018  adjusted loss = 0.018  adv prob = 0.250000   acc = 0.995
+grad norm = 0.938
+hessian norm = 0.997
+group = 1[n = 25]:	loss = 0.533  exp loss = 0.480  adjusted loss = 0.480  adv prob = 0.250000   acc = 0.760
+grad norm = 0.866
+hessian norm = 1.258
+group = 2[n = 8]:	loss = 0.421  exp loss = 0.490  adjusted loss = 0.490  adv prob = 0.250000   acc = 0.875
+grad norm = 0.770
+hessian norm = 0.842
+group = 3[n = 102]:	loss = 0.062  exp loss = 0.108  adjusted loss = 0.108  adv prob = 0.250000   acc = 0.961
+grad norm = 0.924
+hessian norm = 0.939
+Step: 89 	Average incurred loss: 0.072  
+Average sample loss: 0.072  
+Hessian aligned loss: 0.076  
+Average acc: 0.977  
+group = 0[n = 373]:	loss = 0.028  exp loss = 0.034  adjusted loss = 0.034  adv prob = 0.250000   acc = 0.989
+grad norm = 0.961
+hessian norm = 1.108
+group = 1[n = 15]:	loss = 1.042  exp loss = 0.674  adjusted loss = 0.674  adv prob = 0.250000   acc = 0.667
+grad norm = 0.667
+hessian norm = 0.667
+group = 2[n = 7]:	loss = 0.578  exp loss = 0.541  adjusted loss = 0.541  adv prob = 0.250000   acc = 0.857
+grad norm = 0.736
+hessian norm = 0.750
+group = 3[n = 117]:	loss = 0.060  exp loss = 0.061  adjusted loss = 0.061  adv prob = 0.250000   acc = 0.983
+grad norm = 0.943
+hessian norm = 1.081
+Step: 90 	Average incurred loss: 0.040  
+Average sample loss: 0.040  
+Hessian aligned loss: 0.041  
+Average acc: 0.988  
+group = 0[n = 388]:	loss = 0.028  exp loss = 0.032  adjusted loss = 0.032  adv prob = 0.250000   acc = 0.992
+grad norm = 0.947
+hessian norm = 0.976
+group = 1[n = 21]:	loss = 0.221  exp loss = 0.389  adjusted loss = 0.389  adv prob = 0.250000   acc = 0.905
+grad norm = 0.883
+hessian norm = 1.283
+group = 2[n = 2]:	loss = 0.054  exp loss = 0.448  adjusted loss = 0.448  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 101]:	loss = 0.047  exp loss = 0.052  adjusted loss = 0.052  adv prob = 0.250000   acc = 0.990
+grad norm = 0.953
+hessian norm = 1.075
+Step: 91 	Average incurred loss: 0.073  
+Average sample loss: 0.072  
+Hessian aligned loss: 0.075  
+Average acc: 0.974  
+group = 0[n = 516]:	loss = 0.007  exp loss = 0.008  adjusted loss = 0.008  adv prob = 0.250000   acc = 0.998
+grad norm = 0.945
+hessian norm = 0.962
+group = 1[n = 22]:	loss = 0.277  exp loss = 0.417  adjusted loss = 0.417  adv prob = 0.250000   acc = 0.864
+grad norm = 0.864
+hessian norm = 0.864
+group = 2[n = 14]:	loss = 0.810  exp loss = 0.781  adjusted loss = 0.781  adv prob = 0.250000   acc = 0.786
+grad norm = 0.782
+hessian norm = 1.503
+group = 3[n = 147]:	loss = 0.202  exp loss = 0.176  adjusted loss = 0.176  adv prob = 0.250000   acc = 0.925
+grad norm = 0.909
+hessian norm = 0.948
+Step: 92 	Average incurred loss: 0.055  
+Average sample loss: 0.055  
+Hessian aligned loss: 0.057  
+Average acc: 0.982  
+group = 0[n = 366]:	loss = 0.010  exp loss = 0.009  adjusted loss = 0.009  adv prob = 0.250000   acc = 0.997
+grad norm = 0.935
+hessian norm = 0.979
+group = 1[n = 17]:	loss = 0.369  exp loss = 0.505  adjusted loss = 0.505  adv prob = 0.250000   acc = 0.882
+grad norm = 0.882
+hessian norm = 0.882
+group = 2[n = 9]:	loss = 0.923  exp loss = 0.809  adjusted loss = 0.809  adv prob = 0.250000   acc = 0.778
+grad norm = 0.778
+hessian norm = 0.778
+group = 3[n = 120]:	loss = 0.086  exp loss = 0.146  adjusted loss = 0.146  adv prob = 0.250000   acc = 0.967
+grad norm = 0.920
+hessian norm = 1.085
+Step: 93 	Average incurred loss: 0.044  
+Average sample loss: 0.044  
+Hessian aligned loss: 0.045  
+Average acc: 0.986  
+group = 0[n = 358]:	loss = 0.024  exp loss = 0.017  adjusted loss = 0.017  adv prob = 0.250000   acc = 0.992
+grad norm = 0.930
+hessian norm = 0.954
+group = 1[n = 26]:	loss = 0.268  exp loss = 0.295  adjusted loss = 0.295  adv prob = 0.250000   acc = 0.885
+grad norm = 0.867
+hessian norm = 1.158
+group = 2[n = 5]:	loss = 0.055  exp loss = 0.612  adjusted loss = 0.612  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 123]:	loss = 0.053  exp loss = 0.074  adjusted loss = 0.074  adv prob = 0.250000   acc = 0.992
+grad norm = 0.939
+hessian norm = 1.102
+Step: 94 	Average incurred loss: 0.051  
+Average sample loss: 0.051  
+Hessian aligned loss: 0.053  
+Average acc: 0.982  
+group = 0[n = 372]:	loss = 0.025  exp loss = 0.026  adjusted loss = 0.026  adv prob = 0.250000   acc = 0.987
+grad norm = 0.942
+hessian norm = 1.012
+group = 1[n = 24]:	loss = 0.276  exp loss = 0.298  adjusted loss = 0.298  adv prob = 0.250000   acc = 0.917
+grad norm = 1.040
+hessian norm = 1.259
+group = 2[n = 6]:	loss = 0.635  exp loss = 0.690  adjusted loss = 0.690  adv prob = 0.250000   acc = 0.833
+grad norm = 2.421
+hessian norm = 1.761
+group = 3[n = 110]:	loss = 0.057  exp loss = 0.059  adjusted loss = 0.059  adv prob = 0.250000   acc = 0.991
+grad norm = 0.941
+hessian norm = 0.980
+Step: 95 	Average incurred loss: 0.041  
+Average sample loss: 0.041  
+Hessian aligned loss: 0.044  
+Average acc: 0.988  
+group = 0[n = 380]:	loss = 0.018  exp loss = 0.022  adjusted loss = 0.022  adv prob = 0.250000   acc = 0.995
+grad norm = 0.935
+hessian norm = 0.969
+group = 1[n = 15]:	loss = 0.225  exp loss = 0.320  adjusted loss = 0.320  adv prob = 0.250000   acc = 0.933
+grad norm = 0.817
+hessian norm = 0.955
+group = 2[n = 4]:	loss = 0.194  exp loss = 0.516  adjusted loss = 0.516  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 113]:	loss = 0.089  exp loss = 0.064  adjusted loss = 0.064  adv prob = 0.250000   acc = 0.973
+grad norm = 0.929
+hessian norm = 1.006
+Step: 96 	Average incurred loss: 0.055  
+Average sample loss: 0.055  
+Hessian aligned loss: 0.060  
+Average acc: 0.979  
+group = 0[n = 366]:	loss = 0.009  exp loss = 0.010  adjusted loss = 0.010  adv prob = 0.250000   acc = 1.000
+grad norm = 0.932
+hessian norm = 0.940
+group = 1[n = 20]:	loss = 0.103  exp loss = 0.190  adjusted loss = 0.190  adv prob = 0.250000   acc = 0.950
+grad norm = 0.903
+hessian norm = 0.904
+group = 2[n = 12]:	loss = 0.692  exp loss = 0.634  adjusted loss = 0.634  adv prob = 0.250000   acc = 0.750
+grad norm = 1.306
+hessian norm = 7.004
+group = 3[n = 114]:	loss = 0.127  exp loss = 0.092  adjusted loss = 0.092  adv prob = 0.250000   acc = 0.939
+grad norm = 0.926
+hessian norm = 1.124
+Step: 97 	Average incurred loss: 0.045  
+Average sample loss: 0.045  
+Hessian aligned loss: 0.048  
+Average acc: 0.982  
+group = 0[n = 378]:	loss = 0.024  exp loss = 0.014  adjusted loss = 0.014  adv prob = 0.250000   acc = 0.992
+grad norm = 0.939
+hessian norm = 1.002
+group = 1[n = 26]:	loss = 0.110  exp loss = 0.142  adjusted loss = 0.142  adv prob = 0.250000   acc = 0.962
+grad norm = 0.854
+hessian norm = 1.510
+group = 2[n = 4]:	loss = 0.291  exp loss = 0.555  adjusted loss = 0.555  adv prob = 0.250000   acc = 0.750
+grad norm = 0.750
+hessian norm = 0.750
+group = 3[n = 104]:	loss = 0.097  exp loss = 0.075  adjusted loss = 0.075  adv prob = 0.250000   acc = 0.962
+grad norm = 0.916
+hessian norm = 0.929
+Step: 98 	Average incurred loss: 0.079  
+Average sample loss: 0.079  
+Hessian aligned loss: 0.082  
+Average acc: 0.975  
+group = 0[n = 384]:	loss = 0.064  exp loss = 0.055  adjusted loss = 0.055  adv prob = 0.250000   acc = 0.979
+grad norm = 0.950
+hessian norm = 1.131
+group = 1[n = 15]:	loss = 0.465  exp loss = 0.458  adjusted loss = 0.458  adv prob = 0.250000   acc = 0.933
+grad norm = 0.871
+hessian norm = 0.873
+group = 2[n = 2]:	loss = 0.154  exp loss = 0.478  adjusted loss = 0.478  adv prob = 0.250000   acc = 1.000
+grad norm = 1.000
+hessian norm = 1.000
+group = 3[n = 111]:	loss = 0.078  exp loss = 0.080  adjusted loss = 0.080  adv prob = 0.250000   acc = 0.964
+grad norm = 0.915
+hessian norm = 0.950
+Step: 99 	Average incurred loss: 0.058  
+Average sample loss: 0.058  
+Hessian aligned loss: 0.063  
+Average acc: 0.982  
+group = 0[n = 380]:	loss = 0.023  exp loss = 0.036  adjusted loss = 0.036  adv prob = 0.250000   acc = 0.992
+grad norm = 0.928
+hessian norm = 0.989
+group = 1[n = 15]:	loss = 0.073  exp loss = 0.163  adjusted loss = 0.163  adv prob = 0.250000   acc = 1.000
+grad norm = 0.935
+hessian norm = 0.958
+group = 2[n = 5]:	loss = 0.243  exp loss = 0.370  adjusted loss = 0.370  adv prob = 0.250000   acc = 0.800
+grad norm = 0.800
+hessian norm = 0.800
+group = 3[n = 112]:	loss = 0.168  exp loss = 0.133  adjusted loss = 0.133  adv prob = 0.250000   acc = 0.955
+grad norm = 0.965
+hessian norm = 1.201
+Step: 100 	Average incurred loss: 0.069  
+Average sample loss: 0.070  
+Hessian aligned loss: 0.071  
+Average acc: 0.974  
+group = 0[n = 506]:	loss = 0.017  exp loss = 0.015  adjusted loss = 0.015  adv prob = 0.250000   acc = 0.992
+grad norm = 0.954
+hessian norm = 1.000
+group = 1[n = 34]:	loss = 0.112  exp loss = 0.090  adjusted loss = 0.090  adv prob = 0.250000   acc = 0.912
+grad norm = 0.859
+hessian norm = 0.879
+group = 2[n = 6]:	loss = 1.867  exp loss = 1.234  adjusted loss = 1.234  adv prob = 0.250000   acc = 0.500
+grad norm = 2.066
+hessian norm = 0.661
+group = 3[n = 153]:	loss = 0.164  exp loss = 0.187  adjusted loss = 0.187  adv prob = 0.250000   acc = 0.948
+grad norm = 1.009
+hessian norm = 1.163
+Validate at step: 100***** Running Validation *****
