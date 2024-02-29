@@ -9,3 +9,5 @@ __MACOSX/
 __pycache__/
 datasets/waterbird_complete95_forest2water2/
 *.bin
+
+*.tfevents.*
