@@ -18,12 +18,12 @@ def main():
         hess_beta_formatted = "{:.1e}".format(hess_beta).replace('.0e', 'e')
 
         existing_path = os.path.join(base_path, f'grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{seed}/train.csv')
-        existing_df = pd.read_csv(existing_path)
-
-        # Check the number of rows
-        if len(existing_df) >= 700:
-            print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} already exists')
-            continue
+        if os.path.exists(existing_path):
+            existing_df = pd.read_csv(existing_path)
+            # Check the number of rows
+            if len(existing_df) >= 700:
+                print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} already exists')
+                continue
 
         print(f'Running experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta}')
         train_command = (f'python train.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 '
