@@ -11,7 +11,7 @@ def main():
     grad_alpha_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0]
     hess_beta_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0][::-1]
     base_path = "./logs/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
-    for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='CUB Experiments'):
+    for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='CelebA Experiments'):
         grad_alpha_formatted = "{:.1e}".format(grad_alpha).replace('.0e', 'e')
         hess_beta_formatted = "{:.1e}".format(hess_beta).replace('.0e', 'e')
 
