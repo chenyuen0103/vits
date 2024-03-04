@@ -1,5 +1,5 @@
 import os
-import pandas as pd
+# import pandas as pd
 
 # Define the base path for the directories to search
 out_path = "./output/waterbirds_hessian/waterbirds/ViT/ViT-S_16/HessianERM/"
@@ -13,10 +13,10 @@ if __name__ == '__main__':
     for root, dirs, files in os.walk(out_path):
         for dir in dirs:
             # Construct the path to the train.csv file
-            model_path = os.path.join(root, dir, "s0", "ViT-S_16.bin")
+            model_path = os.path.join(root, dir, "s0", "ViT-S_16")
             result_file = os.path.join(results_path, dir, "s0", "test_accuracy.csv")
             # Check if the train.csv file exists
-            if os.path.exists(model_path) and not os.path.exists(result_file):
+            if not os.path.exists(result_file):
                 eval_command = (
                     f'python evaluate.py --name {dataset}_hessian --model_arch ViT --model_type ViT-S_16 --dataset {dataset} --batch_size 64 --img_size 384 '
                     f'--checkpoint_dir {model_path}')
