@@ -10,16 +10,15 @@ results_path = "./results/waterbirds_hessian/waterbirds/ViT/ViT-S_16/HessianERM/
 if __name__ == '__main__':
     dataset = 'waterbirds'
     # Loop through each subdirectory in the base path
-    for root, dirs, files in os.walk(out_path):
-        for dir in dirs:
-            # Construct the path to the train.csv file
-            model_path = os.path.join(root, dir, "s0", "ViT-S_16")
-            result_file = os.path.join(results_path, dir, "s0", "test_accuracy.csv")
-            # Check if the train.csv file exists
-            if not os.path.exists(result_file):
-                eval_command = (
-                    f'python evaluate.py --name {dataset}_hessian --model_arch ViT --model_type ViT-S_16 --dataset {dataset} --batch_size 64 --img_size 384 '
-                    f'--checkpoint_dir {model_path}')
-                print("running command", eval_command)
-                os.system(eval_command)
+    for dir in os.listdir(out_path):
+        # Construct the path to the train.csv file
+        model_path = os.path.join(out_path, dir, "s0", "ViT-S_16")
+        result_file = os.path.join(results_path, dir, "s0", "ViT-S_16", "test_accuracy.csv")
+        # Check if the train.csv file exists
+        if not os.path.exists(result_file):
+            eval_command = (
+                f'python evaluate.py --name {dataset}_hessian --model_arch ViT --model_type ViT-S_16 --dataset {dataset} --batch_size 64 --img_size 384 '
+                f'--checkpoint_dir {model_path}')
+            print("running command", eval_command)
+            os.system(eval_command)
 
