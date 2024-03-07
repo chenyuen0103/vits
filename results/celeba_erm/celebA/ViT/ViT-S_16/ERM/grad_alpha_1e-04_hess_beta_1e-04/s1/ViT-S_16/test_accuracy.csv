@@ -1,0 +1,2 @@
+Model,Model_Type,Dataset,Align Hessian,Avg_Train_Acc,Avg_Test_Acc,Worst_Train_Acc,Worst_Test_Acc,train_group_acc_0,train_group_acc_1,train_group_acc_2,train_group_acc_3,test_group_acc_0,test_group_acc_1,test_group_acc_2,test_group_acc_3
+ViT,ViT-S_16,celebA,False,0.9998759920634921,0.9753989361702128,0.984375,0.90625,1.0,1.0,0.9987531172069826,1.0,0.9847878302642114,0.9393939393939394,0.9034749034749034,0.9868959868959869
