@@ -40,7 +40,7 @@ def run_hessian():
 
 
 def erm():
-    seed_list = [0]
+    seed_list = [0, 1, 2]
     grad_alpha  = 1e-4
     hess_beta = 1e-4
     base_path = "./logs/waterbirds_erm/waterbirds/ViT/ViT-S_16/ERM/"
@@ -56,19 +56,19 @@ def erm():
                 continue
 
         print(f'Running experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta}')
-        train_command = (f'python train.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 '
+        train_command = (f'python train.py --name waterbirds_erm --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --warmup_steps 100 '
                    f'--num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384'
                    f'--seed {seed}')
         os.system(train_command)
 
         grad_alpha_formatted = "{:.1e}".format(grad_alpha).replace('.0e', 'e')
         hess_beta_formatted = "{:.1e}".format(hess_beta).replace('.0e', 'e')
-        eval_command = (f'python evaluate.py --name waterbirds_hessian --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --batch_size 64 --img_size 384 '
-                        f'--checkpoint_dir output/waterbirds_hessian/waterbirds/ViT/ViT-S_16/HessianERM/grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{seed}/ViT-S_16')
+        eval_command = (f'python evaluate.py --name waterbirds_erm --model_arch ViT --model_type ViT-S_16 --dataset waterbirds --batch_size 64 --img_size 384 '
+                        f'--checkpoint_dir output/waterbirds_erm/waterbirds/ViT/ViT-S_16/ERM/grad_alpha_{grad_alpha_formatted}_hess_beta_{hess_beta_formatted}/s{seed}/ViT-S_16')
         os.system(eval_command)
 
 def main():
-    run_hessian()
+    # run_hessian()
     erm()
 
 if __name__ == '__main__':
