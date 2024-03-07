@@ -1,5 +1,5 @@
 import os
-# import pandas as pd
+import pandas as pd
 
 # Define the base path for the directories to search
 out_path = "./output/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
@@ -7,7 +7,8 @@ results_path = "./results/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
 # List to hold directories with train.csv having less than 700 rows
 
 
-if __name__ == '__main__':
+
+def run_eval():
     dataset = 'celebA'
     # Loop through each subdirectory in the base path
     for dir in os.listdir(out_path):
@@ -21,4 +22,19 @@ if __name__ == '__main__':
                 f'--checkpoint_dir {model_path}')
             print("running command", eval_command)
             os.system(eval_command)
+
+
+
+def combine_results():
+    dataset = 'celebA'
+    # Loop through each subdirectory in the base path
+
+    concatenated_df = pd.DataFrame()
+    for dir in os.listdir(results_path):
+        # Construct the path to the train.csv file
+        result_file = os.path.join(results_path, dir, "s0", "ViT-S_16", "test_accuracy.csv")
+
+
+if __name__ == '__main__':
+    combine_results()
 
