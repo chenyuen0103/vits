@@ -47,7 +47,7 @@ def save_model(args, model,logger, save_dir = None):
     checkpoint_path = os.path.join(model_checkpoint_dir,args.model_type + ".bin")
     if os.path.exists(checkpoint_path) != True:
          os.makedirs(model_checkpoint_dir, exist_ok=True)
-    breakpoint()
+    # breakpoint()
     torch.save(model_to_save.state_dict(), checkpoint_path)
     logger.write("Saved model checkpoint at %s" % checkpoint_path)
 
