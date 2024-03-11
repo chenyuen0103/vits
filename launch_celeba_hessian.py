@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def erm():
-    seed_list = [0,1,2]
+    seed_list = [0]
     grad_alpha = 1e-4
     hess_beta = 1e-4
     base_path = "./logs/celeba_erm/celebA/ViT/ViT-S_16/ERM/"
@@ -17,9 +17,9 @@ def erm():
         if os.path.exists(existing_path):
             existing_df = pd.read_csv(existing_path)
             # Check the number of rows
-            if len(existing_df) >= 700:
-                print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} already exists')
-                continue
+            # if len(existing_df) >= 700:
+            #     print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} already exists')
+            #     continue
 
         print(f'Running experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta}')
         train_command = (
