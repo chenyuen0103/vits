@@ -26,7 +26,7 @@ def erm():
             f'python train.py --name celeba_erm --model_arch ViT --model_type ViT-S_16 --dataset celebA --warmup_steps 100 '
             f'--num_steps 700 --learning_rate 0.03 --batch_split 16 --img_size 384 '
             f'--seed {seed}')
-        # os.system(train_command)
+        os.system(train_command)
 
         grad_alpha_formatted = "{:.1e}".format(grad_alpha).replace('.0e', 'e')
         hess_beta_formatted = "{:.1e}".format(hess_beta).replace('.0e', 'e')
