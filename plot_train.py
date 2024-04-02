@@ -17,7 +17,9 @@ def get_worst_group_acc(df):
     return df['global_step'], worst_acc, worst_group
 
 
-def plot():
+def plot(run_name, dataset, algo, seed,log_path):
+    grad_alpha_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0]
+    hess_beta_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0][::-1]
     # Initialize a dictionary to store the worst-case loss
     worst_case_accuracies = []
 
@@ -174,19 +176,61 @@ def compute_stats(run_name, dataset, algo = 'ERM', grad_alpha = 1e-4, hess_beta 
 
     # get the mean and std of the worst-test accuracy
 
+def find_best_alpha_beta(run_name, dataset, algo = 'HessianERM'):
+    '''Find the best alpha and beta for the given algorithm and dataset according to the worst-case val accuracy at the end of training.'''
+    result_path = f"./results/{run_name}/worst_case_accuracies.csv"
+    df = pd.read_csv(result_path)
+    # df = df[df['algo'] == algo]
+    df = df[df['dataset'] == dataset]
+    df = df.sort_values('worst_case_acc_val', ascending=False)
+    #print best alpha and beta and return them
+    print("Best alpha for GM + HM: ", df.head(1)['grad_alpha'].item())
+    print("Best beta for GM + HM: ", df.head(1)['hess_beta'].item())
+    compute_stats(run_name, dataset, algo, df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item())
+    return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
 
+
+def find_best_alpha(run_name, dataset, algo = 'HessianERM'):
+    '''Find the best alpha when beta = 0 given dataset according to the worst-case val accuracy at the end of training.'''
+    result_path = f"./results/{run_name}/worst_case_accuracies.csv"
+    df = pd.read_csv(result_path)
+    # df = df[df['algo'] == algo]
+    df = df[df['dataset'] == dataset]
+    df = df[df['hess_beta'] == 0]
+    df = df.sort_values('worst_case_acc_val', ascending=False)
+    #print best alpha and beta and return them
+    print("Best alpha for gradient matching : ", df.head(1)['grad_alpha'].item())
+    print("Best beta for gradient matching : ", df.head(1)['hess_beta'].item())
+    compute_stats(run_name, dataset, algo, df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item())
+    return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
+
+
+def find_best_beta(run_name, dataset, algo = 'HessianERM'):
+    '''Find the best beta when alpha = 0 given dataset according to the worst-case val accuracy at the end of training.'''
+    result_path = f"./results/{run_name}/worst_case_accuracies.csv"
+    df = pd.read_csv(result_path)
+    # df = df[df['algo'] == algo]
+    df = df[df['dataset'] == dataset]
+    df = df[df['grad_alpha'] == 0]
+    df = df.sort_values('worst_case_acc_val', ascending=False)
+    #print best alpha and beta and return them
+    print("Best alpha for hessian matching : ", df.head(1)['grad_alpha'].item())
+    print("Best beta for hessian matching : ", df.head(1)['hess_beta'].item())
+    compute_stats(run_name, dataset, algo, df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item())
+    return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
 
 def main():
     # plot()
     # run_name = 'celeba_hessian'
-    run_name = 'celeba_erm'
-    dataset = 'celebA'
-    # run_name = 'waterbirds_hessian'
+    # run_name = 'celeba_erm'
+    # dataset = 'celebA'
+    run_name = 'waterbirds_hessian'
     # run_name = 'waterbirds_erm'
-    # dataset = 'waterbirds'
-    # algo = 'HessianERM'
-    algo = 'ERM'
+    dataset = 'waterbirds'
+    algo = 'HessianERM'
+    # algo = 'ERM'
     log_path = f"./logs/{run_name}/{dataset}/ViT/ViT-S_16/{algo}/"
+    # plot(run_name, dataset, algo, 0, log_path)
     # Load the training and validation data
     # dataset = 'CelebA'
     # algo = 'HessianERM'
@@ -197,9 +241,17 @@ def main():
 
     grad_alpha_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0]
     hess_beta_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0][::-1]
-    grad_alpha = 1e-4
-    hess_beta = 1e-4
-    compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
+
+    # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
+
+    grad_alpha, hess_beta = find_best_alpha(run_name, dataset)
+    grad_alpha, hess_beta = find_best_beta(run_name, dataset)
+
+    grad_alpha, hess_beta = find_best_alpha_beta(run_name, dataset)
+    # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
+
+
+
 
 if __name__ == "__main__":
     main()

@@ -6,11 +6,13 @@ import pandas as pd
 
 
 def run_hessian():
-    seed_list = [0]
+    seed_list = [1,2,3,4]
     # grad_alpha_values = [0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9]
     # hess_beta_values = [0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9][::-1]
-    grad_alpha_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0]
-    hess_beta_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0][::-1] #to reduce the number of experiments
+    # grad_alpha_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0]
+    grad_alpha_values = [1e-6]
+    # hess_beta_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0][::-1] #to reduce the number of experiments
+    hess_beta_values = [1e-4]
     # grad_alpha_values = [1e-4]
     # hess_beta_values = [1e-4]
     base_path = "./logs/waterbirds_hessian/waterbirds/ViT/ViT-S_16/HessianERM/"
@@ -68,8 +70,8 @@ def erm():
         os.system(eval_command)
 
 def main():
-    # run_hessian()
-    erm()
+    run_hessian()
+    # erm()
 
 if __name__ == '__main__':
     main()

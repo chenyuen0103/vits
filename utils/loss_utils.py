@@ -142,7 +142,7 @@ class LossComputer:
 
         return hessian
 
-    def hessian(self,x, logits):
+    def hessian_original(self,x, logits):
         '''This function computes the hessian of the Cross Entropy with respect to the model parameters using the analytical form of hessian.'''
         # for params in model.parameters():
         #     params.requires_grad = True
@@ -167,6 +167,36 @@ class LossComputer:
         hessian_w = torch.stack([hessian_w_class0, hessian_w_class1])
         return hessian_w
 
+    def hessian(self, x, logits):
+        '''This function computes the hessian of the Cross Entropy with respect to the model parameters using the analytical form of hessian.'''
+        prob = F.softmax(logits, dim=1).clone()[:, 1]  # probability for class 1
+
+        if x.dim() == 1:
+            x = x.view(1, -1)
+        batch_size = x.shape[0]
+
+        # Compute scaling factors for Hessian (prob * (1 - prob)) for each sample in the batch
+        scale_factor = prob * (1 - prob)  # Shape: [batch_size]
+
+        # Expand scale_factor to shape [batch_size, 1, 1] for batched outer product
+        scale_factor = scale_factor.view(-1, 1, 1)
+
+        # Reshape x for outer product: [batch_size, num_features, 1]
+        x_reshaped = x.unsqueeze(2)
+
+        # Compute batched outer product: [batch_size, num_features, num_features]
+        outer_product = torch.matmul(x_reshaped, x_reshaped.transpose(1, 2))
+
+        # Scale by prob * (1 - prob) and average across the batch
+        hessian_w_class0 = torch.mean(scale_factor * outer_product, dim=0)
+
+        # Hessian for class 1 is the negative of the Hessian for class 0
+        hessian_w_class1 = -hessian_w_class0
+
+        # Stack the Hessians for both classes: [2, num_features, num_features]
+        hessian_w = torch.stack([hessian_w_class0, hessian_w_class1])
+
+        return hessian_w
 
     def gradient(self, x, logits, y):
         # for param in model.parameters():
@@ -253,6 +283,9 @@ class LossComputer:
             grads = self.gradient(x[idx], yhat_env, y[idx])
             # hessian = self.compute_pytorch_hessian(model, x[idx], y[idx])
             hessian = self.hessian(x[idx], yhat_env)
+            hessian_original = self.hessian_original(x[idx], yhat_env)
+            breakpoint()
+            assert torch.allclose(hessian, hessian_original), "Hessian computation is incorrect"
             env_gradients.append(grads)
             env_hessians.append(hessian)
 
