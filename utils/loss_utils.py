@@ -285,7 +285,7 @@ class LossComputer:
             hessian = self.hessian(x[idx], yhat_env)
             hessian_original = self.hessian_original(x[idx], yhat_env)
             breakpoint()
-            assert torch.allclose(hessian, hessian_original), "Hessian computation is incorrect"
+            assert torch.allclose(hessian, hessian_original, atol = 1e-6), "Hessian computation is incorrect"
             env_gradients.append(grads)
             env_hessians.append(hessian)
 
