@@ -1,0 +1,25 @@
+Fine-tuning ViT-S_16 on celebATraining parameters Namespace(name='celeba_hessian', dataset='celebA', model_arch='ViT', model_type='ViT-S_16', output_dir='output', img_size=384, train_batch_size=512, eval_batch_size=64, eval_every=100, learning_rate=0.03, weight_decay=0, num_steps=700, warmup_steps=100, max_grad_norm=1.0, local_rank=-1, seed=4, batch_split=16, hessian_align=True, grad_alpha=1e-06, hess_beta=1.0, resume=False, n_gpu=4, device=device(type='cuda'))Total Parameter: 	21.8MName: celeba_hessian
+Dataset: celebA
+Model arch: ViT
+Model type: ViT-S_16
+Output dir: output
+Img size: 384
+Train batch size: 32
+Eval batch size: 64
+Eval every: 100
+Learning rate: 0.03
+Weight decay: 0
+Num steps: 700
+Warmup steps: 100
+Max grad norm: 1.0
+Local rank: -1
+Seed: 4
+Batch split: 16
+Hessian align: True
+Grad alpha: 1e-06
+Hess beta: 1.0
+Resume: False
+N gpu: 4
+Device: cuda
+
+***** Running training *****  Total optimization steps = 700  Instantaneous batch size per GPU = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Total train batch size (w. parallel, distributed & accumulation) = 32  Gradient Accumulation steps = 16
