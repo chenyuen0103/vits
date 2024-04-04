@@ -10,9 +10,9 @@ def run_hessian():
     # grad_alpha_values = [0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9]
     # hess_beta_values = [0, 1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9][::-1]
     # grad_alpha_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0]
-    grad_alpha_values = [1e-6]
+    grad_alpha_values = [0, 0.01, 1e-6]
     # hess_beta_values = [1, 1e-2, 1e-4, 1e-6, 1e-8, 0][::-1] #to reduce the number of experiments
-    hess_beta_values = [1e-4]
+    hess_beta_values = [0,0.01,1e-4, 1-6]
     # grad_alpha_values = [1e-4]
     # hess_beta_values = [1e-4]
     base_path = "./logs/waterbirds_hessian/waterbirds/ViT/ViT-S_16/HessianERM/"
