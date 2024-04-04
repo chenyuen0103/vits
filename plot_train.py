@@ -1,7 +1,9 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import itertools
+import glob
 import os
+import numpy as np
 
 
 
@@ -144,6 +146,120 @@ def plot(run_name, dataset, algo, seed,log_path):
 
 
 
+
+
+def collect_test_data(run_name, dataset, algo, result_path="./results/"):
+    dir_pattern = os.path.join(result_path, f"{run_name}/{dataset}/ViT/ViT-S_16/{algo}/grad_alpha_*_hess_beta_*/")
+    hyperparam_dirs = glob.glob(dir_pattern)
+    data = []
+
+    for hp_dir in hyperparam_dirs:
+        parts = hp_dir.split('/')
+        grad_alpha_part = [part for part in parts if 'grad_alpha_' in part][0]
+        hess_beta_part = [part for part in parts if 'hess_beta_' in part][0]
+
+        grad_alpha = grad_alpha_part.split('grad_alpha_')[-1].split('_hess_beta_')[0]
+        hess_beta = hess_beta_part.split('hess_beta_')[-1]
+
+        test_accuracy_files = glob.glob(os.path.join(hp_dir, 's*/ViT-S_16/test_accuracy.csv'))
+
+        avg_test_accuracies = []
+        worst_test_accuracies = []
+
+        for file_path in test_accuracy_files:
+            try:
+                test_df = pd.read_csv(file_path)
+                avg_test_accuracies.append(test_df['Avg_Test_Acc'].iloc[0])
+                worst_test_accuracies.append(test_df['Worst_Test_Acc'].iloc[0])
+            except pd.errors.EmptyDataError:
+                print(f"Empty or malformed file detected: {file_path}")
+                continue
+
+        if avg_test_accuracies:
+            # Calculate average and standard error for avg_test_accuracy and worst_test_accuracy
+            avg_test_acc_mean = np.mean(avg_test_accuracies)
+            avg_test_acc_sem = np.std(avg_test_accuracies, ddof=1) / np.sqrt(len(avg_test_accuracies))
+            worst_test_acc_mean = np.mean(worst_test_accuracies)
+            worst_test_acc_sem = np.std(worst_test_accuracies, ddof=1) / np.sqrt(len(worst_test_accuracies))
+
+            data.append({
+                'dataset': dataset,
+                'split': 'test',  # Assuming 'test' as the split
+                'grad_alpha': grad_alpha,
+                'hess_beta': hess_beta,
+                'avg_test_accuracy': avg_test_acc_mean,
+                'avg_test_accuracy_sem': avg_test_acc_sem,
+                'worst_test_accuracy': worst_test_acc_mean,
+                'worst_test_accuracy_sem': worst_test_acc_sem,
+                'num_runs': len(avg_test_accuracies)
+            })
+
+    results_df = pd.DataFrame(data)
+    results_df.to_csv(f'./results/{run_name}/{dataset}/ViT/ViT-S_16/{algo}/all_test_results.csv', index=False)
+    return results_df
+
+
+def collect_val_data(run_name, dataset, algo, log_path="./logs/"):
+    dir_pattern = os.path.join(log_path, f"{run_name}/{dataset}/ViT/ViT-S_16/{algo}/grad_alpha_*_hess_beta_*/")
+    hyperparam_dirs = glob.glob(dir_pattern)
+    data = []
+
+    for hp_dir in hyperparam_dirs:
+        # Splitting the path and extracting grad_alpha and hess_beta correctly
+        path_parts = hp_dir.split('/')
+        grad_alpha_part = [part for part in path_parts if 'grad_alpha_' in part][0]
+        hess_beta_part = [part for part in path_parts if 'hess_beta_' in part][0]
+
+        grad_alpha = grad_alpha_part.split('grad_alpha_')[-1].split('_hess_beta_')[0]
+        hess_beta = hess_beta_part.split('hess_beta_')[-1]
+
+        seed_dirs = glob.glob(os.path.join(hp_dir, 's*'))
+
+        val_results = []
+        avg_accs = []
+        worst_case_accs = []
+
+        for seed_dir in seed_dirs:
+            train_file = os.path.join(seed_dir, 'train.csv')
+            val_file = os.path.join(seed_dir, 'val.csv')
+
+            if os.path.exists(train_file) and len(pd.read_csv(train_file)) >= 700:
+                if os.path.exists(val_file):
+                    val_df = pd.read_csv(val_file)
+                    if not val_df.empty:
+                        val_results.append(val_df.iloc[-1])
+
+        for val_result in val_results:
+            group_accs = [val_result[f'avg_acc_group:{i}'] for i in range(4)]
+            avg_accs.append(np.mean(group_accs))
+            worst_case_acc = min(group_accs)
+            worst_case_accs.append(worst_case_acc)
+
+        if val_results:  # Ensuring there are results before attempting to compute averages
+            avg_acc_mean = np.mean(avg_accs)
+            avg_acc_sem = np.std(avg_accs, ddof=1) / np.sqrt(len(avg_accs))
+            worst_case_acc_mean = np.mean(worst_case_accs)
+            worst_case_acc_sem = np.std(worst_case_accs, ddof=1) / np.sqrt(len(worst_case_accs))
+
+            # Append collected data for this hyperparameter combination
+            data.append({
+                'dataset': dataset,
+                'split': 'val',  # Assuming 'split' is static or derived from elsewhere
+                'grad_alpha': grad_alpha,
+                'hess_beta': hess_beta,
+                'avg_acc_mean': avg_acc_mean,
+                'avg_acc_sem': avg_acc_sem,
+                'worst_case_acc_mean': worst_case_acc_mean,
+                'worst_case_acc_sem': worst_case_acc_sem,
+                'num_runs': len(val_results)
+            })
+
+    # Convert the collected data to a DataFrame and return it
+    results_df = pd.DataFrame(data)
+    results_df.to_csv(f'./results/{run_name}/{dataset}/ViT/ViT-S_16/{algo}/all_val_results.csv', index=False)
+    return results_df
+
+
 def compute_stats(run_name, dataset, algo = 'ERM', grad_alpha = 1e-4, hess_beta = 1e-4):
     grad_alpha_formatted = "{:.1e}".format(grad_alpha).replace('.0e', 'e')
     hess_beta_formatted = "{:.1e}".format(hess_beta).replace('.0e', 'e')
@@ -190,34 +306,49 @@ def find_best_alpha_beta(run_name, dataset, algo = 'HessianERM'):
     return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
 
 
-def find_best_alpha(run_name, dataset, algo = 'HessianERM'):
-    '''Find the best alpha when beta = 0 given dataset according to the worst-case val accuracy at the end of training.'''
-    result_path = f"./results/{run_name}/worst_case_accuracies.csv"
-    df = pd.read_csv(result_path)
-    # df = df[df['algo'] == algo]
-    df = df[df['dataset'] == dataset]
-    df = df[df['hess_beta'] == 0]
-    df = df.sort_values('worst_case_acc_val', ascending=False)
-    #print best alpha and beta and return them
-    print("Best alpha for gradient matching : ", df.head(1)['grad_alpha'].item())
-    print("Best beta for gradient matching : ", df.head(1)['hess_beta'].item())
-    compute_stats(run_name, dataset, algo, df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item())
-    return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
+def find_best_gm(val_df, test_df, worst_case=False):
+    val_df = val_df[val_df['grad_alpha'] != 0 & val_df['hess_beta'] == 0]
+    test_df = test_df[test_df['grad_alpha'] != 0 & test_df['hess_beta'] == 0]
+    return find_best_hyperparameters(val_df, test_df, worst_case)
+
+def find_best_hm(val_df, test_df, worst_case=False):
+    val_df = val_df[val_df['grad_alpha'] == 0 & val_df['hess_beta'] != 0]
+    test_df = test_df[test_df['grad_alpha'] == 0 & test_df['hess_beta'] != 0]
+    return find_best_hyperparameters(val_df, test_df, worst_case)
+
+def find_best_gm_hm(val_df, test_df, worst_case=False):
+    val_df = val_df[val_df['grad_alpha'] != 0 & val_df['hess_beta'] != 0]
+    test_df = test_df[test_df['grad_alpha'] != 0 & test_df['hess_beta'] != 0]
+    return find_best_hyperparameters(val_df, test_df, worst_case)
 
 
-def find_best_beta(run_name, dataset, algo = 'HessianERM'):
-    '''Find the best beta when alpha = 0 given dataset according to the worst-case val accuracy at the end of training.'''
-    result_path = f"./results/{run_name}/worst_case_accuracies.csv"
-    df = pd.read_csv(result_path)
-    # df = df[df['algo'] == algo]
-    df = df[df['dataset'] == dataset]
-    df = df[df['grad_alpha'] == 0]
-    df = df.sort_values('worst_case_acc_val', ascending=False)
-    #print best alpha and beta and return them
-    print("Best alpha for hessian matching : ", df.head(1)['grad_alpha'].item())
-    print("Best beta for hessian matching : ", df.head(1)['hess_beta'].item())
-    compute_stats(run_name, dataset, algo, df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item())
-    return df.head(1)['grad_alpha'].item(), df.head(1)['hess_beta'].item()
+def find_best_hyperparameters(val_df, test_df, worst_case=False):
+    # Adjust metric names to match the new DataFrame structure
+    primary_metric = 'worst_case_acc_mean' if worst_case else 'avg_acc_mean'
+    secondary_metric = 'worst_case_acc_sem' if worst_case else 'avg_acc_sem'
+
+    # Find the max value of the primary metric
+    max_primary_metric_value = val_df[primary_metric].max()
+
+    # Filter rows with the max primary metric value
+    candidates = val_df[val_df[primary_metric] == max_primary_metric_value]
+
+    # If there are multiple candidates, choose the one with the smallest corresponding SEM
+    if len(candidates) > 1:
+        best_candidate = candidates.loc[candidates[secondary_metric].idxmin()]
+    else:
+        best_candidate = candidates.iloc[0]
+
+    # Extract the best grad_alpha and hess_beta
+    best_grad_alpha = best_candidate['grad_alpha']
+    best_hess_beta = best_candidate['hess_beta']
+
+    # Find the performance of these hyperparameters in test_df
+    # Ensure grad_alpha and hess_beta values are compared correctly
+    test_performance = test_df[(test_df['grad_alpha'] == best_grad_alpha) & (test_df['hess_beta'] == best_hess_beta)]
+
+    return best_grad_alpha, best_hess_beta, test_performance
+
 
 def main():
     # plot()
@@ -235,7 +366,6 @@ def main():
     # dataset = 'CelebA'
     # algo = 'HessianERM'
     # algo = 'ERM'
-    seed = 0
     # grad_alpha = 1e-4
     # hess_beta = 1e-4
 
@@ -244,11 +374,19 @@ def main():
 
     # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
 
-    grad_alpha, hess_beta = find_best_alpha(run_name, dataset)
-    grad_alpha, hess_beta = find_best_beta(run_name, dataset)
+    # grad_alpha, hess_beta = find_best_gm(run_name, dataset)
+    # grad_alpha, hess_beta = find_best_hm(run_name, dataset)
 
-    grad_alpha, hess_beta = find_best_alpha_beta(run_name, dataset)
+    # grad_alpha, hess_beta = find_best_alpha_beta(run_name, dataset)
     # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
+
+    run_name = "celeba_hessian"
+    dataset = "celebA"
+    algo = "HessianERM"
+    val_df = collect_val_data(run_name, dataset, algo)
+    test_df = collect_test_data(run_name, dataset, algo)
+    best_alpha, best_beta, best_row = find_best_hyperparameters(val_df, test_df, worst_case=True)
+    print(best_row)
 
 
 
