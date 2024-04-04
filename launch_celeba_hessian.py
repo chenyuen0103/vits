@@ -40,8 +40,8 @@ def hessian():
     seed_list = [1,2,3,4]
     grad_alpha_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0]
     hess_beta_values = [1, 1e-2, 1e-4,1e-6, 1e-8, 0][::-1]
-    grad_alpha_values = [0, 1e-6]
-    hess_beta_values = [0, 1]
+    grad_alpha_values = [1e-2]
+    hess_beta_values = [1e-4]
     base_path = "./logs/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
     for seed, grad_alpha, hess_beta in tqdm(itertools.product(seed_list, grad_alpha_values, hess_beta_values), desc='CelebA Experiments'):
         grad_alpha_formatted = "{:.1e}".format(grad_alpha).replace('.0e', 'e')
