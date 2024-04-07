@@ -15,7 +15,7 @@ def run_eval():
         for seed in list(range(0, 5)):
         # Construct the path to the train.csv file
             model_path = os.path.join(out_path, dir, f"s{seed}", "ViT-S_16")
-            result_file = os.path.join(results_path, dir, "s0", "ViT-S_16", "test_accuracy.csv")
+            result_file = os.path.join(results_path, dir, f"s{seed}", "ViT-S_16", "test_accuracy.csv")
             # Check if the train.csv file exists
             if not os.path.exists(result_file):
                 eval_command = (
