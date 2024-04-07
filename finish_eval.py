@@ -9,7 +9,7 @@ results_path = "./results/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
 
 
 def run_eval():
-    dataset = 'waterbirds
+    dataset = 'waterbirds'
     run_name = f'{dataset.lower()}_hessian'
     # Loop through each subdirectory in the base path
     for dir in os.listdir(out_path):
