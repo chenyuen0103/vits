@@ -387,10 +387,10 @@ def main():
     # grad_alpha, hess_beta = find_best_alpha_beta(run_name, dataset)
     # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
 
-    run_name = "celeba_hessian"
-    dataset = "celebA"
-    # run_name = "waterbirds_hessian"
-    # dataset = "waterbirds"
+    # run_name = "celeba_hessian"
+    # dataset = "celebA"
+    run_name = "waterbirds_hessian"
+    dataset = "waterbirds"
     algo = "HessianERM"
     val_df = collect_val_data(run_name, dataset, algo)
     test_df = collect_test_data(run_name, dataset, algo)
