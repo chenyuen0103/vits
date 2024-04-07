@@ -25,7 +25,7 @@ def run_hessian():
             existing_df = pd.read_csv(existing_path)
             # Check the number of rows
             if len(existing_df) >= 700:
-                print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} already exists')
+                print(f'Experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta} and seed={seed} already exists')
                 continue
 
         print(f'Running experiment with grad_alpha={grad_alpha} and hess_beta={hess_beta}')
