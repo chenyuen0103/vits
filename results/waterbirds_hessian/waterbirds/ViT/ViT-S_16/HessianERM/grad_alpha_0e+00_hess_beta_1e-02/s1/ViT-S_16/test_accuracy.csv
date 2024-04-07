@@ -1,0 +1,2 @@
+Model,Model_Type,Dataset,Align Hessian,Avg_Train_Acc,Avg_Test_Acc,Worst_Train_Acc,Worst_Test_Acc,train_group_acc_0,train_group_acc_1,train_group_acc_2,train_group_acc_3,test_group_acc_0,test_group_acc_1,test_group_acc_2,test_group_acc_3
+ViT,ViT-S_16,waterbirds,False,0.9997916666666666,0.9447317388493859,0.984375,0.859375,0.9997141223556318,1.0,1.0,1.0,0.9995565410199556,0.926829268292683,0.7912772585669782,0.9672897196261683
