@@ -9,7 +9,8 @@ results_path = "./results/celeba_hessian/celebA/ViT/ViT-S_16/HessianERM/"
 
 
 def run_eval():
-    dataset = 'celebA'
+    dataset = 'waterbirds
+    run_name = f'{dataset.lower()}_hessian'
     # Loop through each subdirectory in the base path
     for dir in os.listdir(out_path):
         for seed in list(range(0, 5)):
@@ -19,7 +20,7 @@ def run_eval():
             # Check if the train.csv file exists
             if not os.path.exists(result_file):
                 eval_command = (
-                    f'python evaluate.py --name celeba_hessian --model_arch ViT --model_type ViT-S_16 --dataset {dataset} --batch_size 64 --img_size 384 '
+                    f'python evaluate.py --name {run_name} --model_arch ViT --model_type ViT-S_16 --dataset {dataset} --batch_size 64 --img_size 384 '
                     f'--checkpoint_dir {model_path}')
                 print("running command", eval_command)
                 os.system(eval_command)
