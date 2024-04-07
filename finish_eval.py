@@ -37,5 +37,6 @@ def combine_results():
 
 
 if __name__ == '__main__':
-    combine_results()
+    # combine_results()
+    run_eval()
 
