@@ -300,13 +300,13 @@ def find_baseline(val_df, test_df):
     baseline_val = val_df[(val_df['grad_alpha'] == 0) & (val_df['hess_beta'] == 0)]
     baseline_test = test_df[(test_df['grad_alpha'] == 0) & (test_df['hess_beta'] == 0)]
     print("Baseline Performance: grad_alpha=0, hess_beta=0")
-    print(f"Baseline avergage test accuracy: {baseline_test['avg_test_accuracy'].item()} ± {baseline_test['avg_test_accuracy_sem'].item()}")
-    print(f"Baseline worst-case test accuracy: {baseline_test['worst_test_accuracy'].item()} ± {baseline_test['worst_test_accuracy_sem'].item()}")
+    print(f"Baseline average test accuracy: {round(baseline_test['avg_test_accuracy'].item(), 6)} ± {round(baseline_test['avg_test_accuracy_sem'].item(), 6)}")
+    print(f"Baseline worst-case test accuracy: {round(baseline_test['worst_test_accuracy'].item(), 6)} ± {round(baseline_test['worst_test_accuracy_sem'].item(), 6)}")
     return baseline_val, baseline_test
 
 def find_best_gm(val_df, test_df, worst_case=False):
-    val_df[(val_df['grad_alpha'] != 0) & (val_df['hess_beta'] == 0)]
-    test_df[(test_df['grad_alpha'] != 0) & (test_df['hess_beta'] == 0)]
+    val_df = val_df[(val_df['grad_alpha'] != 0) & (val_df['hess_beta'] == 0)]
+    test_df = test_df[(test_df['grad_alpha'] != 0) & (test_df['hess_beta'] == 0)]
     print("Finding best hyperparameters for GM")
     return find_best_hyperparameters(val_df, test_df, worst_case)
 
@@ -348,12 +348,13 @@ def find_best_hyperparameters(val_df, test_df, worst_case=False):
     # Ensure grad_alpha and hess_beta values are compared correctly
     test_performance = test_df[(test_df['grad_alpha'] == best_grad_alpha) & (test_df['hess_beta'] == best_hess_beta)]
 
-
     print(f"Test Performance for {'worst' if worst_case else 'average'} case:")
     if worst_case:
-        print(f"Best grad_alpha: {best_grad_alpha}, Best hess_beta: {best_hess_beta}, Best worst-case test accuracy: {test_performance['worst_test_accuracy'].item()} ± {test_performance['worst_test_accuracy_sem'].item()}")
+        print(
+            f"Best grad_alpha: {best_grad_alpha}, Best hess_beta: {best_hess_beta}, Best worst-case test accuracy: {round(test_performance['worst_test_accuracy'].item(), 6)} ± {round(test_performance['worst_test_accuracy_sem'].item(), 6)}")
     else:
-        print(f"Best grad_alpha: {best_grad_alpha}, Best hess_beta: {best_hess_beta}, Best average test accuracy: {test_performance['avg_test_accuracy'].item()} ± {test_performance['avg_test_accuracy_sem'].item()}")
+        print(
+            f"Best grad_alpha: {best_grad_alpha}, Best hess_beta: {best_hess_beta}, Best average test accuracy: {round(test_performance['avg_test_accuracy'].item(), 6)} ± {round(test_performance['avg_test_accuracy_sem'].item(), 6)}")
     return best_grad_alpha, best_hess_beta, test_performance
 
 
@@ -387,17 +388,18 @@ def main():
     # grad_alpha, hess_beta = find_best_alpha_beta(run_name, dataset)
     # compute_stats(run_name, dataset, algo, grad_alpha, hess_beta, )
 
-    # run_name = "celeba_hessian"
-    # dataset = "celebA"
-    run_name = "waterbirds_hessian"
-    dataset = "waterbirds"
+    run_name = "celeba_hessian"
+    dataset = "celebA"
+    # run_name = "waterbirds_hessian"
+    # dataset = "waterbirds"
     algo = "HessianERM"
+    worst_case = True
     val_df = collect_val_data(run_name, dataset, algo)
     test_df = collect_test_data(run_name, dataset, algo)
     find_baseline(val_df, test_df)
-    find_best_gm(val_df, test_df, worst_case=True)
-    find_best_hm(val_df, test_df, worst_case=True)
-    find_best_gm_hm(val_df, test_df, worst_case=True)
+    find_best_gm(val_df, test_df, worst_case=worst_case)
+    find_best_hm(val_df, test_df, worst_case=worst_case)
+    find_best_gm_hm(val_df, test_df, worst_case=worst_case)
 
     # best_alpha, best_beta, best_row = find_best_hyperparameters(val_df, test_df, worst_case=True)
     # print(best_row)
